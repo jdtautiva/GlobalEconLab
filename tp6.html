@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Economías de escala y comercio internacional | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<header class="inst-header" role="banner">
+<img alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello" id="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';" src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"/>
+<div aria-hidden="true" class="inst-header-fallback" id="logo-fallback">FEN</div>
+<div class="inst-header-text">
+<h1>Universidad Andrés Bello</h1>
+<p>Facultad de Economía y Negocios</p>
+</div>
+</header>
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 6</span>
+    <h2 id="page-title">Economías de escala y comercio internacional</h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Explica por qué países con tecnologías y dotaciones semejantes pueden comerciar bienes similares, producir a mayor escala, reducir costos medios y concentrar industrias o variedades en determinadas empresas y localidades.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> comience por las ideas fuerza, diferencie rendimientos crecientes de economías de escala, identifique si la escala opera dentro de la empresa o en la industria, estudie los tres mecanismos marshallianos y termine con concentración internacional, dependencia de la trayectoria y autoevaluación.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#fundamentos">Fundamentos</a>
+    <a href="#tipos">Internas y externas</a>
+    <a href="#marshall">Marshall</a>
+    <a href="#aprendizaje">Aprendizaje</a>
+    <a href="#comercio">Comercio</a>
+    <a href="#trayectoria">Trayectoria</a>
+    <a href="#integracion">Integración</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Ocho ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan la lógica del tema.</p>
+    <div class="key-ideas">
+      <div class="key-idea">Las economías de escala constituyen una fuente de comercio distinta de las diferencias tecnológicas o de dotaciones factoriales.</div>
+      <div class="key-idea">El mercado integrado permite producir una gama más limitada de bienes o variedades a una escala mayor y con costos medios menores.</div>
+      <div class="key-idea">Los rendimientos crecientes son una propiedad tecnológica; las economías de escala describen la disminución del costo medio al aumentar la producción.</div>
+      <div class="key-idea">Las economías internas dependen del tamaño de la empresa; las externas dependen del tamaño de la industria, localidad o entorno productivo.</div>
+      <div class="key-idea">Las economías internas suelen asociarse con competencia imperfecta, mientras las externas pueden coexistir con empresas competitivas.</div>
+      <div class="key-idea">Marshall explicó la aglomeración mediante proveedores especializados, mercados laborales densos y desbordamientos de conocimiento.</div>
+      <div class="key-idea">Las economías externas pueden concentrar la producción mundial, reducir precios y generar simultáneamente pérdidas de industria, empleo y aprendizaje en otro país.</div>
+      <div class="key-idea">La historia puede determinar la localización mediante dependencia de la trayectoria y bloqueo, aunque los países tengan tecnologías inicialmente similares.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia conecta escala, costos, localización y comercio.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Rendimientos crecientes</div>
+      <div class="route-node">Costos medios decrecientes</div>
+      <div class="route-node">Mercado ampliado y especialización</div>
+      <div class="route-node">Economías internas o externas</div>
+      <div class="route-node">Aglomeración y aprendizaje</div>
+      <div class="route-node">Concentración, comercio y bienestar</div>
+    </div>
+  </section>
+
+  <section id="fundamentos" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>Fundamentos: escala, costos y comercio</h3>
+    <p class="section-lead">El punto de partida es distinguir una propiedad de la producción de una propiedad de los costos.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Rendimientos crecientes</h4>
+        <div class="formula" style="font-size:1rem;">F(λK,λL) &gt; λF(K,L), &nbsp; λ&gt;1</div>
+        <p>Una ampliación proporcional de todos los factores genera un aumento más que proporcional de la producción.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Economías de escala</h4>
+        <div class="formula" style="font-size:1rem;">CMe(Q)=CT(Q)/Q</div>
+        <p>El costo medio disminuye cuando aumenta la escala de producción.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Precisión conceptual</h4>
+        <p>Los conceptos están relacionados, pero no son idénticos: impuestos, precios de insumos y organización pueden cambiar los costos aunque la tecnología permanezca igual.</p>
+      </article>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Ejemplo de rendimientos crecientes</h4>
+    <div class="formula">Q=K<sup>0,7</sup>L<sup>0,7</sup> &nbsp;&nbsp;→&nbsp;&nbsp; 0,7+0,7=1,4&gt;1</div>
+    <div class="formula">Q(2K,2L)=2<sup>1,4</sup>Q(K,L)≈2,64Q(K,L)</div>
+    <p class="formula-note">Al duplicar ambos insumos, la producción aumenta aproximadamente 164% respecto de su nivel inicial: pasa a 2,64 veces Q.</p>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>Costo medio decreciente</h4>
+      <svg viewBox="0 0 760 370" role="img" aria-labelledby="ac-title ac-desc" style="display:block;width:100%;height:auto;">
+        <title id="ac-title">Costo medio decreciente con la escala</title>
+        <desc id="ac-desc">El costo medio disminuye cuando aumenta la producción.</desc>
+        <rect x="0" y="0" width="760" height="370" rx="12" fill="#ffffff"/>
+        <line x1="75" y1="310" x2="710" y2="310" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="310" x2="75" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <polyline points="75.0,65.0 90.4,147.7 105.8,190.0 121.1,215.8 136.5,233.2 151.9,245.6 167.2,255.0 182.6,262.3 198.0,268.2 213.4,273.0 228.8,277.0 244.1,280.4 259.5,283.4 274.9,285.9 290.2,288.1 305.6,290.1 321.0,291.8 336.4,293.4 351.8,294.8 367.1,296.1 382.5,297.2 397.9,298.3 413.2,299.3 428.6,300.1 444.0,301.0 459.4,301.7 474.8,302.4 490.1,303.1 505.5,303.7 520.9,304.3 536.2,304.8 551.6,305.3 567.0,305.8 582.4,306.3 597.8,306.7 613.1,307.1 628.5,307.5 643.9,307.8 659.2,308.2 674.6,308.5 690.0,308.8" fill="none" stroke="#003366" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="190" y1="95" x2="190" y2="310" stroke="#dce3f0" stroke-width="2" stroke-dasharray="7 6"/>
+        <line x1="550" y1="230" x2="550" y2="310" stroke="#dce3f0" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="190" y="337" text-anchor="middle" font-size="13" fill="#55557a">Escala pequeña</text>
+        <text x="550" y="337" text-anchor="middle" font-size="13" fill="#55557a">Escala grande</text>
+        <text x="392" y="362" text-anchor="middle" font-size="13" fill="#55557a">Producción</text>
+        <text x="20" y="175" transform="rotate(-90 20 175)" text-anchor="middle" font-size="13" fill="#55557a">Costo medio</text>
+        <text x="430" y="145" font-size="14" fill="#003366" font-weight="700">CMe(Q)</text>
+      </svg>
+      <p class="formula-note">La caída puede provenir de costos fijos repartidos entre más unidades, tecnologías especializadas, división del trabajo y ventajas organizacionales o de red.</p>
+    </div>
+
+    <div class="chain" aria-label="Cadena causal entre comercio y economías de escala">
+      <span>Integración de mercados</span><b>→</b><span>Mayor producción por planta o industria</span><b>→</b><span>Menor costo medio</span><b>→</b><span>Especialización</span><b>→</b><span>Más comercio y variedad</span>
+    </div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Autarquía</h4>
+        <p>Cada país abastece su mercado limitado con plantas pequeñas en varios sectores. La escala reducida impide aprovechar plenamente los costos medios decrecientes.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Con comercio</h4>
+        <p>Un país puede concentrar parte de los automóviles y otro parte de los medicamentos. Ambos consumen ambos bienes mediante intercambio y cada industria opera a mayor escala.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve 1: identificar la fuente de comercio</summary>
+      <div>
+        <p>Clasifique cada caso como <strong>ventaja comparativa</strong>, <strong>economía de escala</strong> o <strong>ambas</strong>:</p>
+        <ol style="padding-left:1.2rem;margin-top:.6rem;">
+          <li>Un país posee una tecnología agrícola superior.</li>
+          <li>Dos países similares intercambian marcas de automóviles.</li>
+          <li>Una gran planta reduce el costo medio al duplicar sus ventas.</li>
+          <li>Un distrito industrial desarrolla proveedores especializados.</li>
+          <li>Un país exporta cobre e importa maquinaria.</li>
+        </ol>
+        <p style="margin-top:.7rem;"><strong>Pauta:</strong> 1) ventaja comparativa tecnológica; 2) economía de escala y diferenciación; 3) economía interna; 4) economía externa; 5) principalmente ventaja comparativa, aunque la maquinaria puede incorporar economías de escala.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="tipos" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>Economías internas, externas y estructura de mercado</h3>
+    <p class="section-lead">La distinción central consiste en identificar qué unidad debe expandirse para que caiga el costo unitario.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Economías internas</th><th>Economías externas</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Escala relevante</strong></td><td>Empresa individual.</td><td>Industria, localidad o entorno productivo.</td></tr>
+          <tr><td><strong>Beneficio directo</strong></td><td>La empresa que crece.</td><td>Las empresas ubicadas en el entorno.</td></tr>
+          <tr><td><strong>Estructura típica</strong></td><td>Competencia imperfecta.</td><td>Competencia perfecta posible.</td></tr>
+          <tr><td><strong>Fuente</strong></td><td>Costos fijos, tecnología, organización y compras de volumen.</td><td>Proveedores, mercado laboral y conocimiento.</td></tr>
+          <tr><td><strong>Comercio</strong></td><td>Mercado ampliado y comercio de variedades.</td><td>Concentración geográfica de la industria.</td></tr>
+          <tr><td><strong>Patrón</strong></td><td>Tamaño y diferenciación empresarial.</td><td>Historia, aglomeración y trayectoria.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Economías internas</h4>
+        <ul>
+          <li>El costo unitario depende de la escala propia de la empresa.</li>
+          <li>Una máquina indivisible o un sistema de reservas se reparte entre más ventas.</li>
+          <li>La empresa grande puede disponer de una ventaja de costos.</li>
+          <li>La estructura competitiva puede volverse imperfecta.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Economías externas</h4>
+        <ul>
+          <li>La empresa individual puede tener rendimientos constantes.</li>
+          <li>Su costo depende de la producción agregada de la industria.</li>
+          <li>Puede tomar el precio y las condiciones externas como dadas.</li>
+          <li>No internaliza plenamente el beneficio que aporta al cluster.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="formula">CMe<sub>i</sub>=CMe<sub>i</sub>(Q), &nbsp;&nbsp; Q=Σq<sub>i</sub></div>
+    <p class="formula-note">La empresa se beneficia de un entorno más grande, aunque no controle por sí sola la escala industrial.</p>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve 2: clasificar economías internas y externas</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>Una aerolínea distribuye el costo de su sistema de reservas entre más pasajeros.</li>
+          <li>Una empresa se beneficia de técnicos formados por otras empresas locales.</li>
+          <li>Una fábrica instala una máquina indivisible de alta capacidad.</li>
+          <li>Un cluster atrae laboratorios especializados.</li>
+          <li>Una empresa obtiene descuentos por compras de gran volumen.</li>
+          <li>Los ingenieros cambian de empresa y difunden prácticas productivas.</li>
+        </ol>
+        <p style="margin-top:.7rem;"><strong>Pauta:</strong> 1) interna; 2) externa; 3) interna; 4) externa; 5) interna; 6) externa.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="marshall" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Marshall, distritos industriales y aglomeración</h3>
+    <p class="section-lead">Muchas empresas pequeñas pueden obtener ventajas semejantes a las de una gran empresa cuando se concentran en una localidad industrial.</p>
+
+    <div class="callout"><strong>Distrito industrial:</strong> concentración geográfica de empresas relacionadas, proveedores, trabajadores especializados, instituciones de formación, servicios técnicos y redes de información. La proximidad puede elevar la productividad de todas las empresas.</div>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>1. Proveedores especializados</h4>
+        <p>La demanda conjunta vuelve viables componentes, maquinaria, software, logística, certificación, reparación y servicios especializados.</p>
+      </article>
+      <article class="mini-card">
+        <h4>2. Mercado laboral especializado</h4>
+        <p>Más empleadores y trabajadores reducen costos de búsqueda, aceleran contrataciones y disminuyen el riesgo de emparejamiento.</p>
+      </article>
+      <article class="mini-card">
+        <h4>3. Desbordamientos de conocimiento</h4>
+        <p>La movilidad laboral, las relaciones proveedor–cliente, universidades, redes e imitación difunden prácticas e innovaciones.</p>
+      </article>
+    </div>
+
+    <div class="chain" aria-label="Mecanismo de proveedores especializados">
+      <span>Producción industrial ↑</span><b>→</b><span>Mercado de insumos ↑</span><b>→</b><span>Proveedores más especializados</span><b>→</b><span>Costo medio ↓</span>
+    </div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Encadenamientos</h4>
+        <ul>
+          <li><strong>Hacia atrás:</strong> acceso a insumos, componentes y servicios.</li>
+          <li><strong>Hacia adelante:</strong> acceso a clientes y canales de distribución.</li>
+          <li>Un laboratorio o proveedor puede ser inviable para una sola empresa, pero viable para el cluster.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Conocimiento tácito</h4>
+        <ul>
+          <li>Se aprende mediante experiencia e interacción directa.</li>
+          <li>Depende de confianza y lenguaje común.</li>
+          <li>Es difícil de codificar completamente.</li>
+          <li>La proximidad puede importar aun con tecnologías digitales.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Aglomeración no significa beneficio ilimitado:</strong> los entornos densos también pueden enfrentar congestión, mayores rentas del suelo, salarios más altos, contaminación y vulnerabilidad a choques comunes.</div>
+
+    <div class="grid-3">
+      <article class="mini-card"><h4>Ejemplos sectoriales</h4><p>Semiconductores, software, finanzas, audiovisual, moda, maquinaria, biotecnología y aeronáutica.</p></article>
+      <article class="mini-card"><h4>Instituciones</h4><p>Universidades, formación técnica, laboratorios, infraestructura y servicios compartidos sostienen las conexiones productivas.</p></article>
+      <article class="mini-card"><h4>Condición de éxito</h4><p>El cluster necesita vínculos reales, innovación, acceso a mercados y entrada y renovación empresarial; no basta la proximidad física.</p></article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve 3: identificar el mecanismo marshalliano</summary>
+      <div>
+        <p>Asocie cada situación con <strong>proveedor especializado</strong>, <strong>mercado laboral</strong> o <strong>conocimiento</strong>:</p>
+        <ol style="padding-left:1.2rem;margin-top:.6rem;">
+          <li>Una universidad crea un programa de microelectrónica.</li>
+          <li>Un fabricante local de sensores reduce tiempos de entrega.</li>
+          <li>Ingenieros cambian de empresa y transfieren prácticas.</li>
+          <li>Muchas empresas pueden contratar diseñadores especializados.</li>
+          <li>Una feria industrial difunde innovaciones.</li>
+          <li>Un laboratorio compartido ofrece certificación.</li>
+        </ol>
+        <p style="margin-top:.7rem;"><strong>Pauta:</strong> 1) mercado laboral y conocimiento; 2) proveedor; 3) conocimiento y mercado laboral; 4) mercado laboral; 5) conocimiento; 6) proveedor especializado.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="aprendizaje" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Economías externas estáticas, dinámicas y aprendizaje</h3>
+    <p class="section-lead">La reducción de costos puede depender de la escala contemporánea o de la experiencia acumulada.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Economías externas estáticas</h4>
+        <div class="formula" style="font-size:1rem;">CMe<sub>t</sub>=C(Q<sub>t</sub>), &nbsp; C′(Q<sub>t</sub>)&lt;0</div>
+        <p>Un cluster actual más grande sostiene proveedores, infraestructura y un mercado laboral más profundo.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Economías externas dinámicas</h4>
+        <div class="formula" style="font-size:1rem;">CMe<sub>t</sub>=C(ΣQ<sub>τ</sub>)</div>
+        <p>Los costos dependen de aprender haciendo, experiencia, mejoras organizacionales, conocimiento y estándares acumulados.</p>
+      </article>
+    </div>
+
+    <div class="formula">CMe<sub>t</sub>=A Z<sub>t</sub><sup>−β</sup>, &nbsp;&nbsp; β&gt;0</div>
+    <p class="formula-note">Z<sub>t</sub> representa la producción acumulada. Una mayor experiencia reduce el costo medio.</p>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>Curva de aprendizaje</h4>
+      <svg viewBox="0 0 760 370" role="img" aria-labelledby="learning-title learning-desc" style="display:block;width:100%;height:auto;">
+        <title id="learning-title">Curva de aprendizaje</title>
+        <desc id="learning-desc">El costo medio disminuye conforme aumenta la producción acumulada.</desc>
+        <rect x="0" y="0" width="760" height="370" rx="12" fill="#ffffff"/>
+        <line x1="75" y1="310" x2="710" y2="310" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="310" x2="75" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <polyline points="75.0,65.0 87.3,159.9 99.6,193.2 111.9,212.1 124.2,224.9 136.5,234.3 148.8,241.6 161.1,247.6 173.4,252.6 185.7,256.8 198.0,260.5 210.3,263.7 222.6,266.6 234.9,269.2 247.2,271.5 259.5,273.7 271.8,275.6 284.1,277.4 296.4,279.1 308.7,280.6 321.0,282.1 333.3,283.4 345.6,284.7 357.9,285.9 370.2,287.0 382.5,288.1 394.8,289.1 407.1,290.0 419.4,291.0 431.7,291.8 444.0,292.7 456.3,293.5 468.6,294.2 480.9,295.0 493.2,295.7 505.5,296.3 517.8,297.0 530.1,297.6 542.4,298.2 554.7,298.8 567.0,299.4 579.3,299.9 591.6,300.5 603.9,301.0 616.2,301.5 628.5,302.0 640.8,302.4 653.1,302.9 665.4,303.3 677.7,303.7 690.0,304.2" fill="none" stroke="#003366" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="392" y="358" text-anchor="middle" font-size="13" fill="#55557a">Producción acumulada Z</text>
+        <text x="20" y="175" transform="rotate(-90 20 175)" text-anchor="middle" font-size="13" fill="#55557a">Costo medio</text>
+        <text x="415" y="150" font-size="14" fill="#003366" font-weight="700">CMe=A·Z<tspan baseline-shift="super" font-size="10">−β</tspan></text>
+      </svg>
+      <p class="formula-note">La experiencia histórica puede convertirse en una ventaja actual aun cuando las tecnologías iniciales fueran semejantes.</p>
+    </div>
+
+    <div class="callout"><strong>Externalidad de conocimiento:</strong> las ideas pueden beneficiar a otras empresas sin que el creador capture todo el retorno. Por ello, la inversión privada en conocimiento puede ser menor que la socialmente deseable.</div>
+  </section>
+
+  <section id="comercio" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Economías externas y comercio internacional</h3>
+    <p class="section-lead">Al abrirse dos economías, la producción puede concentrarse en el país con menor costo a la escala relevante.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>País A</h4>
+        <div class="formula" style="font-size:1rem;">C<sub>A</sub>=C<sub>A</sub>(Q<sub>A</sub>), &nbsp; C′<sub>A</sub>&lt;0</div>
+        <p>Posee una industria doméstica y un precio de autarquía.</p>
+      </article>
+      <article class="mini-card">
+        <h4>País B</h4>
+        <div class="formula" style="font-size:1rem;">C<sub>B</sub>=C<sub>B</sub>(Q<sub>B</sub>), &nbsp; C′<sub>B</sub>&lt;0</div>
+        <p>También puede producir el mismo bien con costos decrecientes a escala industrial.</p>
+      </article>
+    </div>
+
+    <div class="chain" aria-label="Concentración después del comercio">
+      <span>Apertura</span><b>→</b><span>Expansión del productor de menor costo</span><b>→</b><span>Costo aún menor</span><b>→</b><span>Contracción del otro país</span><b>→</b><span>Concentración mundial</span>
+    </div>
+
+    <div class="formula">Si A concentra: &nbsp; Q<sub>A</sub>=Q<sub>W</sub>, &nbsp; Q<sub>B</sub>=0, &nbsp; P<sub>W</sub>=C<sub>A</sub>(Q<sub>W</sub>)</div>
+    <p class="formula-note">El precio mundial puede quedar por debajo del precio de autarquía de ambos países.</p>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>Concentración y equilibrio mundial</h4>
+      <svg viewBox="0 0 760 380" role="img" aria-labelledby="trade-title trade-desc" style="display:block;width:100%;height:auto;">
+        <title id="trade-title">Costos de dos países y demanda mundial</title>
+        <desc id="trade-desc">Dos curvas de costo medio decrecientes y una demanda mundial muestran la posibilidad de concentrar producción en un país.</desc>
+        <rect x="0" y="0" width="760" height="380" rx="12" fill="#ffffff"/>
+        <line x1="75" y1="310" x2="710" y2="310" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="310" x2="75" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <polyline points="75.0,102.7 85.2,146.0 95.5,166.1 105.8,179.4 116.0,189.4 126.2,197.3 136.5,203.9 146.8,209.6 157.0,214.5 167.2,218.9 177.5,222.9 187.8,226.5 198.0,229.8 208.2,232.8 218.5,235.6 228.8,238.3 239.0,240.8 249.2,243.1 259.5,245.3 269.8,247.4 280.0,249.3 290.2,251.2 300.5,253.0 310.8,254.7 321.0,256.4 331.2,258.0 341.5,259.5 351.8,261.0 362.0,262.4 372.2,263.7 382.5,265.1 392.8,266.3 403.0,267.6 413.2,268.8 423.5,269.9 433.8,271.1 444.0,272.2 454.2,273.2 464.5,274.3 474.8,275.3 485.0,276.3 495.2,277.2 505.5,278.2 515.8,279.1 526.0,280.0 536.2,280.9 546.5,281.8 556.8,282.6 567.0,283.4 577.2,284.2 587.5,285.0 597.8,285.8 608.0,286.6 618.2,287.3 628.5,288.0 638.8,288.8 649.0,289.5 659.2,290.2 669.5,290.8 679.8,291.5 690.0,292.2" fill="none" stroke="#003366" stroke-width="4" stroke-linecap="round"/>
+        <polyline points="75.0,65.0 85.2,100.0 95.5,116.3 105.8,127.1 116.0,135.2 126.2,141.6 136.5,146.9 146.8,151.5 157.0,155.5 167.2,159.1 177.5,162.3 187.8,165.2 198.0,167.9 208.2,170.3 218.5,172.6 228.8,174.8 239.0,176.8 249.2,178.6 259.5,180.4 269.8,182.1 280.0,183.7 290.2,185.2 300.5,186.7 310.8,188.1 321.0,189.4 331.2,190.7 341.5,191.9 351.8,193.1 362.0,194.3 372.2,195.4 382.5,196.4 392.8,197.5 403.0,198.5 413.2,199.4 423.5,200.4 433.8,201.3 444.0,202.2 454.2,203.1 464.5,203.9 474.8,204.7 485.0,205.5 495.2,206.3 505.5,207.1 515.8,207.8 526.0,208.5 536.2,209.3 546.5,210.0 556.8,210.6 567.0,211.3 577.2,212.0 587.5,212.6 597.8,213.2 608.0,213.8 618.2,214.4 628.5,215.0 638.8,215.6 649.0,216.2 659.2,216.8 669.5,217.3 679.8,217.8 690.0,218.4" fill="none" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7" stroke-linecap="round"/>
+        <polyline points="75.0,85.7 85.2,89.5 95.5,93.2 105.8,96.9 116.0,100.7 126.2,104.4 136.5,108.2 146.8,111.9 157.0,115.6 167.2,119.4 177.5,123.1 187.8,126.8 198.0,130.6 208.2,134.3 218.5,138.1 228.8,141.8 239.0,145.5 249.2,149.3 259.5,153.0 269.8,156.7 280.0,160.5 290.2,164.2 300.5,168.0 310.8,171.7 321.0,175.4 331.2,179.2 341.5,182.9 351.8,186.7 362.0,190.4 372.2,194.1 382.5,197.9 392.8,201.6 403.0,205.3 413.2,209.1 423.5,212.8 433.8,216.6 444.0,220.3 454.2,224.0 464.5,227.8 474.8,231.5 485.0,235.2 495.2,239.0 505.5,242.7 515.8,246.5 526.0,250.2 536.2,253.9 546.5,257.7 556.8,261.4 567.0,265.1 577.2,268.9 587.5,272.6 597.8,276.4 608.0,280.1 618.2,283.8 628.5,287.6 638.8,291.3 649.0,295.0 659.2,298.8 669.5,302.5 679.8,306.3 690.0,310.0" fill="none" stroke="#55557a" stroke-width="3" stroke-dasharray="3 7" stroke-linecap="round"/>
+        <text x="392" y="365" text-anchor="middle" font-size="13" fill="#55557a">Producción mundial</text>
+        <text x="20" y="175" transform="rotate(-90 20 175)" text-anchor="middle" font-size="13" fill="#55557a">Precio o costo</text>
+        <g transform="translate(455,48)">
+          <line x1="0" y1="0" x2="34" y2="0" stroke="#003366" stroke-width="4"/><text x="44" y="5" font-size="13" fill="#1a1a2e">Costo país A</text>
+          <line x1="0" y1="28" x2="34" y2="28" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/><text x="44" y="33" font-size="13" fill="#1a1a2e">Costo país B</text>
+          <line x1="0" y1="56" x2="34" y2="56" stroke="#55557a" stroke-width="3" stroke-dasharray="3 7"/><text x="44" y="61" font-size="13" fill="#1a1a2e">Demanda mundial</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Ganancia mundial posible</h4>
+        <ul>
+          <li>Se amplía el cluster.</li>
+          <li>Disminuye el costo unitario y el precio mundial.</li>
+          <li>Se liberan recursos en el otro país.</li>
+          <li>Puede aumentar el consumo mundial.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Bienestar nacional ambiguo</h4>
+        <ul>
+          <li>Un país puede importar a menor precio.</li>
+          <li>También puede perder una industria, empleo y rentas.</li>
+          <li>Puede perder aprendizaje y capacidades acumulativas.</li>
+          <li>La especialización resultante puede ser ineficiente.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Distinción decisiva:</strong> una ganancia de eficiencia para la economía mundial no garantiza que cada país gane. Con economías externas, la localización de la industria forma parte del resultado distributivo.</div>
+  </section>
+
+  <section id="trayectoria" class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Historia, dependencia de la trayectoria y bloqueo</h3>
+    <p class="section-lead">Una ventaja inicial pequeña puede amplificarse y volverse autosostenida mediante economías externas.</p>
+
+    <div class="timeline" aria-label="Proceso de formación de una ventaja histórica">
+      <div class="timeline-item"><span class="timeline-dot">1</span><h4>Evento inicial</h4><p>Innovación accidental, empresa pionera, universidad, contrato público, migración, infraestructura o acceso temporal a un mercado.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">2</span><h4>Entrada y concentración</h4><p>Se instalan empresas, proveedores y trabajadores especializados.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">3</span><h4>Costos decrecientes</h4><p>Los mecanismos marshallianos y el aprendizaje reducen los costos de las empresas locales.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">4</span><h4>Dependencia de la trayectoria</h4><p>La localización actual depende de decisiones y acontecimientos pasados.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">5</span><h4>Bloqueo o <em>lock-in</em></h4><p>La industria permanece incluso cuando desaparece la causa original de su localización.</p></div>
+    </div>
+
+    <div class="grid-3">
+      <article class="mini-card"><h4>Activos instalados</h4><p>Proveedores, infraestructura, reputación y redes empresariales elevan el costo de trasladar la actividad.</p></article>
+      <article class="mini-card"><h4>Capacidades acumuladas</h4><p>Trabajadores especializados y conocimiento tácito refuerzan la ventaja de la localidad.</p></article>
+      <article class="mini-card"><h4>Posibilidad de alcance</h4><p>Otra región puede alcanzar al cluster mediante innovación, mejor acceso a mercados o una intervención que resuelva la coordinación inicial.</p></article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve 4: historia y eficiencia</summary>
+      <div>
+        <p>Dos regiones tienen tecnología idéntica. Una recibe inicialmente una universidad técnica y diez empresas. Analice los efectos sobre proveedores, mercado laboral, conocimiento, costos, entrada futura y la posibilidad de que la otra región alcance al cluster.</p>
+        <p style="margin-top:.7rem;"><strong>Pauta:</strong> la universidad y las primeras empresas pueden activar los tres mecanismos marshallianos, generar menores costos, entrada, aprendizaje y dependencia de la trayectoria. La otra región podría alcanzar mediante innovación, acceso a mercados o coordinación inicial.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="integracion" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Integración con los modelos anteriores</h3>
+    <p class="section-lead">Las economías externas agregan escala industrial, aglomeración e historia a las fuentes clásicas de comercio.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Modelo</th><th>Fuente principal de comercio</th><th>Estructura de mercado</th><th>Patrón</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ricardiano</strong></td><td>Tecnología.</td><td>Competencia perfecta.</td><td>Ventaja comparativa.</td></tr>
+          <tr><td><strong>Heckscher–Ohlin</strong></td><td>Dotaciones factoriales.</td><td>Competencia perfecta.</td><td>Exportación del bien intensivo en el factor abundante.</td></tr>
+          <tr><td><strong>Factores específicos</strong></td><td>Diferencias productivas y precios.</td><td>Competencia perfecta.</td><td>Corto plazo y distribución sectorial.</td></tr>
+          <tr><td><strong>Economías externas</strong></td><td>Escala industrial y aglomeración.</td><td>Competencia perfecta.</td><td>Historia, concentración y trayectoria.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card"><h4>Especialización limitada</h4><p>Puede ocurrir por industria, variedad, etapa productiva o región; no exige que cada país produzca un solo bien.</p></article>
+      <article class="mini-card"><h4>Comercio intraindustrial</h4><p>Países similares pueden exportar e importar bienes semejantes o variedades distintas gracias a la escala y la diferenciación.</p></article>
+      <article class="mini-card"><h4>Política</h4><p>La justificación requiere identificar y medir una externalidad real; la proximidad por sí sola no garantiza un ecosistema productivo exitoso.</p></article>
+    </div>
+
+    <div class="callout"><strong>Ganancias potenciales:</strong> menores costos y precios, mayor variedad, productividad, insumos especializados, difusión de conocimiento y expansión de productores más eficientes.</div>
+
+    <div class="warning callout"><strong>Evaluación rigurosa:</strong> también deben considerarse congestión, rentas del suelo, salarios, contaminación, choques comunes, pérdida de industrias y el riesgo de sostener un patrón histórico ineficiente.</div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Caso integrador: regiones Norte y Sur</h3>
+    <p class="section-lead">Utilice el caso para conectar economías externas, localización, comercio y política.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Condiciones iniciales</h4>
+        <ul><li>Tecnología y dotaciones semejantes.</li><li>Ambas regiones pueden producir sensores.</li><li>Demanda interna pequeña en cada región.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Choque histórico</h4>
+        <ul><li>Norte recibe una universidad técnica.</li><li>Se instalan diez empresas pioneras.</li><li>Aparecen proveedores y laboratorios.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Apertura comercial</h4>
+        <ul><li>Los mercados se integran.</li><li>Norte expande la industria.</li><li>Sur importa sensores a menor precio.</li></ul>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Preguntas para resolver el caso</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Qué mecanismos marshallianos activa la universidad?</li>
+          <li>¿Cómo cambia el costo medio de las empresas de Norte?</li>
+          <li>¿Por qué la industria puede concentrarse aunque las tecnologías iniciales sean iguales?</li>
+          <li>¿Qué ganancia obtiene Sur como importador?</li>
+          <li>¿Qué capacidades, empleo o aprendizaje puede perder Sur?</li>
+          <li>¿Qué evidencia permitiría distinguir una externalidad real de una simple concentración?</li>
+          <li>¿Qué condiciones permitirían que Sur alcance al cluster?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">11</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Las economías de escala permiten comerciar entre países similares porque la integración amplía el mercado, reduce costos medios y favorece la especialización por industrias o variedades.">
+      <h4>1. ¿Por qué las economías de escala pueden generar comercio entre países similares?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque todo comercio requiere diferencias tecnológicas.</button>
+        <button data-choice="b">Porque el mercado ampliado permite mayor escala, menores costos y especialización.</button>
+        <button data-choice="c">Porque cada país debe producir todos los bienes internamente.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Los rendimientos a escala son una propiedad de la función de producción; las economías de escala se observan como una disminución del costo medio al aumentar Q.">
+      <h4>2. ¿Cuál es la diferencia conceptual correcta?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Ambos términos significan exactamente lo mismo en cualquier contexto.</button>
+        <button data-choice="b">Las economías de escala solo se refieren al comercio exterior.</button>
+        <button data-choice="c">Los rendimientos son tecnológicos y las economías de escala se refieren al costo medio.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="En Q=K^0,7 L^0,7 la suma de exponentes es 1,4; duplicar K y L multiplica Q por 2^1,4≈2,64.">
+      <h4>3. En Q=K<sup>0,7</sup>L<sup>0,7</sup>, ¿qué ocurre al duplicar ambos factores?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La producción aumenta aproximadamente a 2,64 veces su nivel inicial.</button>
+        <button data-choice="b">La producción se duplica exactamente.</button>
+        <button data-choice="c">La producción disminuye porque la suma de exponentes supera uno.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Una economía externa depende de la escala de la industria o localidad, por ejemplo del acceso a técnicos formados por otras empresas.">
+      <h4>4. ¿Cuál situación representa una economía externa?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Una empresa reparte su costo fijo entre más unidades propias.</button>
+        <button data-choice="b">Una empresa se beneficia de un mercado local de trabajadores especializados.</button>
+        <button data-choice="c">Una fábrica compra una máquina indivisible para su uso exclusivo.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Marshall destacó proveedores especializados, un mercado laboral especializado y desbordamientos de conocimiento.">
+      <h4>5. ¿Cuáles son los tres mecanismos marshallianos?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Aranceles, subsidios y cuotas.</button>
+        <button data-choice="b">Capital, tierra y trabajo.</button>
+        <button data-choice="c">Proveedores, mercado laboral y conocimiento.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="Las economías dinámicas dependen de producción y experiencia acumuladas; la curva de aprendizaje vincula Z con menores costos medios.">
+      <h4>6. ¿Qué caracteriza a una economía externa dinámica?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">El costo depende de la experiencia o producción acumulada.</button>
+        <button data-choice="b">El costo solo depende del precio actual del bien.</button>
+        <button data-choice="c">La producción pasada no tiene ninguna relevancia.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="La expansión del país de menor costo reduce aún más sus costos y puede contraer la industria del otro país, generando concentración.">
+      <h4>7. ¿Cómo pueden las economías externas concentrar una industria?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La apertura obliga a repartir exactamente la producción entre países.</button>
+        <button data-choice="b">La expansión del productor ganador refuerza su ventaja de costos.</button>
+        <button data-choice="c">Los costos medios aumentan cuando crece el cluster.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="El mundo puede ganar por menores precios, pero el país que pierde la industria puede perder empleo, rentas, aprendizaje y capacidades.">
+      <h4>8. ¿Por qué el bienestar nacional es ambiguo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque el comercio nunca reduce precios.</button>
+        <button data-choice="b">Porque todos los países conservan necesariamente todas sus industrias.</button>
+        <button data-choice="c">Porque menores precios importados pueden coexistir con pérdidas de industria y aprendizaje.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="La dependencia de la trayectoria significa que eventos y decisiones pasadas condicionan la localización actual y pueden generar bloqueo.">
+      <h4>9. ¿Qué significa dependencia de la trayectoria?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Que el resultado actual depende de la secuencia histórica de eventos y decisiones.</button>
+        <button data-choice="b">Que la industria siempre se localiza donde los salarios actuales son más bajos.</button>
+        <button data-choice="c">Que las ventajas iniciales desaparecen automáticamente con el tiempo.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">12</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>Por qué las economías de escala generan comercio entre países similares.</li>
+      <li>La diferencia entre rendimientos crecientes y costos medios decrecientes.</li>
+      <li>El ejemplo Q=K<sup>0,7</sup>L<sup>0,7</sup> y el efecto de duplicar factores.</li>
+      <li>La diferencia entre economías internas y externas.</li>
+      <li>Por qué las economías externas pueden coexistir con empresas competitivas.</li>
+      <li>Los tres mecanismos marshallianos y cómo se refuerzan.</li>
+      <li>La diferencia entre economías externas estáticas y dinámicas.</li>
+      <li>Cómo el comercio puede concentrar una industria y reducir el precio mundial.</li>
+      <li>Por qué una ganancia mundial puede coexistir con una pérdida nacional.</li>
+      <li>Cómo la historia, la trayectoria y el bloqueo influyen en la localización.</li>
+    </ul>
+  </section>
+</main>
+<footer>
+<p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

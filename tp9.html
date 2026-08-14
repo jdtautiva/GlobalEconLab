@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Tratados de libre comercio y procesos de integración | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<header class="inst-header" role="banner">
+<img alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello" id="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';" src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"/>
+<div aria-hidden="true" class="inst-header-fallback" id="logo-fallback">FEN</div>
+<div class="inst-header-text">
+<h1>Universidad Andrés Bello</h1>
+<p>Facultad de Economía y Negocios</p>
+</div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 9</span>
+    <h2 id="page-title">Tratados de libre comercio y procesos de integración</h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Distingue la apertura recíproca mediante tratados de libre comercio de la construcción progresiva de instituciones, políticas y mercados comunes propia de los procesos de integración regional.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> comience por las diez ideas fuerza, revise la cronología de posguerra, compare acuerdos superficiales y profundos, aplique la matriz de evaluación y finalice distinguiendo las etapas institucionales de la integración regional.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#conceptos">TLC e integración</a>
+    <a href="#historia">Historia</a>
+    <a href="#tlc">TLC</a>
+    <a href="#evaluacion">Evaluación</a>
+    <a href="#chile">Chile</a>
+    <a href="#integracion">Integración</a>
+    <a href="#comparacion">Comparación</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Diez ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan el argumento central del tema.</p>
+    <div class="key-ideas">
+      <div class="key-idea">El orden económico de posguerra combinó apertura internacional con espacio nacional para empleo, bienestar y regulación macroeconómica.</div>
+      <div class="key-idea">Bretton Woods organizó la cooperación monetaria, mientras el GATT asumió provisionalmente las reglas comerciales básicas.</div>
+      <div class="key-idea">GATT y OMC están jurídicamente conectados, pero difieren en naturaleza institucional, cobertura y solución de controversias.</div>
+      <div class="key-idea">Un TLC concede preferencias recíprocas, pero cada parte conserva su propio arancel frente a terceros países.</div>
+      <div class="key-idea">Los acuerdos profundos regulan materias “detrás de la frontera”, como inversión, servicios, competencia, trabajo y medioambiente.</div>
+      <div class="key-idea">La presencia de un capítulo social no demuestra por sí sola protección efectiva: importa su cobertura, exigibilidad y aplicación.</div>
+      <div class="key-idea">Más comercio no equivale automáticamente a desarrollo productivo; deben evaluarse diversificación, valor añadido, productividad e innovación.</div>
+      <div class="key-idea">Los acuerdos suelen liberalizar más el capital que el trabajo, cuya movilidad queda limitada a categorías específicas.</div>
+      <div class="key-idea">La integración regional es multidimensional y puede incluir comercio, factores, regulación, políticas macroeconómicas e instituciones comunes.</div>
+      <div class="key-idea">La evaluación de un acuerdo exige datos, comparación temporal, contrafactual y atención a asimetrías, ganadores y costos de ajuste.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia conecta historia, reglas comerciales, evaluación e institucionalidad regional.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Orden económico de posguerra</div>
+      <div class="route-node">GATT, OMC y liberalización</div>
+      <div class="route-node">TLC superficial o profundo</div>
+      <div class="route-node">Impactos sociales y productivos</div>
+      <div class="route-node">Movilidad de capital y trabajo</div>
+      <div class="route-node">Etapas de integración regional</div>
+    </div>
+  </section>
+
+  <section id="conceptos" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>Dos conceptos distintos</h3>
+    <p class="section-lead">La pregunta orientadora es si se busca abrir mercados mediante un tratado o construir un espacio institucional común.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Tratado de libre comercio</h4>
+        <p>Acuerdo recíproco entre dos o más partes que concede preferencias, reduce o elimina barreras y establece reglas para la relación comercial.</p>
+        <ul style="margin-top:.6rem;">
+          <li>Cada parte mantiene su arancel frente a terceros.</li>
+          <li>Puede incluir exclusiones, calendarios y sectores sensibles.</li>
+          <li>Su institucionalidad suele concentrarse en comités y mecanismos del acuerdo.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Proceso de integración</h4>
+        <p>Construcción progresiva de un espacio económico, normativo y, en ciertos casos, político común.</p>
+        <ul style="margin-top:.6rem;">
+          <li>Puede abarcar bienes, servicios, capital y trabajo.</li>
+          <li>Puede coordinar regulación y políticas macroeconómicas.</li>
+          <li>Puede crear órganos permanentes y normas regionales.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Diferencia decisiva:</strong> un TLC organiza obligaciones contractuales entre partes; un proceso de integración puede reducir fronteras económicas y transferir funciones a instituciones regionales.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>TLC convencional</th><th>Integración regional profunda</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Arancel interno</strong></td><td>Preferencias o eliminación negociada.</td><td>Eliminación más amplia.</td></tr>
+          <tr><td><strong>Arancel externo</strong></td><td>Nacional.</td><td>Puede ser común.</td></tr>
+          <tr><td><strong>Movilidad laboral</strong></td><td>Limitada.</td><td>Puede ser amplia.</td></tr>
+          <tr><td><strong>Instituciones</strong></td><td>Comités del acuerdo.</td><td>Órganos permanentes.</td></tr>
+          <tr><td><strong>Política productiva</strong></td><td>Cooperación selectiva.</td><td>Coordinación posible.</td></tr>
+          <tr><td><strong>Norma regional</strong></td><td>Contractual.</td><td>Puede ser comunitaria.</td></tr>
+          <tr><td><strong>Presupuesto regional</strong></td><td>Escaso.</td><td>Puede existir.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="historia" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>Antecedentes históricos relevantes</h3>
+    <p class="section-lead">La arquitectura comercial contemporánea surgió de la respuesta de posguerra a la depresión, el proteccionismo, la fragmentación monetaria y el conflicto.</p>
+
+    <div class="grid-3">
+      <article class="mini-card"><h4>Bretton Woods</h4><p>La conferencia de julio de 1944 reunió delegaciones de 44 países y acordó crear el FMI y el Banco Internacional de Reconstrucción y Fomento.</p></article>
+      <article class="mini-card"><h4>GATT</h4><p>El acuerdo de 30 de octubre de 1947 comenzó a aplicarse provisionalmente en 1948 y fijó reglas comerciales básicas.</p></article>
+      <article class="mini-card"><h4>OMC</h4><p>Tras la Ronda Uruguay de 1986–1994 y el Acuerdo de Marrakech de 1994, comenzó a operar el 1 de enero de 1995.</p></article>
+    </div>
+
+    <div class="formula">35 USD por onza de oro</div>
+    <p class="formula-note">Compromiso estadounidense de convertibilidad oficial del dólar en el sistema original de Bretton Woods.</p>
+
+    <div class="timeline" aria-label="Cronología esencial del sistema económico internacional">
+      <div class="timeline-item"><span class="timeline-dot">1944</span><h4>Bretton Woods</h4><p>Cooperación monetaria, financiamiento temporal, reconstrucción y expansión del comercio.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1947</span><h4>Firma del GATT</h4><p>Veintitrés gobiernos participaron en la ronda fundacional; la aplicación provisional comenzó en 1948.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1971</span><h4>Primer Davos y ruptura oro–dólar</h4><p>En febrero se celebró el European Management Symposium; el 15 de agosto Estados Unidos suspendió la convertibilidad oficial del dólar en oro.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1973</span><h4>Flotación generalizada</h4><p>Terminó el sistema cambiario original de Bretton Woods, aunque el dólar mantuvo funciones internacionales.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1987</span><h4>World Economic Forum</h4><p>La entidad de Davos adoptó su nombre actual.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1986–94</span><h4>Ronda Uruguay</h4><p>Amplió la agenda hacia bienes, servicios, propiedad intelectual y un sistema más reglado de solución de diferencias.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1995</span><h4>Inicio de la OMC</h4><p>Se creó una organización permanente; el GATT 1994 continuó como uno de sus acuerdos administrados.</p></div>
+    </div>
+
+    <details>
+      <summary>Principios del GATT</summary>
+      <div>
+        <ul style="padding-left:1.2rem;">
+          <li>No discriminación y nación más favorecida.</li>
+          <li>Trato nacional.</li>
+          <li>Consolidación arancelaria.</li>
+          <li>Transparencia.</li>
+          <li>Reciprocidad negociada.</li>
+          <li>Excepciones reguladas.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>GATT frente a OMC</summary>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimensión</th><th>GATT 1947</th><th>OMC desde 1995</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Naturaleza</strong></td><td>Acuerdo aplicado provisionalmente.</td><td>Organización internacional.</td></tr>
+            <tr><td><strong>Cobertura</strong></td><td>Principalmente bienes.</td><td>Bienes, servicios y propiedad intelectual.</td></tr>
+            <tr><td><strong>Diferencias</strong></td><td>Más diplomáticas.</td><td>Procedimiento integrado y reglado.</td></tr>
+            <tr><td><strong>Institucionalidad</strong></td><td>Limitada.</td><td>Secretariado y órganos permanentes.</td></tr>
+            <tr><td><strong>Revisión de políticas</strong></td><td>Menor alcance.</td><td>Mecanismo formal.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <div class="callout"><strong>Multinacionales y acuerdos profundos:</strong> desde aproximadamente 1990, la fragmentación internacional de la producción y las cadenas globales de valor aumentaron la demanda por reglas sobre inversión, servicios, propiedad intelectual, aduanas, estándares y controversias.</div>
+
+    <details>
+      <summary>Actividad breve: ordenar la historia</summary>
+      <div>
+        <p>Ordene y explique la relación entre Bretton Woods, GATT, primer Davos, ruptura oro–dólar y OMC.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> Bretton Woods (1944) → GATT (1947/1948) → primer Davos y ruptura oro–dólar (1971) → OMC (1995).</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="tlc" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Tratados de libre comercio convencionales</h3>
+    <p class="section-lead">Un TLC puede ampliar mercados y reducir incertidumbre, pero no liberaliza necesariamente todos los sectores ni elimina todas las fricciones.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Objetivos económicos</h4>
+        <ul><li>Ampliar mercados.</li><li>Profundizar división del trabajo.</li><li>Facilitar especialización.</li><li>Reducir precios.</li><li>Aumentar variedad y competencia.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Excepciones posibles</h4>
+        <ul><li>Calendarios largos.</li><li>Exclusiones.</li><li>Contingentes.</li><li>Salvaguardias.</li><li>Reservas y sectores sensibles.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Regla externa</h4>
+        <p>Cada parte conserva su propio arancel frente a terceros países, lo que diferencia un TLC de una unión aduanera.</p>
+      </article>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Acuerdo superficial y acuerdo profundo</h4>
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Superficial</h4>
+        <p>Se concentra en aranceles y medidas aplicadas en la frontera.</p>
+        <div class="chain"><span>Aranceles</span><b>→</b><span>Aduanas</span><b>→</b><span>Reglas de origen</span></div>
+      </article>
+      <article class="mini-card">
+        <h4>Profundo</h4>
+        <p>Incluye políticas detrás de la frontera.</p>
+        <div class="chain"><span>Servicios</span><b>·</b><span>Inversión</span><b>·</b><span>Competencia</span><b>·</b><span>Trabajo</span><b>·</b><span>Ambiente</span></div>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Por qué aumenta la profundidad:</strong> al reducirse los aranceles NMF en muchas economías, las empresas enfrentan relativamente más fricciones en regulación, licencias, estándares, servicios, logística e inversión.</div>
+
+    <div class="warning callout"><strong>Hipótesis crítica de subordinación:</strong> un acuerdo asimétrico puede limitar opciones de política y consolidar especializaciones desiguales. La evaluación debe observar obligaciones, excepciones, resultados y contrafactuales.</div>
+
+    <details>
+      <summary>Mecanismo de transparencia de la OMC</summary>
+      <div>
+        <p>Desde 2006, los miembros deben anunciar negociaciones, notificar acuerdos, entregar textos y datos, participar en examen factual, informar cambios y presentar reportes de implementación.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="evaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Evaluación multidimensional de un acuerdo</h3>
+    <p class="section-lead">La evaluación no debe limitarse al crecimiento del comercio bilateral.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Pregunta de evaluación</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Acceso</strong></td><td>¿Quién obtiene nuevas preferencias?</td></tr>
+          <tr><td><strong>Reglas</strong></td><td>¿Quién debe cambiar más su regulación?</td></tr>
+          <tr><td><strong>Ajuste</strong></td><td>¿Qué sectores pierden y cómo se compensan?</td></tr>
+          <tr><td><strong>Inversión</strong></td><td>¿Aumenta capacidad productiva o solo cambia la propiedad?</td></tr>
+          <tr><td><strong>Tecnología</strong></td><td>¿Existen aprendizaje y encadenamientos?</td></tr>
+          <tr><td><strong>Fiscal</strong></td><td>¿Quién puede sostener apoyo doméstico?</td></tr>
+          <tr><td><strong>Controversias</strong></td><td>¿Quién puede litigar efectivamente?</td></tr>
+          <tr><td><strong>Participación</strong></td><td>¿Quién intervino en la negociación?</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Dimensión social</h4>
+        <ul><li>Empleo creado y destruido.</li><li>Calidad laboral y salarios.</li><li>Seguridad social.</li><li>Informalidad.</li><li>Género.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Dimensión productiva</h4>
+        <ul><li>Complejidad exportadora.</li><li>Diversificación.</li><li>Valor añadido doméstico.</li><li>Productividad e innovación.</li><li>Empleo formal.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Dimensión institucional</h4>
+        <ul><li>Obligaciones.</li><li>Cobertura.</li><li>Consulta y cooperación.</li><li>Solución de diferencias.</li><li>Participación pública.</li></ul>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Regla de lectura:</strong> un capítulo puede ser vinculante, consultivo, cooperativo, parcialmente exigible o simbólico. Su sola presencia no demuestra efectividad.</div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Política productiva compatible</h4>
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Instrumentos generalmente disponibles</h4>
+        <ul><li>Educación e infraestructura.</li><li>Investigación.</li><li>Crédito horizontal.</li><li>Facilitación e información exportadora.</li><li>Promoción de inversiones.</li><li>Políticas regionales y regulación ambiental.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Cooperación dentro del acuerdo</h4>
+        <ul><li>Comités sectoriales.</li><li>Cooperación técnica.</li><li>Reconocimiento mutuo.</li><li>Agenda PYMES.</li><li>Facilitación digital.</li><li>Cooperación regulatoria.</li></ul>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Precisión productiva:</strong> un acuerdo puede aumentar el comercio sin generar encadenamientos, diversificación, tecnología, valor añadido o productividad. El volumen comercial no basta para medir desarrollo.</div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Movilidad de factores</h4>
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Capital</h4>
+        <p>Los TLC profundos suelen incluir establecimiento, trato nacional, transferencias, expropiación, servicios financieros, personal directivo y controversias.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Trabajo</h4>
+        <p>La liberalización suele limitarse a visitantes de negocios, inversionistas, profesionales, transferencias intraempresa y proveedores contractuales.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: evaluar un capítulo laboral</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Qué derechos reconoce?</li>
+          <li>¿Obliga a aplicar la legislación?</li>
+          <li>¿Permite peticiones públicas?</li>
+          <li>¿Incluye cooperación?</li>
+          <li>¿Llega a solución de controversias?</li>
+          <li>¿Qué remedios contempla?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="chile" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Chile: red de acuerdos y evaluación aplicada</h3>
+    <p class="section-lead">Las notas del Tema 9 señalan que la lista oficial de SUBREI enumera 36 acuerdos comerciales al 30 de julio de 2026, con coberturas, profundidades, socios y fechas diferentes.</p>
+
+    <div class="grid-3">
+      <article class="mini-card"><h4>Casos sugeridos</h4><p>Estados Unidos, China, México, Canadá, Corea del Sur, Australia, Japón, Perú o Brasil.</p></article>
+      <article class="mini-card"><h4>Ventana temporal</h4><p>Cinco años antes, año de entrada en vigor, cinco años después y último año disponible.</p></article>
+      <article class="mini-card"><h4>Criterio</h4><p>Debe existir información anual comparable antes y después de la entrada en vigor.</p></article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Indicador</th><th>Pregunta analítica</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Exportaciones al socio</strong></td><td>¿Aumentó el comercio bilateral?</td></tr>
+          <tr><td><strong>Importaciones desde el socio</strong></td><td>¿Cambió la competencia importada?</td></tr>
+          <tr><td><strong>Comercio/PIB</strong></td><td>¿Cambió la importancia macroeconómica del socio?</td></tr>
+          <tr><td><strong>IED desde el socio</strong></td><td>¿Aumentó inversión productiva?</td></tr>
+          <tr><td><strong>Saldo comercial</strong></td><td>¿Se modificó el balance bilateral?</td></tr>
+          <tr><td><strong>Composición</strong></td><td>¿La relación se diversificó o se concentró?</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout"><strong>Composición mínima:</strong> identifique los cinco principales productos exportados, los cinco principales productos importados y los principales sectores de IED.</div>
+
+    <details>
+      <summary>Preguntas para la evaluación de un acuerdo de Chile</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Aumentó el comercio bilateral?</li>
+          <li>¿Cambió su importancia respecto del PIB?</li>
+          <li>¿Cambió el saldo?</li>
+          <li>¿Se diversificaron las exportaciones?</li>
+          <li>¿Aumentó la IED productiva?</li>
+          <li>¿Qué sectores ganaron?</li>
+          <li>¿Qué sectores enfrentaron competencia?</li>
+          <li>¿Qué variables externas influyeron?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="integracion" class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Procesos de integración regional</h3>
+    <p class="section-lead">La integración económica regional reduce fronteras económicas y construye reglas compartidas de manera progresiva.</p>
+
+    <h4 style="color:var(--primary);">Secuencia de Balassa presentada en el tema</h4>
+    <div class="chain" aria-label="Secuencia de integración de Balassa">
+      <span>Área de libre comercio</span><b>→</b><span>Unión aduanera</span><b>→</b><span>Mercado común</span><b>→</b><span>Unión económica</span><b>→</b><span>Integración económica completa</span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Etapa</th><th>Comercio interno</th><th>Arancel externo</th><th>Factores</th><th>Políticas comunes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>TLC</strong></td><td>Libre o preferencial.</td><td>Nacional.</td><td>Limitados.</td><td>Selectivas.</td></tr>
+          <tr><td><strong>Unión aduanera</strong></td><td>Libre.</td><td>Común.</td><td>Limitados.</td><td>Comercial.</td></tr>
+          <tr><td><strong>Mercado común</strong></td><td>Libre.</td><td>Común.</td><td>Móviles.</td><td>Regulación ampliada.</td></tr>
+          <tr><td><strong>Unión económica</strong></td><td>Libre.</td><td>Común.</td><td>Móviles.</td><td>Económicas coordinadas.</td></tr>
+          <tr><td><strong>Unión monetaria</strong></td><td>Libre.</td><td>Común.</td><td>Móviles.</td><td>Política monetaria común.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>Escalera institucional de integración</h4>
+      <svg viewBox="0 0 800 360" role="img" aria-labelledby="ladder-title ladder-desc" style="display:block;width:100%;height:auto;">
+        <title id="ladder-title">Etapas crecientes de integración económica</title>
+        <desc id="ladder-desc">Cinco escalones representan un área de libre comercio, unión aduanera, mercado común, unión económica e integración económica completa.</desc>
+        <rect x="0" y="0" width="800" height="360" rx="12" fill="#ffffff"/>
+        <rect x="60" y="270" width="130" height="55" rx="8" fill="#edf2ff" stroke="#003366" stroke-width="2"/>
+        <rect x="190" y="215" width="130" height="110" rx="8" fill="#e5edfb" stroke="#003366" stroke-width="2"/>
+        <rect x="320" y="160" width="130" height="165" rx="8" fill="#dce8f8" stroke="#003366" stroke-width="2"/>
+        <rect x="450" y="105" width="130" height="220" rx="8" fill="#d3e2f5" stroke="#003366" stroke-width="2"/>
+        <rect x="580" y="50" width="160" height="275" rx="8" fill="#c9dcf2" stroke="#003366" stroke-width="2"/>
+        <text x="125" y="297" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">Área de libre</text>
+        <text x="125" y="315" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">comercio</text>
+        <text x="255" y="255" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">Unión</text>
+        <text x="255" y="274" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">aduanera</text>
+        <text x="385" y="214" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">Mercado</text>
+        <text x="385" y="233" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">común</text>
+        <text x="515" y="168" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">Unión</text>
+        <text x="515" y="187" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">económica</text>
+        <text x="660" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">Integración</text>
+        <text x="660" y="131" text-anchor="middle" font-size="14" font-weight="700" fill="#003366">completa</text>
+        <text x="400" y="348" text-anchor="middle" font-size="13" fill="#55557a">Mayor profundidad institucional y coordinación de políticas →</text>
+      </svg>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: clasificar etapas</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>Arancel cero interno y arancel nacional externo.</li>
+          <li>Arancel externo común.</li>
+          <li>Libre movilidad laboral y de capital.</li>
+          <li>Reglas fiscales coordinadas.</li>
+          <li>Banco central y moneda comunes.</li>
+          <li>Preferencias solo para una lista de productos.</li>
+        </ol>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> TLC; unión aduanera; mercado común; unión económica; unión monetaria; acuerdo preferencial limitado.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="comparacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Unión Europea, MERCOSUR y Comunidad Andina</h3>
+    <p class="section-lead">Los procesos regionales difieren en metas, arancel externo, movilidad, órganos jurídicos, moneda y participación.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Unión Europea</th><th>MERCOSUR</th><th>CAN</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Meta</strong></td><td>Mercado único y unión.</td><td>Mercado común.</td><td>Integración andina.</td></tr>
+          <tr><td><strong>Arancel externo</strong></td><td>Común.</td><td>Común con excepciones.</td><td>No plenamente común hoy.</td></tr>
+          <tr><td><strong>Movilidad</strong></td><td>Amplia.</td><td>Parcial.</td><td>Derechos regionales parciales.</td></tr>
+          <tr><td><strong>Tribunal</strong></td><td>Supranacional.</td><td>Arbitral y de revisión.</td><td>Comunitario.</td></tr>
+          <tr><td><strong>Moneda</strong></td><td>Euro en parte de la UE.</td><td>No.</td><td>No.</td></tr>
+          <tr><td><strong>Participación</strong></td><td>Parlamento y comités.</td><td>FCES y Parlamento.</td><td>Consejos consultivos y Parlamento.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card"><h4>Profundidad</h4><p>No todos los procesos avanzan a la misma velocidad ni alcanzan el mismo grado de coordinación.</p></article>
+      <article class="mini-card"><h4>Supranacionalidad</h4><p>Es una elección institucional sobre cuánto poder decisorio se ejerce en órganos regionales.</p></article>
+      <article class="mini-card"><h4>Evaluación</h4><p>Debe comparar objetivos declarados, reglas efectivas, implementación y resultados observables.</p></article>
+    </div>
+
+    <div class="warning callout"><strong>Lectura comparada:</strong> denominar a un bloque “mercado común” no garantiza que todas las condiciones de movilidad, arancel externo o coordinación estén plenamente realizadas.</div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Caso integrador: acuerdo o integración</h3>
+    <p class="section-lead">Utilice el caso para distinguir profundidad comercial, coordinación productiva e institucionalidad.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Reglas propuestas</h4>
+        <ul><li>Arancel cero interno.</li><li>Reglas de origen.</li><li>Capítulos de inversión y servicios.</li><li>Comités laborales y ambientales.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Reglas no propuestas</h4>
+        <ul><li>No existe arancel externo común.</li><li>No hay libre movilidad general de trabajadores.</li><li>No se coordinan políticas fiscales.</li><li>No existe moneda común.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Resultados observados</h4>
+        <ul><li>Aumenta el comercio bilateral.</li><li>Las exportaciones se concentran.</li><li>Crece la IED.</li><li>Persisten brechas productivas.</li></ul>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Preguntas para resolver el caso</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Es un TLC superficial o profundo?</li>
+          <li>¿Por qué no es una unión aduanera?</li>
+          <li>¿Qué dimensiones sociales deben evaluarse?</li>
+          <li>¿El aumento de IED demuestra mayor capacidad productiva?</li>
+          <li>¿Qué indicadores permiten evaluar diversificación?</li>
+          <li>¿Qué asimetrías pueden afectar la negociación y la implementación?</li>
+          <li>¿Qué instituciones adicionales requeriría un mercado común?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">11</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Un TLC concede preferencias recíprocas, pero cada parte conserva su arancel frente a países no miembros.">
+      <h4>1. ¿Qué rasgo distingue a un TLC de una unión aduanera?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La eliminación obligatoria de todas las regulaciones internas.</button>
+        <button data-choice="b">Cada parte mantiene su propio arancel frente a terceros.</button>
+        <button data-choice="c">La existencia de una moneda común.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="La integración implica construir progresivamente reglas, mercados e instituciones comunes, no solo preferencias comerciales.">
+      <h4>2. ¿Qué caracteriza principalmente a un proceso de integración?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La construcción progresiva de un espacio económico e institucional común.</button>
+        <button data-choice="b">Una reducción arancelaria unilateral y temporal.</button>
+        <button data-choice="c">La prohibición de movimientos de capital.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Bretton Woods se celebró en julio de 1944 y acordó crear el FMI y el Banco Internacional de Reconstrucción y Fomento.">
+      <h4>3. ¿Qué institución se acordó crear en Bretton Woods?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La Organización Mundial del Comercio.</button>
+        <button data-choice="b">El World Economic Forum.</button>
+        <button data-choice="c">El Fondo Monetario Internacional.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="La OMC es una organización permanente con cobertura de bienes, servicios y propiedad intelectual; el GATT 1947 era un acuerdo provisional centrado principalmente en bienes.">
+      <h4>4. ¿Cuál es una diferencia entre GATT y OMC?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">El GATT cubría más áreas que la OMC.</button>
+        <button data-choice="b">La OMC tiene mayor institucionalidad y cobertura.</button>
+        <button data-choice="c">La OMC dejó de administrar el GATT.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Un acuerdo profundo incluye disciplinas detrás de la frontera, como servicios, inversión, competencia, trabajo o ambiente.">
+      <h4>5. ¿Qué materia caracteriza a un acuerdo profundo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Solo la rebaja de un arancel específico.</button>
+        <button data-choice="b">Exclusivamente el peso físico de las mercancías.</button>
+        <button data-choice="c">Reglas sobre inversión, servicios y regulación interna.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="La efectividad depende de obligaciones, cobertura, mecanismos de consulta, exigibilidad, remedios e implementación.">
+      <h4>6. ¿Por qué la presencia de un capítulo laboral no basta para demostrar protección efectiva?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque debe evaluarse su exigibilidad y aplicación.</button>
+        <button data-choice="b">Porque todos los capítulos laborales son idénticos.</button>
+        <button data-choice="c">Porque nunca contienen obligaciones.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="El aumento del volumen comercial puede coexistir con concentración, bajo valor añadido o escasos encadenamientos productivos.">
+      <h4>7. ¿Por qué más comercio no demuestra necesariamente desarrollo productivo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque toda exportación reduce la productividad.</button>
+        <button data-choice="b">Porque también deben evaluarse diversificación, valor añadido e innovación.</button>
+        <button data-choice="c">Porque el comercio bilateral nunca puede medirse.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Los acuerdos suelen otorgar mayor movilidad al capital y limitar el trabajo a categorías como profesionales, inversionistas o transferencias intraempresa.">
+      <h4>8. ¿Cómo suele tratarse la movilidad laboral en los TLC?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Como libre movilidad general para toda la población.</button>
+        <button data-choice="b">Como una prohibición absoluta de entrada temporal.</button>
+        <button data-choice="c">Como movilidad limitada a categorías específicas.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="Una unión aduanera elimina barreras internas y aplica un arancel externo común.">
+      <h4>9. ¿Qué elemento adicional incorpora una unión aduanera respecto de un TLC?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Un arancel externo común.</button>
+        <button data-choice="b">Una moneda obligatoriamente común.</button>
+        <button data-choice="c">La eliminación de todo órgano regional.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="El mercado común incorpora movilidad de factores, además del comercio interno libre y el arancel externo común.">
+      <h4>10. ¿Qué caracteriza a un mercado común en la comparación de etapas?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Solo preferencias para una lista de productos.</button>
+        <button data-choice="b">Movilidad de factores y regulación ampliada.</button>
+        <button data-choice="c">Aranceles externos completamente nacionales.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">12</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>La diferencia conceptual entre un TLC y un proceso de integración.</li>
+      <li>El papel de Bretton Woods, GATT y OMC en el orden económico de posguerra.</li>
+      <li>La ruptura de la convertibilidad oro–dólar y la continuidad internacional del dólar.</li>
+      <li>La diferencia entre acuerdos superficiales y profundos.</li>
+      <li>Por qué capítulos sociales similares pueden tener efectividad distinta.</li>
+      <li>La matriz de evaluación de acceso, reglas, ajuste, inversión, tecnología y participación.</li>
+      <li>Por qué más comercio no equivale necesariamente a mayor desarrollo productivo.</li>
+      <li>La diferencia entre movilidad de capital y movilidad laboral en los acuerdos.</li>
+      <li>Las etapas de área de libre comercio, unión aduanera, mercado común y unión económica.</li>
+      <li>Las diferencias institucionales entre Unión Europea, MERCOSUR y CAN.</li>
+      <li>Cómo evaluar un acuerdo de Chile con datos antes y después de su entrada en vigor.</li>
+      <li>Por qué la evaluación requiere resultados, contrafactual y atención a asimetrías.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+<p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

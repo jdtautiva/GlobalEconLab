@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Políticas comerciales | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<header class="inst-header" role="banner">
+<img alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello" id="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';" src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"/>
+<div aria-hidden="true" class="inst-header-fallback" id="logo-fallback">FEN</div>
+<div class="inst-header-text">
+<h1>Universidad Andrés Bello</h1>
+<p>Facultad de Economía y Negocios</p>
+</div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 8</span>
+    <h2 id="page-title">Políticas comerciales</h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Explica cómo aranceles, cuotas, subsidios, requisitos de contenido local, crédito exportador y procedimientos administrativos modifican precios, cantidades, rentas, recaudación y distribución del ingreso.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> comience por las ideas fuerza y la clasificación de instrumentos; estudie luego el arancel en equilibrio parcial, compare país pequeño y grande, calcule la protección efectiva y finalice evaluando quién gana, quién pierde y quién recibe las rentas de cada medida.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#clasificacion">Instrumentos</a>
+    <a href="#arancel">Aranceles</a>
+    <a href="#equilibrio">Equilibrio mundial</a>
+    <a href="#incidencia">País pequeño y grande</a>
+    <a href="#proteccion">Protección efectiva</a>
+    <a href="#otras">Otras medidas</a>
+    <a href="#comparacion">Comparación</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Diez ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan la lógica económica y distributiva del tema.</p>
+    <div class="key-ideas">
+      <div class="key-idea">Una política comercial modifica precios, cantidades, acceso al mercado, costos de cumplimiento o condiciones de financiamiento del comercio.</div>
+      <div class="key-idea">Para evaluarla deben identificarse el objetivo público, el instrumento, los beneficiarios, quienes pagan el costo, la duración y una alternativa más directa.</div>
+      <div class="key-idea">Un arancel crea una cuña entre el precio pagado por el importador y el precio recibido por el exportador.</div>
+      <div class="key-idea">En un país pequeño, el precio mundial no cambia; en un país grande, parte de la carga puede recaer sobre exportadores extranjeros.</div>
+      <div class="key-idea">La protección nominal se mide sobre el producto final, mientras la protección efectiva se calcula sobre el valor añadido doméstico.</div>
+      <div class="key-idea">Un subsidio a la exportación eleva producción y exportaciones, pero genera costo fiscal y pérdidas de eficiencia.</div>
+      <div class="key-idea">Una cuota restringe cantidades y crea rentas cuyo receptor depende de cómo se asignen o subasten las licencias.</div>
+      <div class="key-idea">Una restricción voluntaria de exportación suele transferir las rentas al exterior y puede resultar más costosa que un arancel equivalente.</div>
+      <div class="key-idea">El contenido local beneficia a proveedores nacionales, pero puede elevar costos del producto final y reducir competitividad.</div>
+      <div class="key-idea">Las barreras administrativas actúan mediante costos fijos, tiempo e incertidumbre, afectando especialmente a empresas pequeñas.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia conecta el objetivo político con sus efectos económicos y distributivos.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Meta pública o falla de mercado</div>
+      <div class="route-node">Selección del instrumento</div>
+      <div class="route-node">Cambio de precio o cantidad</div>
+      <div class="route-node">Respuesta de producción y consumo</div>
+      <div class="route-node">Renta, recaudación o costo fiscal</div>
+      <div class="route-node">Bienestar, distribución y compatibilidad</div>
+    </div>
+    <div class="callout"><strong>Pregunta orientadora:</strong> ¿quién gana, quién pierde y quién recibe las rentas cuando un gobierno restringe importaciones o promueve exportaciones?</div>
+  </section>
+
+  <section id="clasificacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>Clasificación y diagnóstico de la política comercial</h3>
+    <p class="section-lead">Los instrumentos pueden operar sobre precios, cantidades, requisitos regulatorios o condiciones de apoyo.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Instrumentos de precio</h4>
+        <ul>
+          <li>Aranceles.</li>
+          <li>Subsidios.</li>
+          <li>Derechos compensatorios.</li>
+          <li>Impuestos a la exportación.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Instrumentos de cantidad</h4>
+        <ul>
+          <li>Cuotas.</li>
+          <li>Prohibiciones.</li>
+          <li>Restricciones voluntarias.</li>
+          <li>Licencias no automáticas.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Regulación y apoyo</h4>
+        <ul>
+          <li>Contenido local.</li>
+          <li>Crédito a la exportación.</li>
+          <li>Requisitos técnicos.</li>
+          <li>Procedimientos administrativos.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Pregunta de diagnóstico</th><th>Qué debe identificarse</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Problema</strong></td><td>Falla de mercado, riesgo o meta pública concreta.</td></tr>
+          <tr><td><strong>Instrumento</strong></td><td>Medida aplicada y mecanismo por el que opera.</td></tr>
+          <tr><td><strong>Incidencia</strong></td><td>Beneficiarios directos y agentes que pagan el costo.</td></tr>
+          <tr><td><strong>Gobernanza</strong></td><td>Duración, captura, transparencia y estrategia de salida.</td></tr>
+          <tr><td><strong>Alternativa</strong></td><td>Instrumento más directo y menos restrictivo.</td></tr>
+          <tr><td><strong>Compatibilidad</strong></td><td>Consistencia con compromisos y reglas internacionales.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: identificar instrumentos</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>Impuesto de 10% a un producto importado.</li>
+          <li>Límite anual de 50.000 unidades.</li>
+          <li>Préstamo público barato al comprador extranjero.</li>
+          <li>Exigencia de 40% de insumos nacionales.</li>
+          <li>Formulario con autorización previa.</li>
+          <li>Pago por cada tonelada exportada.</li>
+        </ol>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> arancel ad valorem; cuota; crédito oficial; contenido local; licencia o barrera administrativa; subsidio específico a la exportación.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="arancel" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>Aranceles: definición, tipos y medición</h3>
+    <p class="section-lead">Un arancel es un derecho de aduana aplicado a una mercancía importada.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Arancel específico</h4>
+        <div class="formula" style="font-size:1rem;">t<sub>s</sub> = monto por unidad</div>
+        <p>Ejemplos: dólares por tonelada, botella o kilogramo.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Arancel ad valorem</h4>
+        <div class="formula" style="font-size:1rem;">T = t<sub>v</sub>P<sub>W</sub></div>
+        <p>Es un porcentaje del valor aduanero del bien.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Arancel compuesto</h4>
+        <div class="formula" style="font-size:1rem;">T = t<sub>s</sub> + t<sub>v</sub>P<sub>W</sub></div>
+        <p>Combina un monto fijo y un porcentaje.</p>
+      </article>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Equivalente ad valorem</h4>
+        <div class="formula" style="font-size:1rem;">AVE = (t<sub>s</sub>/P<sub>W</sub>) × 100</div>
+        <p>Si cae el precio mundial, aumenta el AVE de un arancel específico; si el precio sube, disminuye.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Aplicado, consolidado y preferencial</h4>
+        <ul>
+          <li><strong>Aplicado:</strong> tasa efectivamente cobrada.</li>
+          <li><strong>Consolidado:</strong> límite máximo comprometido.</li>
+          <li><strong>Espacio arancelario:</strong> consolidado menos aplicado.</li>
+          <li><strong>Preferencial:</strong> tasa menor por acuerdo o sistema de preferencias.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Arancel prohibitivo:</strong> si el precio con arancel alcanza o supera el precio de autarquía, las importaciones y la recaudación se reducen a cero.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Ejemplo con P<sub>W</sub>=80</th><th>Pago arancelario</th><th>AVE</th><th>Precio importado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Específico: 12</strong></td><td>12</td><td>15%</td><td>92</td></tr>
+          <tr><td><strong>Ad valorem: 20%</strong></td><td>16</td><td>20%</td><td>96</td></tr>
+          <tr><td><strong>Compuesto: 5 + 10%</strong></td><td>13</td><td>16,25%</td><td>93</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: recaudación y protección</summary>
+      <div>
+        <p>Si se importan 1.000 unidades y el arancel específico es 4 por unidad:</p>
+        <div class="formula" style="font-size:1rem;">R = t<sub>s</sub>M = 4(1.000) = 4.000</div>
+        <p>Explique por qué elevar aún más el arancel no garantiza mayor recaudación.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="equilibrio" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Oferta, demanda y equilibrio mundial</h3>
+    <p class="section-lead">El comercio de una industria surge de la demanda de importaciones del país y de la oferta de exportaciones del extranjero.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Demanda de importaciones</h4>
+        <div class="formula" style="font-size:1rem;">MD(P) = D(P) − S(P)</div>
+        <p>Tiene pendiente negativa: al subir el precio, cae la demanda nacional y aumenta la oferta nacional.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Oferta de exportaciones</h4>
+        <div class="formula" style="font-size:1rem;">XS(P*) = S*(P*) − D*(P*)</div>
+        <p>Tiene pendiente positiva: un mayor precio extranjero aumenta producción y reduce consumo interno.</p>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Equilibrio sin costos comerciales:</strong> P=P*=P<sub>M</sub> y MD(P<sub>M</sub>)=XS(P<sub>M</sub>). La cantidad comerciada es Q<sub>M</sub>.</div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Ejemplo lineal</h4>
+        <p>D=120−2P y S=20+P, por lo que:</p>
+        <div class="formula" style="font-size:1rem;">MD=100−3P</div>
+        <p>S*=10+2P y D*=70−P, por lo que:</p>
+        <div class="formula" style="font-size:1rem;">XS=−60+3P</div>
+        <p><strong>Resultado:</strong> P<sub>M</sub>=26,67 y Q<sub>M</sub>=20.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Identidad mundial</h4>
+        <div class="formula" style="font-size:1rem;">D−S=S*−D*</div>
+        <div class="formula" style="font-size:1rem;">D+D*=S+S*</div>
+        <p>La demanda mundial total debe ser igual a la oferta mundial total.</p>
+      </article>
+    </div>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>Equilibrio mundial y arancel</h4>
+      <svg viewBox="0 0 760 390" role="img" aria-labelledby="eq-title eq-desc" style="display:block;width:100%;height:auto;">
+        <title id="eq-title">Demanda de importaciones, oferta de exportaciones y cuña arancelaria</title>
+        <desc id="eq-desc">Las curvas MD y XS se intersectan en el precio mundial. Un arancel reduce la cantidad comerciada y separa el precio del importador del precio del exportador.</desc>
+        <rect x="0" y="0" width="760" height="390" rx="12" fill="#ffffff"/>
+        <line x1="78" y1="320" x2="710" y2="320" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="78" y1="320" x2="78" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="125" y1="65" x2="670" y2="300" stroke="#003366" stroke-width="4"/>
+        <line x1="125" y1="300" x2="670" y2="65" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/>
+        <circle cx="398" cy="182" r="6" fill="#2e7d32"/>
+        <line x1="320" y1="148" x2="320" y2="219" stroke="#a83232" stroke-width="4"/>
+        <circle cx="320" cy="148" r="5" fill="#003366"/>
+        <circle cx="320" cy="219" r="5" fill="#d4961a"/>
+        <line x1="78" y1="182" x2="398" y2="182" stroke="#dce3f0" stroke-width="2"/>
+        <line x1="398" y1="182" x2="398" y2="320" stroke="#dce3f0" stroke-width="2"/>
+        <text x="685" y="298" font-size="14" fill="#003366">MD</text>
+        <text x="685" y="70" font-size="14" fill="#855b08">XS</text>
+        <text x="407" y="176" font-size="13" fill="#1a1a2e">Pₘ</text>
+        <text x="304" y="139" text-anchor="end" font-size="13" fill="#1a1a2e">Pₜ</text>
+        <text x="304" y="238" text-anchor="end" font-size="13" fill="#1a1a2e">Pₜ*</text>
+        <text x="333" y="189" font-size="13" fill="#8a2020">t</text>
+        <text x="398" y="345" text-anchor="middle" font-size="13" fill="#55557a">Qₘ</text>
+        <text x="320" y="345" text-anchor="middle" font-size="13" fill="#55557a">Qₜ</text>
+        <text x="392" y="380" text-anchor="middle" font-size="13" fill="#55557a">Cantidad comerciada</text>
+        <text x="22" y="180" transform="rotate(-90 22 180)" text-anchor="middle" font-size="13" fill="#55557a">Precio</text>
+      </svg>
+      <p class="formula-note">Con arancel: MD(P<sub>T</sub>)=XS(P<sub>T</sub>*) y P<sub>T</sub>−P<sub>T</sub>*=t; por ello Q<sub>T</sub>&lt;Q<sub>M</sub>.</p>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: equilibrio mundial</summary>
+      <div>
+        <p>Considere MD=90−2P y XS=−30+P.</p>
+        <p><strong>Inicial:</strong> P=40 y Q=10.</p>
+        <p><strong>Si MD cambia a 105−2P:</strong> P=45 y Q=15.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="incidencia" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Efectos del arancel: país pequeño y país grande</h3>
+    <p class="section-lead">La incidencia internacional depende de la elasticidad de la oferta extranjera y de la capacidad del importador para afectar el precio mundial.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>País pequeño</h4>
+        <div class="formula" style="font-size:1rem;">P<sub>D</sub> = P<sub>W</sub> + t</div>
+        <ul>
+          <li>El precio mundial no cambia.</li>
+          <li>El consumidor nacional paga toda la cuña.</li>
+          <li>Producción nacional aumenta.</li>
+          <li>Consumo e importaciones disminuyen.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>País grande</h4>
+        <div class="formula" style="font-size:1rem;">P<sub>T</sub>* &lt; P<sub>M</sub></div>
+        <ul>
+          <li>La menor demanda de importaciones reduce el precio extranjero.</li>
+          <li>El aumento del precio nacional es menor que el arancel.</li>
+          <li>Parte de la carga recae sobre exportadores extranjeros.</li>
+          <li>Puede existir una ganancia de términos de intercambio.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Ejemplo con t=4:</strong> P<sub>M</sub>=26,67; después del arancel P<sub>T</sub>=28,67, P<sub>T</sub>*=24,67 y Q<sub>T</sub>=14. La cuña se reparte: el precio nacional sube 2 y el extranjero cae 2.</div>
+
+    <div class="chain" aria-label="Cadena causal del arancel">
+      <span>Arancel</span><b>→</b><span>Precio nacional sube</span><b>→</b><span>Consumo cae y producción sube</span><b>→</b><span>Importaciones caen</span><b>→</b><span>Precio extranjero puede bajar</span>
+    </div>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Ganancia externa</h4>
+        <div class="formula" style="font-size:1rem;">TOT=(P<sub>M</sub>−P<sub>T</sub>*)Q<sub>T</sub></div>
+        <p>Transferencia potencial desde exportadores extranjeros.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Distorsión productiva</h4>
+        <p>Recursos domésticos se trasladan hacia una producción de mayor costo que la importación.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Distorsión de consumo</h4>
+        <p>Consumidores reducen compras cuyo valor excedía el costo mundial.</p>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Arancel óptimo:</strong> la relación t<sub>opt</sub>≈1/ε<sub>XS</sub> depende de supuestos restrictivos e ignora represalias, acuerdos, cadenas globales, incertidumbre y captura política.</div>
+
+    <details>
+      <summary>Actividad breve: país grande y represalia</summary>
+      <div>
+        <p>Ganancia de términos de intercambio: 180; distorsión productiva: 60; distorsión de consumo: 80.</p>
+        <div class="formula" style="font-size:1rem;">ΔW nacional = 180−60−80 = 40</div>
+        <p>Las distorsiones mundiales suman al menos 140. Si la represalia elimina la ganancia externa, el resultado nacional pasa a −140.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="proteccion" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Protección nominal y protección efectiva</h3>
+    <p class="section-lead">La tasa efectiva mide cuánto cambia el valor añadido doméstico, incorporando la protección al producto final y los aranceles sobre insumos.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Protección nominal</h4>
+        <div class="formula" style="font-size:1rem;">NRP=(P<sub>D</sub>−P<sub>W</sub>)/P<sub>W</sub></div>
+        <p>Observa la diferencia entre el precio doméstico y el mundial del bien final.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Protección efectiva</h4>
+        <div class="formula" style="font-size:1rem;">ERP=(V<sub>C</sub>−V<sub>M</sub>)/V<sub>M</sub></div>
+        <p>El objeto protegido es el valor añadido, no el valor bruto del producto.</p>
+      </article>
+    </div>
+
+    <div class="formula">V = P<sub>producto</sub> − costo de insumos comerciables</div>
+    <div class="formula">ERP = [t<sub>Q</sub> − Σa<sub>j</sub>t<sub>j</sub>] / [1 − Σa<sub>j</sub>]</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Escenario</th><th>Valor añadido mundial</th><th>Valor añadido protegido</th><th>ERP</th></tr></thead>
+        <tbody>
+          <tr><td><strong>P=100, insumo=60, arancel final 10%, insumo libre</strong></td><td>40</td><td>50</td><td>25%</td></tr>
+          <tr><td><strong>Mismo producto, arancel al insumo 20%</strong></td><td>40</td><td>38</td><td>−5%</td></tr>
+          <tr><td><strong>P=200, insumos=120, t final 15%, t insumos 5%</strong></td><td>80</td><td>104</td><td>30%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout"><strong>Lección:</strong> la protección efectiva puede superar al arancel nominal cuando el arancel al producto final protege una base de valor añadido pequeña; también puede ser negativa cuando los insumos enfrentan una carga elevada.</div>
+
+    <div class="warning callout"><strong>Escalamiento arancelario:</strong> tasas crecientes desde materias primas hacia bienes procesados protegen el procesamiento doméstico y pueden dificultar la industrialización de exportadores de productos primarios.</div>
+
+    <details>
+      <summary>Actividad breve: calcular ERP</summary>
+      <div>
+        <p>Bien final mundial: 200; insumos importados: 120; arancel final: 15%; arancel a insumos: 5%.</p>
+        <ol style="padding-left:1.2rem;">
+          <li>V<sub>M</sub>=80.</li>
+          <li>P<sub>C</sub>=230.</li>
+          <li>I<sub>C</sub>=126.</li>
+          <li>V<sub>C</sub>=104.</li>
+          <li>ERP=30%.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="otras" class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Otras medidas de protección y promoción</h3>
+    <p class="section-lead">Cada instrumento altera de manera diferente cantidades, rentas, costos fiscales y distribución internacional.</p>
+
+    <details open>
+      <summary>Subsidio a la exportación</summary>
+      <div>
+        <div class="grid-2">
+          <article class="mini-card">
+            <h4>Mecanismo en país pequeño</h4>
+            <div class="formula" style="font-size:1rem;">P<sub>D</sub>=P<sub>W</sub>+s</div>
+            <ul>
+              <li>Aumentan precio nacional, producción y exportaciones.</li>
+              <li>Disminuye consumo nacional.</li>
+              <li>El gobierno incurre en gasto fiscal.</li>
+              <li>Se generan distorsiones de producción y consumo.</li>
+            </ul>
+          </article>
+          <article class="mini-card">
+            <h4>País grande exportador</h4>
+            <p>La expansión de exportaciones puede reducir el precio mundial y empeorar los términos de intercambio del país que subsidia.</p>
+            <p style="margin-top:.5rem;"><strong>Comparación:</strong> el arancel genera ingreso fiscal; el subsidio genera costo fiscal. Ambos elevan el precio nacional y favorecen productores.</p>
+          </article>
+        </div>
+        <p style="margin-top:.7rem;">El material destaca la evolución histórica de la Política Agrícola Común: precios garantizados, excedentes, reformas hacia pagos directos y mayores objetivos ambientales y rurales.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Cuotas de importación y contingentes arancelarios</summary>
+      <div>
+        <div class="formula" style="font-size:1rem;">D(P<sub>Q</sub>)−S(P<sub>Q</sub>)=M̄</div>
+        <div class="formula" style="font-size:1rem;">QR=(P<sub>Q</sub>−P<sub>W</sub>)M̄</div>
+        <p>La cuota eleva el precio, aumenta producción doméstica, reduce consumo y crea una renta. Si las licencias se subastan, el gobierno puede capturarla; si se entregan gratuitamente, la reciben importadores; si se asignan al extranjero, la renta sale del país.</p>
+        <div class="callout"><strong>Ejemplo:</strong> P<sub>W</sub>=40, P<sub>Q</sub>=52 y M̄=30 generan QR=360.</div>
+        <p>Un contingente arancelario permite una cantidad a tasa baja y cobra una tasa mayor fuera de la cuota; no equivale a una prohibición absoluta de importar más.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Restricción voluntaria de exportación (VER)</summary>
+      <div>
+        <p>Se asemeja a una cuota desde el punto de vista del importador, pero las rentas suelen quedar en manos de exportadores o autoridades extranjeras.</p>
+        <div class="formula" style="font-size:1rem;">Renta = aumento de precio × importaciones permitidas</div>
+        <p>Si el precio aumenta en 15 y las importaciones quedan en 10.000, la renta es 150.000. Con arancel la recibiría el gobierno importador; con VER suele transferirse al exterior.</p>
+        <p style="margin-top:.5rem;">El caso de automóviles japoneses hacia Estados Unidos muestra precios más altos, rentas extranjeras y desplazamiento hacia vehículos de mayor calidad.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Exigencias de contenido local</summary>
+      <div>
+        <div class="formula" style="font-size:1rem;">P<sub>I</sub>=αP<sub>N</sub>+(1−α)P<sub>M</sub></div>
+        <p>Obligan a usar una fracción de insumos nacionales. Pueden crear proveedores y empleo, pero aumentan costos del bien final, reducen competitividad y no generan necesariamente ingreso fiscal.</p>
+        <div class="callout"><strong>Ejemplo:</strong> α=0,40, insumo nacional=130 e importado=100. El costo promedio es 112, con sobrecosto de 12 o 12%.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Crédito oficial a la exportación</summary>
+      <div>
+        <p>Puede adoptar crédito directo, refinanciamiento, apoyo de tasa, garantía o seguro. No todo apoyo es subsidio: existe elemento concesional cuando las condiciones son más favorables que las comerciales y el Estado absorbe costo o riesgo.</p>
+        <div class="grid-2" style="margin-top:.7rem;">
+          <article class="mini-card"><h4>Beneficio</h4><p>Reduce el costo financiero del comprador extranjero y facilita la venta del exportador.</p></article>
+          <article class="mini-card"><h4>Riesgo</h4><p>Puede generar pérdidas fiscales, endeudamiento, selección adversa, corrupción y carreras de financiamiento estatal.</p></article>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Barreras administrativas</summary>
+      <div>
+        <div class="formula" style="font-size:1rem;">C<sub>T</sub>=f+c<sub>q</sub>Q+c<sub>t</sub>T+c<sub>u</sub>U</div>
+        <p>Los costos incluyen documentación fija, costos por unidad, tiempo e incertidumbre. Las demoras inmovilizan capital, elevan inventarios, deterioran bienes y afectan especialmente a pequeñas empresas.</p>
+        <p style="margin-top:.5rem;"><strong>Evaluación:</strong> objetivo legítimo, evidencia, no discriminación, proporcionalidad, transparencia y alternativas menos restrictivas.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="comparacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Comparación de instrumentos y elección de política</h3>
+    <p class="section-lead">La comparación debe distinguir el cambio de precio, la cantidad afectada y quién recibe la renta o asume el costo fiscal.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Instrumento</th><th>Precio nacional</th><th>Cantidad</th><th>Ingreso, renta o costo</th><th>Beneficiario directo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Arancel</strong></td><td>Aumenta</td><td>Importación cae</td><td>Ingreso fiscal</td><td>Productor y fisco</td></tr>
+          <tr><td><strong>Cuota</strong></td><td>Aumenta</td><td>Fija o limitada</td><td>Renta del titular</td><td>Productor y rentista</td></tr>
+          <tr><td><strong>VER</strong></td><td>Aumenta</td><td>Exportación limitada</td><td>Renta extranjera</td><td>Productor nacional y exportador extranjero</td></tr>
+          <tr><td><strong>Subsidio exportador</strong></td><td>Aumenta</td><td>Exportación sube</td><td>Costo fiscal</td><td>Exportador</td></tr>
+          <tr><td><strong>Contenido local</strong></td><td>Aumenta costos</td><td>Reduce insumo importado</td><td>Renta del proveedor</td><td>Industria de insumos</td></tr>
+          <tr><td><strong>Crédito oficial</strong></td><td>Reduce costo financiero</td><td>Exportación puede subir</td><td>Riesgo fiscal</td><td>Exportador y comprador</td></tr>
+          <tr><td><strong>Barrera administrativa</strong></td><td>Eleva costo efectivo</td><td>Puede reducir comercio</td><td>Costo de cumplimiento</td><td>Productores protegidos</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card"><h4>Más transparente</h4><ul><li>Arancel publicado.</li><li>Subasta competitiva.</li><li>Procedimiento digital y predecible.</li></ul></article>
+      <article class="mini-card"><h4>Menos transparente</h4><ul><li>Licencia discrecional.</li><li>Demora administrativa.</li><li>Garantía contingente.</li><li>Requisito informal.</li></ul></article>
+      <article class="mini-card"><h4>Regla de eficiencia</h4><p>Corregir la falla con el instrumento más directo y establecer meta, indicador, evaluación, cláusula de expiración y estrategia de salida.</p></article>
+    </div>
+
+    <div class="warning callout"><strong>Riesgo de captura:</strong> una medida temporal puede volverse permanente cuando los beneficiarios concentran ganancias y los consumidores soportan costos dispersos.</div>
+
+    <details>
+      <summary>Actividad breve: escoger el instrumento más directo</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>Falta de técnicos certificados.</li>
+          <li>Riesgo de plaga importada.</li>
+          <li>Necesidad de recaudar.</li>
+          <li>Externalidad de I+D.</li>
+          <li>Choque temporal de importaciones con daño grave.</li>
+          <li>Competencia por crédito exportador subsidiado.</li>
+        </ol>
+        <p style="margin-top:.6rem;">Justifique por qué capacitación, regulación sanitaria basada en riesgo, arancel, subsidio directo a I+D, salvaguardia temporal o disciplina financiera pueden ser más directos que una protección general.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Caso integrador: evaluación de una política</h3>
+    <p class="section-lead">Utilice la matriz para evaluar una medida real o hipotética sin limitarse a identificar su nombre.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Diagnóstico económico</h4>
+        <ol style="padding-left:1.1rem;">
+          <li>Objetivo y problema.</li>
+          <li>Mercado afectado.</li>
+          <li>Cambio de precio.</li>
+          <li>Cambio de producción, consumo y comercio.</li>
+          <li>Ganadores y perdedores.</li>
+        </ol>
+      </article>
+      <article class="mini-card">
+        <h4>Diagnóstico institucional</h4>
+        <ol style="padding-left:1.1rem;">
+          <li>Renta, recaudación o costo fiscal.</li>
+          <li>Compatibilidad internacional.</li>
+          <li>Riesgo de captura.</li>
+          <li>Duración y salida.</li>
+          <li>Alternativa más directa.</li>
+        </ol>
+      </article>
+    </div>
+
+    <div class="chain" aria-label="Secuencia de evaluación de política">
+      <span>Objetivo</span><b>→</b><span>Instrumento</span><b>→</b><span>Mecanismo</span><b>→</b><span>Incidencia</span><b>→</b><span>Bienestar</span><b>→</b><span>Alternativa</span>
+    </div>
+
+    <details>
+      <summary>Mini debate</summary>
+      <div>
+        <p><strong>Posición A:</strong> las políticas comerciales son necesarias para desarrollar capacidades productivas.</p>
+        <p style="margin-top:.5rem;"><strong>Posición B:</strong> los instrumentos comerciales son indirectos, costosos y vulnerables a captura.</p>
+        <p style="margin-top:.5rem;">Cada posición debe usar un modelo, un instrumento, un caso, un efecto distributivo y una condición de política.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">11</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Una política comercial debe evaluarse por el problema que busca resolver, su mecanismo, incidencia distributiva, duración y alternativas más directas.">
+      <h4>1. ¿Cuál es el primer paso para evaluar una política comercial?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Calcular únicamente la recaudación.</button>
+        <button data-choice="b">Identificar la falla de mercado o meta pública.</button>
+        <button data-choice="c">Suponer que toda intervención es proteccionista.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="El arancel específico representa una cantidad fija por unidad y su equivalente ad valorem aumenta cuando cae el precio mundial.">
+      <h4>2. ¿Qué ocurre con el AVE de un arancel específico cuando cae P<sub>W</sub>?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Disminuye necesariamente.</button>
+        <button data-choice="b">Permanece constante.</button>
+        <button data-choice="c">Aumenta.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="La demanda de importaciones es la diferencia entre demanda y oferta nacionales y disminuye cuando aumenta el precio.">
+      <h4>3. ¿Cómo se define la demanda de importaciones?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">MD=D−S.</button>
+        <button data-choice="b">MD=S−D.</button>
+        <button data-choice="c">MD=S*−D*.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="En un país pequeño la oferta extranjera es perfectamente elástica al precio mundial, por lo que el precio externo no cambia.">
+      <h4>4. ¿Quién soporta la cuña de un arancel en un país pequeño?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Exclusivamente los exportadores extranjeros.</button>
+        <button data-choice="b">El precio nacional aumenta en el monto del arancel.</button>
+        <button data-choice="c">El precio nacional no cambia.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="En un país grande, la reducción de la demanda mundial puede bajar el precio recibido por los exportadores extranjeros.">
+      <h4>5. ¿Qué distingue al arancel de un país grande?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Nunca reduce las importaciones.</button>
+        <button data-choice="b">No genera ninguna distorsión.</button>
+        <button data-choice="c">Puede mejorar sus términos de intercambio.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="La ERP mide el cambio porcentual del valor añadido doméstico, incorporando tanto el arancel al producto como la protección de los insumos.">
+      <h4>6. ¿Qué protege conceptualmente la tasa de protección efectiva?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">El valor añadido doméstico.</button>
+        <button data-choice="b">Solo el valor bruto de las importaciones.</button>
+        <button data-choice="c">La cantidad total de trabajadores.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Un subsidio a la exportación implica un pago o beneficio fiscal condicionado a vender en el exterior.">
+      <h4>7. ¿Cuál es la diferencia fiscal central entre arancel y subsidio exportador?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Ambos generan siempre ingreso fiscal.</button>
+        <button data-choice="b">El arancel recauda y el subsidio genera gasto.</button>
+        <button data-choice="c">Ninguno afecta las cuentas públicas.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="La cuota crea una renta equivalente a la diferencia entre el precio interno y mundial multiplicada por la cantidad autorizada.">
+      <h4>8. ¿Quién recibe la renta de una cuota subastada competitivamente?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Siempre el exportador extranjero.</button>
+        <button data-choice="b">Nadie, porque la renta desaparece.</button>
+        <button data-choice="c">El gobierno que subasta las licencias.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="En una VER, las licencias de exportación suelen quedar en manos extranjeras, por lo que la renta se transfiere fuera del país importador.">
+      <h4>9. ¿Por qué una VER puede ser más costosa que un arancel equivalente?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque suele transferir las rentas al exterior.</button>
+        <button data-choice="b">Porque reduce siempre el precio nacional.</button>
+        <button data-choice="c">Porque aumenta la recaudación del importador.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Tiempo, documentación e incertidumbre generan costos de cumplimiento que son relativamente más pesados para empresas con menores ventas.">
+      <h4>10. ¿Por qué las barreras administrativas afectan más a empresas pequeñas?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque están exentas de todos los costos variables.</button>
+        <button data-choice="b">Porque distribuyen los costos fijos entre menos operaciones.</button>
+        <button data-choice="c">Porque poseen más personal jurídico y financiero.</button>
+      </div><div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">12</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>La diferencia entre instrumentos de precio, cantidad, regulación y apoyo.</li>
+      <li>Cómo calcular arancel específico, ad valorem, compuesto y equivalente ad valorem.</li>
+      <li>Cómo se derivan la demanda de importaciones y la oferta de exportaciones.</li>
+      <li>La cuña P<sub>T</sub>−P<sub>T</sub>*=t y la reducción del comercio.</li>
+      <li>La diferencia entre la incidencia en un país pequeño y uno grande.</li>
+      <li>Cómo calcular e interpretar la protección efectiva.</li>
+      <li>Por qué subsidios, cuotas y VER distribuyen de manera distinta ingresos y rentas.</li>
+      <li>Cómo opera una exigencia de contenido local y quién absorbe su sobrecosto.</li>
+      <li>Cuándo el crédito oficial contiene un elemento concesional.</li>
+      <li>Cómo tiempo, documentación e incertidumbre funcionan como barreras.</li>
+      <li>Por qué una política debe incluir evaluación, expiración y estrategia de salida.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+<p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

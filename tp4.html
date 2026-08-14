@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Modelo de los factores específicos | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<header class="inst-header" role="banner">
+  <img
+    id="logo-img"
+    src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"
+    alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello"
+    onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+  >
+  <div id="logo-fallback" class="inst-header-fallback" aria-hidden="true">FEN</div>
+  <div class="inst-header-text">
+    <h1>Universidad Andrés Bello</h1>
+    <p>Facultad de Economía y Negocios</p>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 4</span>
+    <h2 id="page-title">Modelo de los factores específicos</h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Explica cómo la movilidad parcial de los factores genera una frontera de posibilidades de producción cóncava, determina salarios y asignación sectorial del trabajo, y produce ganadores y perdedores cuando cambian los precios relativos o se abre la economía al comercio.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> comience por las ocho ideas fuerza, identifique qué factores son móviles o específicos, siga la derivación de la FPP y del equilibrio laboral, y termine analizando los efectos distributivos del comercio.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#estructura">Estructura</a>
+    <a href="#fpp">FPP</a>
+    <a href="#trabajo">Mercado laboral</a>
+    <a href="#precios">Precios relativos</a>
+    <a href="#distribucion">Distribución</a>
+    <a href="#comercio">Comercio</a>
+    <a href="#comparacion">Comparación</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Ocho ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan la lógica del modelo.</p>
+    <div class="key-ideas">
+      <div class="key-idea">El modelo representa un horizonte de corto plazo en el que el trabajo es móvil entre sectores, pero el capital y la tierra permanecen ligados a usos específicos.</div>
+      <div class="key-idea">La especificidad de un factor depende del tiempo, la tecnología, la localización y los costos de adaptación.</div>
+      <div class="key-idea">Los rendimientos marginales decrecientes generan costos de oportunidad crecientes y una FPP cóncava.</div>
+      <div class="key-idea">La pendiente de la FPP es −PMgL<sub>A</sub>/PMgL<sub>M</sub> cuando manufacturas están en el eje horizontal.</div>
+      <div class="key-idea">El trabajo se reasigna hasta igualar el valor de su producto marginal y el salario nominal en ambos sectores.</div>
+      <div class="key-idea">La producción responde a precios relativos; un aumento proporcional de todos los precios no altera cantidades ni ingresos reales.</div>
+      <div class="key-idea">El factor específico del sector cuyo precio aumenta gana; el factor específico del otro sector pierde.</div>
+      <div class="key-idea">El efecto sobre el trabajo móvil es ambiguo porque su salario real aumenta respecto de un bien y disminuye respecto del otro.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia conecta producción, precios, asignación del trabajo y distribución.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Movilidad parcial de factores</div>
+      <div class="route-node">Productos marginales decrecientes</div>
+      <div class="route-node">FPP cóncava y costo creciente</div>
+      <div class="route-node">Salario y asignación laboral</div>
+      <div class="route-node">Cambio de precios relativos</div>
+      <div class="route-node">Comercio y distribución del ingreso</div>
+    </div>
+  </section>
+
+  <section id="estructura" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>Estructura y horizonte del modelo</h3>
+    <p class="section-lead">La economía produce manufacturas y alimentos con un factor móvil y dos factores específicos.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Manufacturas</h4>
+        <div class="formula" style="font-size:1rem;">Q<sub>M</sub> = Q<sub>M</sub>(K,L<sub>M</sub>)</div>
+        <p>El capital <strong>K</strong> es específico de manufacturas y el trabajo <strong>L<sub>M</sub></strong> puede entrar o salir del sector.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Alimentos</h4>
+        <div class="formula" style="font-size:1rem;">Q<sub>A</sub> = Q<sub>A</sub>(T,L<sub>A</sub>)</div>
+        <p>La tierra <strong>T</strong> es específica de alimentos y el trabajo <strong>L<sub>A</sub></strong> se reasigna internamente.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Trabajo total</h4>
+        <div class="formula" style="font-size:1rem;">L = L<sub>M</sub> + L<sub>A</sub></div>
+        <p>Una unidad adicional de trabajo en manufacturas implica una unidad menos en alimentos.</p>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Pregunta orientadora:</strong> ¿por qué un país puede ganar en términos agregados con el comercio y, simultáneamente, algunos propietarios de factores productivos pueden perder?</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Horizonte</th><th>Movilidad</th><th>Interpretación</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Muy corto plazo</strong></td><td>Ni trabajo ni factores específicos se desplazan.</td><td>La producción está prácticamente fijada.</td></tr>
+          <tr><td><strong>Corto plazo</strong></td><td>El trabajo se mueve; capital y tierra permanecen específicos.</td><td>Es el horizonte central del modelo.</td></tr>
+          <tr><td><strong>Largo plazo</strong></td><td>Capital, tecnología y usos de la tierra pueden ajustarse.</td><td>La especificidad disminuye y se aproxima la lógica de otros modelos.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Origen y propósito del modelo</summary>
+      <div>
+        <p>El marco moderno de dos bienes, un factor móvil y dos factores específicos fue desarrollado de manera independiente por Ronald W. Jones y Paul A. Samuelson a comienzos de la década de 1970. Su aporte central es estudiar conjuntamente comercio, movilidad sectorial incompleta y distribución del ingreso.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Actividad breve: clasificar factores</summary>
+      <div>
+        <p>Clasifique como relativamente <strong>móvil</strong> o <strong>específico</strong> en un horizonte de dos años: trabajador de una planta de alimentos, máquina especializada para fabricar chips, terreno agrícola, camión general, puerto minero, software contable y conocimiento técnico de un enólogo.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> la respuesta depende de costos de adaptación, localización, capacitación y tiempo. El camión y el software suelen ser más móviles; la máquina de chips, el terreno y el puerto son más específicos.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="fpp" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>FPP cóncava y costo de oportunidad creciente</h3>
+    <p class="section-lead">La FPP se obtiene variando la asignación de trabajo entre los dos sectores, mientras capital y tierra permanecen fijos.</p>
+
+    <div class="formula">Q<sub>M</sub> = Q<sub>M</sub>(K,L<sub>M</sub>) &nbsp;&nbsp;·&nbsp;&nbsp; Q<sub>A</sub> = Q<sub>A</sub>(T,L−L<sub>M</sub>)</div>
+    <div class="formula">dQ<sub>A</sub>/dQ<sub>M</sub> = − PMgL<sub>A</sub>/PMgL<sub>M</sub></div>
+    <p class="formula-note">La pendiente mide el costo de oportunidad marginal de manufacturas en unidades de alimentos.</p>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Al mover trabajo hacia manufacturas</h4>
+        <ul>
+          <li>L<sub>M</sub> aumenta y PMgL<sub>M</sub> disminuye.</li>
+          <li>L<sub>A</sub> disminuye y PMgL<sub>A</sub> aumenta.</li>
+          <li>La razón PMgL<sub>A</sub>/PMgL<sub>M</sub> aumenta.</li>
+          <li>El costo marginal de manufacturas se vuelve mayor.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Comparación con Ricardo</h4>
+        <p>En el modelo ricardiano los productos marginales son constantes y la FPP es lineal. En factores específicos cambian con la asignación laboral, por lo que la FPP es cóncava y la especialización completa es menos frecuente.</p>
+      </article>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Ejemplo Cobb–Douglas</h4>
+    <div class="formula" style="font-size:1rem;">Q<sub>M</sub> = 10√L<sub>M</sub> &nbsp;&nbsp;·&nbsp;&nbsp; Q<sub>A</sub> = 10√(100−L<sub>M</sub>)</div>
+    <div class="formula" style="font-size:1rem;">PMgL<sub>M</sub> = 5/√L<sub>M</sub> &nbsp;&nbsp;·&nbsp;&nbsp; PMgL<sub>A</sub> = 5/√L<sub>A</sub></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>L<sub>M</sub></th><th>L<sub>A</sub></th><th>Q<sub>M</sub></th><th>Q<sub>A</sub></th><th>CO marginal de M</th></tr></thead>
+        <tbody>
+          <tr><td>20</td><td>80</td><td>44,72</td><td>89,44</td><td>0,50</td></tr>
+          <tr><td>50</td><td>50</td><td>70,71</td><td>70,71</td><td>1,00</td></tr>
+          <tr><td>80</td><td>20</td><td>89,44</td><td>44,72</td><td>2,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>Frontera de posibilidades de producción</h4>
+      <svg viewBox="0 0 760 390" role="img" aria-labelledby="fpp-title fpp-desc" style="display:block;width:100%;height:auto;">
+        <title id="fpp-title">FPP cóncava del modelo de factores específicos</title>
+        <desc id="fpp-desc">La frontera conecta cien unidades de alimentos con cien unidades de manufacturas y se curva hacia afuera.</desc>
+        <rect x="0" y="0" width="760" height="390" rx="12" fill="#ffffff"/>
+        <line x1="75" y1="325" x2="710" y2="325" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="325" x2="75" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <path d="M75 35 C180 42, 340 85, 470 165 C585 235, 650 290, 690 325" fill="none" stroke="#003366" stroke-width="4"/>
+        <circle cx="470" cy="165" r="6" fill="#d4961a"/>
+        <line x1="345" y1="95" x2="590" y2="250" stroke="#d4961a" stroke-width="3" stroke-dasharray="10 7"/>
+        <text x="690" y="350" text-anchor="middle" font-size="13" fill="#55557a">100 Qₘ</text>
+        <text x="61" y="40" text-anchor="end" font-size="13" fill="#55557a">100 Qₐ</text>
+        <text x="392" y="382" text-anchor="middle" font-size="13" fill="#55557a">Manufacturas</text>
+        <text x="20" y="180" transform="rotate(-90 20 180)" text-anchor="middle" font-size="13" fill="#55557a">Alimentos</text>
+        <text x="480" y="150" font-size="13" fill="#1a1a2e">Tangencia</text>
+        <text x="505" y="212" font-size="13" fill="#855b08">Recta de isovalor</text>
+      </svg>
+      <p class="formula-note">En el punto de tangencia, PMgL<sub>A</sub>/PMgL<sub>M</sub> = P<sub>M</sub>/P<sub>A</sub>.</p>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: calcular la pendiente</summary>
+      <div>
+        <p>Con el ejemplo Cobb–Douglas, calcule la pendiente cuando L<sub>M</sub>=36 y cuando L<sub>M</sub>=64.</p>
+        <p style="margin-top:.6rem;"><strong>Respuesta:</strong> −0,75 y aproximadamente −1,33, respectivamente. El costo marginal aumenta al expandir manufacturas.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="trabajo" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Salarios y asignación del trabajo</h3>
+    <p class="section-lead">Una empresa competitiva contrata trabajo hasta que el valor del producto marginal iguala el salario.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Demanda laboral manufacturera</h4>
+        <div class="formula" style="font-size:1rem;">w = P<sub>M</sub>PMgL<sub>M</sub></div>
+        <p>Disminuye con L<sub>M</sub> porque el capital manufacturero permanece fijo.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Demanda laboral agrícola</h4>
+        <div class="formula" style="font-size:1rem;">w = P<sub>A</sub>PMgL<sub>A</sub></div>
+        <p>Se interpreta desde el extremo derecho, ya que L<sub>A</sub>=L−L<sub>M</sub>.</p>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Condición de equilibrio:</strong> P<sub>M</sub>PMgL<sub>M</sub> = P<sub>A</sub>PMgL<sub>A</sub> = w. Si un sector genera mayor valor marginal, el trabajo se desplaza hacia él.</div>
+
+    <div class="mini-card">
+      <h4>Equilibrio inicial con P<sub>M</sub>=P<sub>A</sub>=1</h4>
+      <svg viewBox="0 0 760 360" role="img" aria-labelledby="labor-title labor-desc" style="display:block;width:100%;height:auto;">
+        <title id="labor-title">Equilibrio del mercado laboral</title>
+        <desc id="labor-desc">Las curvas de valor del producto marginal de manufacturas y alimentos se intersectan en cincuenta trabajadores por sector.</desc>
+        <rect x="0" y="0" width="760" height="360" rx="12" fill="#ffffff"/>
+        <line x1="75" y1="300" x2="710" y2="300" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="300" x2="75" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <path d="M95 60 C190 105, 310 155, 392 205 C500 245, 600 270, 690 285" fill="none" stroke="#003366" stroke-width="4"/>
+        <path d="M95 285 C190 270, 290 245, 392 205 C485 155, 590 105, 690 60" fill="none" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/>
+        <line x1="392" y1="205" x2="392" y2="300" stroke="#dce3f0" stroke-width="2"/>
+        <line x1="75" y1="205" x2="392" y2="205" stroke="#dce3f0" stroke-width="2"/>
+        <circle cx="392" cy="205" r="6" fill="#2e7d32"/>
+        <text x="392" y="326" text-anchor="middle" font-size="13" fill="#55557a">Lₘ = 50</text>
+        <text x="62" y="210" text-anchor="end" font-size="13" fill="#55557a">w ≈ 0,707</text>
+        <text x="392" y="350" text-anchor="middle" font-size="13" fill="#55557a">Trabajo asignado a manufacturas</text>
+        <text x="18" y="170" transform="rotate(-90 18 170)" text-anchor="middle" font-size="13" fill="#55557a">Valor del producto marginal</text>
+        <g transform="translate(465,45)">
+          <line x1="0" y1="0" x2="34" y2="0" stroke="#003366" stroke-width="4"/><text x="44" y="5" font-size="13" fill="#1a1a2e">PₘPMgLₘ</text>
+          <line x1="0" y1="28" x2="34" y2="28" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/><text x="44" y="33" font-size="13" fill="#1a1a2e">PₐPMgLₐ</text>
+        </g>
+      </svg>
+      <div class="formula" style="font-size:1rem;">L<sub>M</sub>=L<sub>A</sub>=50 · w≈0,707 · Q<sub>M</sub>=Q<sub>A</sub>≈70,71</div>
+    </div>
+  </section>
+
+  <section id="precios" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Aumento del precio relativo de manufacturas</h3>
+    <p class="section-lead">Suponga que P<sub>M</sub> aumenta de 1 a 2 y P<sub>A</sub> permanece en 1.</p>
+
+    <div class="chain" aria-label="Cadena de ajuste por aumento del precio manufacturero">
+      <span>P<sub>M</sub> aumenta</span><b>→</b><span>Sube P<sub>M</sub>PMgL<sub>M</sub></span><b>→</b><span>Trabajo entra a manufacturas</span><b>→</b><span>Q<sub>M</sub> aumenta</span><b>→</b><span>Q<sub>A</sub> disminuye</span>
+    </div>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Nueva asignación</h4>
+        <div class="formula" style="font-size:1rem;">L<sub>M</sub>=80 · L<sub>A</sub>=20</div>
+        <p>El trabajo se mueve hacia el sector cuyo precio relativo aumentó.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Nuevo salario</h4>
+        <div class="formula" style="font-size:1rem;">w≈1,118</div>
+        <p>El salario nominal aumenta, pero menos que proporcionalmente que P<sub>M</sub>.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Nueva producción</h4>
+        <div class="formula" style="font-size:1rem;">Q<sub>M</sub>≈89,44 · Q<sub>A</sub>≈44,72</div>
+        <p>La especialización aumenta, pero ambos bienes continúan produciéndose.</p>
+      </article>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Salario real en manufacturas</h4>
+        <div class="formula" style="font-size:1rem;">w/P<sub>M</sub> = 1,118/2 ≈ 0,559</div>
+        <p>Disminuye frente al valor inicial de 0,707.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Salario real en alimentos</h4>
+        <div class="formula" style="font-size:1rem;">w/P<sub>A</sub> = 1,118</div>
+        <p>Aumenta frente al valor inicial de 0,707.</p>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Resultado para trabajadores:</strong> es ambiguo. Pueden comprar más alimentos, pero menos manufacturas; el efecto final depende de su canasta de consumo y de sus costos de movilidad.</div>
+
+    <div class="callout"><strong>Cambio proporcional de precios:</strong> si P<sub>M</sub> y P<sub>A</sub> aumentan en la misma proporción, P<sub>M</sub>/P<sub>A</sub> no cambia. La asignación laboral y las cantidades permanecen iguales; salarios y rentas nominales aumentan proporcionalmente, pero los ingresos reales no cambian.</div>
+
+    <details>
+      <summary>Actividad breve: nuevo equilibrio con P<sub>M</sub>=3</summary>
+      <div>
+        <p>Calcule la asignación, el salario y los salarios reales usando el ejemplo Cobb–Douglas.</p>
+        <p style="margin-top:.6rem;"><strong>Respuesta:</strong> L<sub>M</sub>=90, L<sub>A</sub>=10, w≈1,581, w/P<sub>M</sub>≈0,527 y w/P<sub>A</sub>≈1,581.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="distribucion" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Distribución del ingreso: quién gana y quién pierde</h3>
+    <p class="section-lead">Los cambios de precios relativos afectan de manera distinta al trabajo móvil y a los propietarios de factores específicos.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Capital manufacturero</h4>
+        <p>Más trabajo se combina con el capital fijo, aumenta su productividad marginal y el propietario gana en términos de ambos bienes.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Tierra agrícola</h4>
+        <p>El sector pierde trabajo, disminuye la productividad marginal de la tierra y su propietario pierde en términos de ambos bienes.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Trabajo móvil</h4>
+        <p>Su salario real aumenta respecto de alimentos y cae respecto de manufacturas. El bienestar depende de preferencias y propiedad de activos.</p>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Ingreso</th><th>Situación inicial</th><th>Después de P<sub>M</sub>: 1→2</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Renta del capital</strong></td><td>R<sub>K</sub><sup>0</sup>≈35,36</td><td>R<sub>K</sub><sup>1</sup>≈89,44</td><td>Gana claramente.</td></tr>
+          <tr><td><strong>Renta de la tierra</strong></td><td>R<sub>T</sub><sup>0</sup>≈35,36</td><td>R<sub>T</sub><sup>1</sup>≈22,36</td><td>Pierde claramente.</td></tr>
+          <tr><td><strong>Salario nominal</strong></td><td>w<sup>0</sup>≈0,707</td><td>w<sup>1</sup>≈1,118</td><td>Aumenta menos que P<sub>M</sub>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout"><strong>Efecto de magnificación:</strong> bajo condiciones tecnológicas regulares, el retorno del factor específico exportador aumenta más que el precio de su bien; el salario queda entre los cambios de precios y el retorno del factor específico importador disminuye.</div>
+
+    <div class="formula" style="font-size:1rem;">%ΔR<sub>K</sub> &gt; %ΔP<sub>M</sub> &gt; %Δw &gt; %ΔP<sub>A</sub> &gt; %ΔR<sub>T</sub></div>
+
+    <details>
+      <summary>Actividad breve: identificar ganadores</summary>
+      <div>
+        <p>Ante un aumento de P<sub>M</sub>/P<sub>A</sub>, clasifique: propietario de capital manufacturero, propietario de tierra, trabajador que consume principalmente alimentos, trabajador que consume principalmente manufacturas y trabajador que además posee acciones manufactureras.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> capital gana; tierra pierde; el resultado de trabajadores depende de su canasta y de la propiedad adicional de activos.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="comercio" class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Comercio internacional y precios relativos</h3>
+    <p class="section-lead">La apertura conecta el precio relativo doméstico con el precio mundial y separa el punto de producción del punto de consumo.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Precio de autarquía</h4>
+        <div class="formula" style="font-size:1rem;">OR = Q<sub>M</sub>/Q<sub>A</sub> &nbsp;·&nbsp; DR = D<sub>M</sub>/D<sub>A</sub></div>
+        <p>Sin comercio, el precio relativo se determina donde la oferta relativa doméstica iguala la demanda relativa doméstica.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Precio mundial</h4>
+        <div class="formula" style="font-size:1rem;">(P<sub>M</sub>/P<sub>A</sub>)<sup>*</sup> ≠ (P<sub>M</sub>/P<sub>A</sub>)<sup>aut</sup></div>
+        <p>Una economía pequeña toma el precio mundial como dado.</p>
+      </article>
+    </div>
+
+    <div class="chain" aria-label="Patrón comercial">
+      <span>Precio mundial de M mayor que en autarquía</span><b>→</b><span>Trabajo entra a M</span><b>→</b><span>Q<sub>M</sub> aumenta</span><b>→</b><span>Exporta M</span><b>→</b><span>Importa A</span>
+    </div>
+
+    <div class="callout"><strong>Ventaja comparativa:</strong> un precio de autarquía relativamente bajo para manufacturas indica que el país puede producirlas a un costo de oportunidad menor que el resto del mundo.</div>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Producción</h4>
+        <p>Se determina por la tangencia entre la FPP y la recta de isovalor con pendiente −P<sub>M</sub>/P<sub>A</sub>.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Consumo</h4>
+        <p>Se determina por el ingreso, la restricción presupuestaria y las preferencias.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Exportaciones netas</h4>
+        <div class="formula" style="font-size:1rem;">X<sub>M</sub> = Q<sub>M</sub> − D<sub>M</sub></div>
+        <p>Producción y consumo ya no tienen que coincidir dentro del país.</p>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Especialización incompleta:</strong> el sector importador normalmente no desaparece. Al perder trabajo aumenta su producto marginal, mientras el costo de expandir el sector exportador se eleva.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Grupo</th><th>Si manufacturas es el bien exportado y P<sub>M</sub>/P<sub>A</sub> aumenta</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Capital específico de M</strong></td><td>Gana inequívocamente en términos de ambos bienes.</td></tr>
+          <tr><td><strong>Tierra específica de A</strong></td><td>Pierde inequívocamente en términos de ambos bienes.</td></tr>
+          <tr><td><strong>Trabajo móvil</strong></td><td>Efecto ambiguo por cambios opuestos en los dos salarios reales.</td></tr>
+          <tr><td><strong>Consumidores intensivos en M</strong></td><td>Están más expuestos a pérdidas de poder adquisitivo.</td></tr>
+          <tr><td><strong>Consumidores intensivos en A</strong></td><td>Están más expuestos a ganancias de poder adquisitivo.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: apertura y precio exportable</summary>
+      <div>
+        <p>Un país exporta manufacturas e importa alimentos y el precio relativo cambia de 1 a 1,5. Explique la reasignación de trabajo, la producción, el salario nominal, los dos salarios reales y las rentas de capital y tierra.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> trabajo hacia manufacturas; Q<sub>M</sub> aumenta y Q<sub>A</sub> cae; w nominal aumenta; w/P<sub>M</sub> cae y w/P<sub>A</sub> aumenta; capital gana y tierra pierde.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="comparacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Comparación e interpretación económica</h3>
+    <p class="section-lead">El modelo de factores específicos ocupa una posición intermedia entre el modelo ricardiano de tecnología y el enfoque de largo plazo de Heckscher–Ohlin.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Ricardiano</th><th>Factores específicos</th><th>Heckscher–Ohlin</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Factores</strong></td><td>Trabajo.</td><td>Trabajo, capital y tierra.</td><td>Trabajo y capital.</td></tr>
+          <tr><td><strong>Movilidad interna</strong></td><td>Trabajo móvil.</td><td>Trabajo móvil; otros específicos.</td><td>Todos móviles entre sectores.</td></tr>
+          <tr><td><strong>FPP</strong></td><td>Lineal.</td><td>Cóncava.</td><td>Cóncava.</td></tr>
+          <tr><td><strong>Especialización</strong></td><td>Puede ser completa.</td><td>Normalmente incompleta.</td><td>Generalmente incompleta.</td></tr>
+          <tr><td><strong>Distribución</strong></td><td>Poco desarrollada.</td><td>Central y sectorial.</td><td>Central y factorial.</td></tr>
+          <tr><td><strong>Horizonte</strong></td><td>Tecnología dada.</td><td>Corto plazo.</td><td>Largo plazo.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card"><h4>Aporte central</h4><p>Explica por qué el comercio genera ganancias agregadas y conflicto distributivo al mismo tiempo.</p></article>
+      <article class="mini-card"><h4>Límite central</h4><p>Supone competencia perfecta, pleno empleo, trabajo homogéneo y ausencia inicial de costos de movilidad.</p></article>
+      <article class="mini-card"><h4>Aplicación</h4><p>Ayuda a interpretar presiones políticas de sectores exportadores e importadores durante ajustes comerciales.</p></article>
+    </div>
+
+    <div class="warning callout"><strong>Lectura distributiva:</strong> una ganancia potencial agregada no significa que todos ganen. El resultado individual depende del factor que se posee, de la canasta de consumo y de los costos y la velocidad de la movilidad laboral.</div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Caso integrador</h3>
+    <p class="section-lead">Utilice el caso para conectar producción, precios, comercio y distribución.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Estructura productiva</h4>
+        <ul><li>Manufacturas utilizan capital específico.</li><li>Alimentos utilizan tierra específica.</li><li>El trabajo es móvil entre sectores.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Choque externo</h4>
+        <ul><li>El precio mundial de manufacturas aumenta.</li><li>El país exporta manufacturas.</li><li>Los términos de intercambio mejoran.</li></ul>
+      </article>
+      <article class="mini-card">
+        <h4>Restricciones reales</h4>
+        <ul><li>La movilidad laboral tiene costos.</li><li>Los trabajadores consumen canastas distintas.</li><li>Algunos trabajadores poseen acciones.</li></ul>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Preguntas para resolver el caso</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Hacia qué sector se desplaza el trabajo?</li>
+          <li>¿Cómo cambian Q<sub>M</sub> y Q<sub>A</sub>?</li>
+          <li>¿Por qué aumenta el salario nominal menos que P<sub>M</sub>?</li>
+          <li>¿Qué ocurre con los dos salarios reales?</li>
+          <li>¿Quién gana y quién pierde inequívocamente?</li>
+          <li>¿Cómo cambian las conclusiones si la movilidad laboral es costosa?</li>
+          <li>¿Por qué pueden coexistir una ganancia agregada y pérdidas para grupos específicos?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">11</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="En el corto plazo, el trabajo puede desplazarse entre sectores, mientras capital y tierra permanecen ligados a sus usos sectoriales.">
+      <h4>1. ¿Qué caracteriza al modelo de factores específicos?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Todos los factores son perfectamente móviles entre sectores.</button>
+        <button data-choice="b">El trabajo es móvil y capital y tierra son específicos.</button>
+        <button data-choice="c">Ningún factor puede cambiar de sector.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Con manufacturas en el eje horizontal, la pendiente es el negativo del producto marginal del trabajo en alimentos dividido por el de manufacturas.">
+      <h4>2. ¿Cuál es la pendiente de la FPP?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">−P<sub>A</sub>/P<sub>M</sub>.</button>
+        <button data-choice="b">−PMgL<sub>M</sub>/PMgL<sub>A</sub>.</button>
+        <button data-choice="c">−PMgL<sub>A</sub>/PMgL<sub>M</sub>.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="Al expandirse manufacturas, cae PMgL_M y aumenta PMgL_A porque alimentos utiliza menos trabajo; por eso el costo de oportunidad de M crece.">
+      <h4>3. ¿Por qué la FPP es cóncava?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque los productos marginales cambian al reasignar trabajo.</button>
+        <button data-choice="b">Porque los precios internacionales son constantes.</button>
+        <button data-choice="c">Porque todos los factores se desplazan simultáneamente.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="La movilidad laboral iguala el valor del producto marginal y, por tanto, el salario nominal entre sectores.">
+      <h4>4. ¿Qué condición determina la asignación laboral?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Q<sub>M</sub>=Q<sub>A</sub> en todos los casos.</button>
+        <button data-choice="b">P<sub>M</sub>PMgL<sub>M</sub>=P<sub>A</sub>PMgL<sub>A</sub>=w.</button>
+        <button data-choice="c">P<sub>M</sub>=P<sub>A</sub> necesariamente.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="El salario nominal aumenta menos que el precio de manufacturas, por lo que compra menos manufacturas, pero compra más alimentos cuyo precio no cambió.">
+      <h4>5. Si aumenta solo P<sub>M</sub>, ¿qué ocurre con el salario real del trabajo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Aumenta respecto de ambos bienes.</button>
+        <button data-choice="b">Disminuye respecto de ambos bienes.</button>
+        <button data-choice="c">Disminuye respecto de M y aumenta respecto de A.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="Más trabajo se combina con el capital fijo del sector en expansión, elevando su productividad y su renta real.">
+      <h4>6. ¿Quién gana inequívocamente cuando aumenta el precio del bien manufacturero?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">El propietario del capital específico manufacturero.</button>
+        <button data-choice="b">El propietario de tierra agrícola.</button>
+        <button data-choice="c">Todos los trabajadores, sin importar su consumo.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="El producto marginal del trabajo en el sector importador aumenta a medida que pierde trabajo, evitando normalmente que desaparezca por completo.">
+      <h4>7. ¿Por qué suele existir especialización incompleta?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque el comercio prohíbe cerrar sectores.</button>
+        <button data-choice="b">Porque el costo marginal de expandir el sector exportador aumenta.</button>
+        <button data-choice="c">Porque los precios relativos no afectan la producción.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="La apertura puede ampliar el conjunto de consumo agregado, pero el factor específico exportador gana y el importador pierde.">
+      <h4>8. ¿Cuál es la principal lección distributiva del modelo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">El comercio beneficia por igual a todos los factores.</button>
+        <button data-choice="b">El comercio siempre reduce el ingreso nacional.</button>
+        <button data-choice="c">Puede haber ganancias agregadas junto con ganadores y perdedores.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">12</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>La diferencia entre un factor móvil y uno específico.</li>
+      <li>Por qué la especificidad depende del horizonte temporal.</li>
+      <li>Cómo derivar la pendiente de la FPP.</li>
+      <li>Por qué los rendimientos marginales decrecientes generan concavidad.</li>
+      <li>Cómo se determina el salario común entre sectores.</li>
+      <li>Cómo un aumento de P<sub>M</sub>/P<sub>A</sub> reasigna trabajo y producción.</li>
+      <li>Por qué el efecto sobre el salario real del trabajo es ambiguo.</li>
+      <li>Por qué el capital manufacturero gana y la tierra agrícola pierde.</li>
+      <li>Cómo el precio mundial determina el patrón de comercio.</li>
+      <li>Por qué suelen mantenerse ambos sectores después de la apertura.</li>
+      <li>Las diferencias con los modelos ricardiano y Heckscher–Ohlin.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Mercantilismo y La riqueza de las naciones | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+<!-- ═══ INSTITUTIONAL HEADER: igual a Actividad 1 ═══ -->
+<header class="inst-header" role="banner">
+  <img
+    id="logo-img"
+    src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"
+    alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello"
+    onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+  >
+  <div id="logo-fallback" class="inst-header-fallback" aria-hidden="true">FEN</div>
+  <div class="inst-header-text">
+    <h1>Universidad Andrés Bello</h1>
+    <p>Facultad de Economía y Negocios</p>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 1</span>
+    <h2 id="page-title">Mercantilismo y <em>La riqueza de las naciones</em></h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Explica cómo el mercantilismo vinculó comercio, dinero y poder estatal, y cómo Adam Smith trasladó el análisis hacia la producción, la productividad y la extensión del mercado.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> revise primero las seis ideas fuerza, siga la ruta conceptual, estudie las comparaciones y termine con la autoevaluación. Las secciones desplegables permiten repasar sin sobrecargar la lectura.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#contexto">Contexto</a>
+    <a href="#doctrinas">Doctrinas</a>
+    <a href="#hume">Hume y críticas</a>
+    <a href="#smith">Adam Smith</a>
+    <a href="#comparacion">Comparación</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Seis ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan el argumento central del tema.</p>
+    <div class="key-ideas">
+      <div class="key-idea">El mercantilismo acompañó la formación de los Estados modernos, la expansión colonial y la competencia entre potencias europeas.</div>
+      <div class="key-idea">No fue una teoría única: reunió escritos, instituciones y políticas distintas sobre comercio, dinero y poder.</div>
+      <div class="key-idea">Sus políticas conectaron el superávit comercial, la entrada de metales preciosos y la capacidad fiscal, naval y militar.</div>
+      <div class="key-idea">El mecanismo precio–flujo de metales de Hume explica por qué un superávit permanente tiende a corregirse.</div>
+      <div class="key-idea">Smith redefinió la riqueza como capacidad de producir y acceder a bienes y servicios, no como simple acumulación de oro y plata.</div>
+      <div class="key-idea">El análisis histórico debe considerar ganadores, perdedores, coerción colonial, esclavitud y relaciones de poder.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia permite conectar historia, política económica y teoría.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Formación del Estado y expansión colonial</div>
+      <div class="route-node">Doctrina política: poder y seguridad</div>
+      <div class="route-node">Doctrina comercial: superávit y protección</div>
+      <div class="route-node">Doctrina monetaria: metales y liquidez</div>
+      <div class="route-node">Críticas: Hume, fisiócratas y Marx</div>
+      <div class="route-node">Smith: producción, mercado y productividad</div>
+    </div>
+  </section>
+
+  <section id="contexto" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>Contexto histórico del mercantilismo</h3>
+    <p class="section-lead">Su auge se ubica aproximadamente entre los siglos XVI y XVIII y coincide con cambios políticos, militares, comerciales y tecnológicos.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Expansión del mundo conocido</h4>
+        <p>Las rutas atlánticas conectaron crecientemente a Europa, África, Asia y América, ampliando los circuitos de comercio y dominación colonial.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Consolidación del absolutismo</h4>
+        <p>Las monarquías centralizaron impuestos, ejércitos, administración y legislación. La política económica quedó vinculada al fortalecimiento estatal.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Rivalidad entre potencias</h4>
+        <p>España, Portugal, Inglaterra, Francia y los Países Bajos compitieron por territorios, rutas, mercados, navegación y recursos.</p>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Precisión conceptual:</strong> el mercantilismo fue un conjunto heterogéneo de políticas y escritos. No todos sus autores defendieron exactamente las mismas ideas ni fueron simples “bullionistas”.</div>
+
+    <div class="timeline" aria-label="Cronología esencial">
+      <div class="timeline-item"><span class="timeline-dot">1453</span><h4>Caída de Constantinopla</h4><p>Hito del tránsito hacia la Edad Moderna y de la búsqueda de nuevas rutas comerciales.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1492</span><h4>Llegada europea a América</h4><p>Expansión colonial y reconfiguración de los flujos de bienes, metales y personas.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1503</span><h4>Casa de Contratación de Sevilla</h4><p>Regulación del comercio y la navegación de la monarquía española con el Nuevo Mundo.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1600</span><h4>English East India Company</h4><p>Compañía autorizada por la Corona con privilegios comerciales.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1602</span><h4>VOC neerlandesa</h4><p>Compañía privilegiada para organizar el comercio de larga distancia.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1651</span><h4>Navigation Ordinance inglesa</h4><p>Buscó reducir la intermediación neerlandesa y fortalecer la navegación inglesa.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1752</span><h4><em>Political Discourses</em>, David Hume</h4><p>Formula la crítica monetaria al superávit persistente.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1758</span><h4><em>Tableau économique</em>, Quesnay</h4><p>Representa la circulación interdependiente del ingreso.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1776</span><h4><em>La riqueza de las naciones</em>, Adam Smith</h4><p>Consolida la transición hacia la economía política clásica.</p></div>
+    </div>
+
+    <details>
+      <summary>Instituciones, compañías y coerción</summary>
+      <div>
+        <p>Las compañías privilegiadas recibían monopolios territoriales y podían organizar navegación, factorías y, en algunos casos, funciones administrativas o militares. La Casa de Contratación cumplió funciones regulatorias, pero tuvo una naturaleza jurídica distinta de las compañías por acciones.</p>
+        <p style="margin-top:.6rem;">La expansión mercantil también incluyó conquista, expropiación, trabajo forzado, esclavitud y tráfico transatlántico de personas esclavizadas. Por eso, el comercio colonial no puede interpretarse únicamente como intercambio voluntario.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="doctrinas" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>Las tres dimensiones del mercantilismo</h3>
+    <p class="section-lead">El mercantilismo puede estudiarse como doctrina política, comercial y monetaria. Las tres dimensiones se refuerzan mutuamente.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>1. Doctrina política</h4>
+        <ul>
+          <li>Unificar mercados internos.</li>
+          <li>Aumentar ingresos fiscales.</li>
+          <li>Financiar ejércitos y armadas.</li>
+          <li>Reducir dependencias estratégicas.</li>
+          <li>Fortalecer la posición internacional.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>2. Doctrina comercial</h4>
+        <ul>
+          <li>Promover exportaciones.</li>
+          <li>Restringir importaciones finales.</li>
+          <li>Proteger manufacturas y navegación.</li>
+          <li>Controlar el comercio colonial.</li>
+          <li>Obtener un superávit comercial.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>3. Doctrina monetaria</h4>
+        <ul>
+          <li>Evitar la salida de oro y plata.</li>
+          <li>Aumentar medios de pago.</li>
+          <li>Expandir liquidez y crédito.</li>
+          <li>Sostener recaudación y guerra.</li>
+          <li>Fortalecer las reservas del Estado.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Idea integradora:</strong> la economía se subordinaba en gran medida a objetivos de poder y seguridad. El comercio se evaluaba por su efecto sobre reservas, impuestos, producción militar y capacidad naval, no solo por el consumo.</div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Balanza comercial</h4>
+    <div class="formula" aria-label="Balanza comercial igual a exportaciones menos importaciones">BC = X − M</div>
+    <p class="formula-note"><strong>X</strong>: exportaciones · <strong>M</strong>: importaciones · <strong>BC &gt; 0</strong>: superávit · <strong>BC &lt; 0</strong>: déficit</p>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Ejemplo</h4>
+        <p>Si las exportaciones son 120 y las importaciones 90:</p>
+        <div class="formula" style="font-size:1rem;">BC = 120 − 90 = 30</div>
+        <p>La lectura mercantilista anticiparía una entrada neta de metales si los pagos se liquidan con oro o plata.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Advertencia distributiva</h4>
+        <p>Un superávit no implica que todos los habitantes estén mejor. La protección puede beneficiar a productores organizados, mientras consumidores, trabajadores o colonias absorben costos.</p>
+      </article>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Cadena mercantilista</h4>
+    <div class="chain" aria-label="Cadena causal mercantilista">
+      <span>Protección y promoción</span><b>→</b><span>Superávit comercial</span><b>→</b><span>Entrada de metales</span><b>→</b><span>Mayor liquidez y crédito</span><b>→</b><span>Poder fiscal y militar</span>
+    </div>
+
+    <details>
+      <summary>Políticas comerciales características</summary>
+      <div class="grid-2">
+        <div>
+          <h4 style="color:var(--primary);">Exportaciones</h4>
+          <ul style="padding-left:1.1rem;">
+            <li>Subsidios y privilegios.</li>
+            <li>Infraestructura y puertos.</li>
+            <li>Regulaciones de calidad.</li>
+            <li>Manufacturas reales o protegidas.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:var(--primary);">Importaciones</h4>
+          <ul style="padding-left:1.1rem;">
+            <li>Aranceles y prohibiciones.</li>
+            <li>Cuotas, licencias y monopolios.</li>
+            <li>Requisitos de transporte.</li>
+            <li>Trato favorable a insumos para manufacturas nacionales.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Industria naciente, sectores estratégicos y salarios</summary>
+      <div>
+        <p><strong>Industria naciente:</strong> una actividad nueva puede requerir protección temporal para desarrollar capacidades. <strong>Industria estratégica:</strong> ciertos sectores son relevantes para defensa, navegación o autonomía productiva.</p>
+        <p style="margin-top:.6rem;">Algunos mercantilistas defendieron salarios moderados, interés bajo y una población numerosa para sostener competitividad, inversión y oferta de trabajo. La tensión es distributiva: abaratar exportaciones puede reducir el ingreso real de los trabajadores.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Colonias y Actas de Navegación</summary>
+      <div>
+        <p>Las colonias eran fuentes de metales y materias primas, mercados para manufacturas metropolitanas y bases navales. El comercio exclusivo limitaba su autonomía.</p>
+        <p style="margin-top:.6rem;">Las Actas de Navegación buscaban reservar transporte, seguros, comercio y recaudación para el sistema inglés, reduciendo la intermediación extranjera.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="hume" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Hume y las críticas al mercantilismo</h3>
+    <p class="section-lead">La crítica de Hume muestra la inconsistencia de intentar mantener indefinidamente un superávit bajo pagos metálicos.</p>
+
+    <div class="chain" aria-label="Mecanismo precio flujo de metales">
+      <span>Superávit</span><b>→</b><span>Entrada de oro o plata</span><b>→</b><span>Más dinero</span><b>→</b><span>Precios internos más altos</span><b>→</b><span>Menor competitividad</span><b>→</b><span>Reducción del superávit</span>
+    </div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Ejemplo numérico</h4>
+        <p><strong>Inicio:</strong> X = 120, M = 90, BC = 30.</p>
+        <p><strong>Después del aumento de precios:</strong> X = 105, M = 102.</p>
+        <div class="formula" style="font-size:1rem;">BC = 105 − 102 = 3</div>
+        <p>El desequilibrio disminuye sin una nueva prohibición administrativa.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Condiciones del ajuste</h4>
+        <ul>
+          <li>Los metales circulan como dinero.</li>
+          <li>Los precios internos responden.</li>
+          <li>Exportaciones e importaciones reaccionan a precios relativos.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Crítica</th><th>Problema identificado</th><th>Alternativa analítica</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Hume</strong></td><td>El superávit persistente es autocorrectivo.</td><td>Precios y flujos monetarios.</td></tr>
+          <tr><td><strong>Fisiócratas</strong></td><td>Exceso de regulación y trabas internas.</td><td>Orden natural, agricultura y circulación del ingreso.</td></tr>
+          <tr><td><strong>Adam Smith</strong></td><td>Confusión entre dinero y riqueza; monopolios y privilegios.</td><td>Producción, mercado, competencia y división del trabajo.</td></tr>
+          <tr><td><strong>Marx</strong></td><td>La ganancia no se explica simplemente por el intercambio.</td><td>Producción, trabajo asalariado, explotación y acumulación histórica.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warning callout"><strong>Lectura histórica:</strong> Marx pone énfasis en la acumulación originaria, la expropiación, la expansión colonial, la esclavitud, la coerción estatal y la formación histórica del trabajo asalariado.</div>
+  </section>
+
+  <section id="smith" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Adam Smith y <em>La riqueza de las naciones</em></h3>
+    <p class="section-lead">Publicada en 1776, la obra pregunta qué permite a una sociedad producir y sostener un mayor nivel de riqueza.</p>
+
+    <div class="callout"><strong>Redefinición de riqueza:</strong> la riqueza es el producto anual de la tierra y del trabajo de la sociedad. Una nación es más rica cuando tiene mayor capacidad para producir y acceder a bienes y servicios.</div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Factores fundamentales</h4>
+        <ul>
+          <li>Productividad del trabajo.</li>
+          <li>Proporción de población empleada productivamente.</li>
+          <li>Acumulación de capital.</li>
+          <li>Extensión del mercado.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>División del trabajo</h4>
+        <ul>
+          <li>Mayor destreza por repetición.</li>
+          <li>Ahorro de tiempo entre tareas.</li>
+          <li>Uso e invención de maquinaria.</li>
+          <li>Más comercio amplía el mercado y profundiza la especialización.</li>
+        </ul>
+      </article>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Estructura de los cinco libros</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Libro</th><th>Tema principal</th><th>Pregunta central</th></tr></thead>
+        <tbody>
+          <tr><td><strong>I</strong></td><td>Trabajo, precios y distribución</td><td>¿Cómo se produce y distribuye el ingreso?</td></tr>
+          <tr><td><strong>II</strong></td><td>Capital y acumulación</td><td>¿Cómo se amplía la capacidad productiva?</td></tr>
+          <tr><td><strong>III</strong></td><td>Desarrollo histórico</td><td>¿Por qué las naciones siguen trayectorias distintas?</td></tr>
+          <tr><td><strong>IV</strong></td><td>Sistemas de economía política</td><td>¿Cómo afectan las políticas comerciales?</td></tr>
+          <tr><td><strong>V</strong></td><td>Estado y finanzas públicas</td><td>¿Qué funciones debe cumplir el gobierno?</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Comercio internacional en Smith</summary>
+      <div>
+        <p>El comercio exterior puede permitir bienes de menor costo, ampliar el mercado, facilitar la especialización y reasignar capital hacia usos más productivos. Smith cuestionó las políticas que protegían intereses concentrados de productores a costa de consumidores dispersos.</p>
+        <p style="margin-top:.6rem;">Aceptó excepciones y transiciones en ciertos casos, especialmente cuando estaban involucradas la defensa nacional o represalias estratégicas.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Smith no propone eliminar el Estado</summary>
+      <div>
+        <p>En el Libro V atribuye al soberano funciones de defensa, justicia, obras e instituciones públicas, educación, tributación y deuda pública. Su crítica al sistema mercantil no equivale a ausencia total de gobierno.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="comparacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Del mercantilismo a Smith</h3>
+    <p class="section-lead">Ambos enfoques estudian Estado, comercio y poder, pero emplean criterios diferentes para evaluar la prosperidad.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Mercantilismo</th><th>Economía clásica de Smith</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Criterio de riqueza</strong></td><td>Reservas, superávit y poder estatal.</td><td>Producción y acceso a bienes y servicios.</td></tr>
+          <tr><td><strong>Comercio</strong></td><td>Rivalidad estratégica entre Estados.</td><td>Ampliación del mercado y especialización.</td></tr>
+          <tr><td><strong>Política comercial</strong></td><td>Protección, monopolios y control colonial.</td><td>Competencia, con excepciones estratégicas.</td></tr>
+          <tr><td><strong>Dinero</strong></td><td>Recurso estratégico y medio de pago internacional.</td><td>Instrumento de circulación, no riqueza en sí mismo.</td></tr>
+          <tr><td><strong>Estado</strong></td><td>Promotor y regulador activo al servicio del poder.</td><td>Defensa, justicia, obras, educación y finanzas públicas.</td></tr>
+          <tr><td><strong>Unidad de análisis</strong></td><td>El Estado frente a sus rivales.</td><td>La división del trabajo y la sociedad comercial.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warning callout"><strong>Pregunta clave para Ingeniería Comercial:</strong> ¿una política debe evaluarse por el poder que entrega al Estado, por el crecimiento de la producción, por el bienestar de los consumidores o por sus efectos distributivos? El tema muestra que estas métricas pueden conducir a conclusiones distintas.</div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Aplicación: Reino de Nordia</h3>
+    <p class="section-lead">Use el caso para integrar objetivos, instrumentos, beneficiarios y costos.</p>
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Condiciones</h4>
+        <ul>
+          <li>Déficit comercial de 20 unidades.</li>
+          <li>Dependencia de barcos extranjeros.</li>
+          <li>Industria textil pequeña.</li>
+          <li>Reservas limitadas de plata.</li>
+          <li>Desempleo urbano.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Propuesta del ministro</h4>
+        <ol style="padding-left:1.1rem;">
+          <li>Arancel textil.</li>
+          <li>Subsidio a astilleros.</li>
+          <li>Monopolio colonial.</li>
+          <li>Prohibición de exportar plata.</li>
+          <li>Subsidio a exportaciones.</li>
+        </ol>
+      </article>
+    </div>
+    <details style="margin-top:1rem;">
+      <summary>Preguntas para resolver el caso</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Qué objetivo mercantilista persigue cada medida?</li>
+          <li>¿Qué grupos ganarían y cuáles asumirían costos?</li>
+          <li>¿Cómo respondería Hume ante una entrada de plata y una inflación interna de 15%?</li>
+          <li>¿Cómo evaluaría Smith los monopolios, la protección y el efecto sobre consumidores?</li>
+          <li>¿Qué dimensión histórica destacaría Marx?</li>
+          <li>¿Cómo distinguir entre éxito político y éxito económico?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="El mercantilismo fue un conjunto heterogéneo de políticas, instituciones y escritos, no una teoría unificada.">
+      <h4>1. ¿Cuál es la descripción más precisa del mercantilismo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Una teoría económica única y completamente coherente.</button>
+        <button data-choice="b">Un repertorio heterogéneo de políticas y escritos sobre comercio, dinero y poder.</button>
+        <button data-choice="c">Una doctrina limitada exclusivamente a la acumulación de oro.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="La entrada de metales aumenta la cantidad de dinero y los precios internos, lo que reduce competitividad y corrige el superávit.">
+      <h4>2. Según Hume, ¿qué debilita un superávit persistente?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La caída automática de la cantidad de dinero.</button>
+        <button data-choice="b">La reducción de las importaciones por decreto.</button>
+        <button data-choice="c">El aumento de precios internos causado por la entrada de metales.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="Smith desplaza el foco hacia el producto anual, la productividad del trabajo, el capital y la extensión del mercado.">
+      <h4>3. ¿Qué determina principalmente la riqueza para Adam Smith?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La capacidad de producir y acceder a bienes y servicios.</button>
+        <button data-choice="b">La cantidad de lingotes almacenados por el soberano.</button>
+        <button data-choice="c">La existencia de un monopolio colonial.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Smith no elimina al Estado: le atribuye defensa, justicia, obras públicas, educación y funciones fiscales.">
+      <h4>4. ¿Cuál afirmación sobre Smith es correcta?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Propone eliminar completamente el gobierno.</button>
+        <button data-choice="b">Critica privilegios mercantiles, pero reconoce funciones públicas esenciales.</button>
+        <button data-choice="c">Identifica dinero y riqueza nacional.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Una política puede aumentar poder estatal y beneficiar a sectores protegidos, pero trasladar costos a consumidores, trabajadores o colonias.">
+      <h4>5. ¿Por qué un superávit no garantiza bienestar general?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque siempre reduce la producción nacional.</button>
+        <button data-choice="b">Porque necesariamente elimina el empleo.</button>
+        <button data-choice="c">Porque sus beneficios y costos pueden distribuirse de forma desigual.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>Por qué el mercantilismo acompañó la formación del Estado moderno.</li>
+      <li>La diferencia entre doctrina política, comercial y monetaria.</li>
+      <li>Cómo calcular e interpretar la balanza comercial.</li>
+      <li>La cadena causal entre superávit, metales, precios y competitividad.</li>
+      <li>Las críticas de Hume, los fisiócratas, Smith y Marx.</li>
+      <li>La redefinición smithiana de riqueza y la estructura de los cinco libros.</li>
+      <li>Por qué una política puede tener éxito estratégico y costos distributivos.</li>
+    </ul>
+  </section>
+</main>
+
+<!-- ═══ FOOTER: igual a Actividad 1 ═══ -->
+<footer>
+  <p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

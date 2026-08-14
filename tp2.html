@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Teoría cuantitativa clásica del dinero | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<header class="inst-header" role="banner">
+  <img
+    id="logo-img"
+    src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"
+    alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello"
+    onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+  >
+  <div id="logo-fallback" class="inst-header-fallback" aria-hidden="true">FEN</div>
+  <div class="inst-header-text">
+    <h1>Universidad Andrés Bello</h1>
+    <p>Facultad de Economía y Negocios</p>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 2</span>
+    <h2 id="page-title">Teoría cuantitativa clásica del dinero</h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Explica el debate entre la capacidad del dinero y el crédito para activar recursos y la tesis clásica según la cual, una vez ajustados los precios, una mayor cantidad de dinero no aumenta permanentemente la producción real.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> comience por las seis ideas fuerza, compare las dos posiciones monetarias, siga la secuencia de autores y termine con el mecanismo internacional, el caso aplicado y la autoevaluación.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#debate">Dos enfoques</a>
+    <a href="#law">John Law</a>
+    <a href="#origenes">Antecedentes</a>
+    <a href="#cantillon-hume">Cantillon y Hume</a>
+    <a href="#clasicos">Ricardo y Mill</a>
+    <a href="#internacional">Economía abierta</a>
+    <a href="#arcadia">Caso Arcadia</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Seis ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan el argumento central del tema.</p>
+    <div class="key-ideas">
+      <div class="key-idea">Los debates monetarios de los siglos XVII y XVIII preguntaron si una mayor cantidad de dinero generaba prosperidad real o principalmente precios más altos.</div>
+      <div class="key-idea">John Law destacó que el dinero y el crédito pueden facilitar pagos, financiar producción y emplear recursos ociosos.</div>
+      <div class="key-idea">Cantillon mostró que el dinero nuevo entra por puntos específicos, cambia primero algunos precios y redistribuye ingreso y riqueza.</div>
+      <div class="key-idea">Hume distinguió una transición con efectos reales de un largo plazo en el que aumenta el nivel de precios, pero no la producción real.</div>
+      <div class="key-idea">Ricardo vinculó la emisión excesiva de papel moneda con depreciación; Mill incorporó explícitamente la velocidad y el crédito.</div>
+      <div class="key-idea">En una economía abierta, los movimientos monetarios alteran precios, competitividad, comercio, reservas y tipo de cambio.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia permite conectar historia monetaria, mecanismos de transmisión y ajuste internacional.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Contexto monetario y problema central</div>
+      <div class="route-node">Dinero y crédito activan recursos</div>
+      <div class="route-node">Entrada desigual y efectos Cantillon</div>
+      <div class="route-node">Hume: transición y neutralidad</div>
+      <div class="route-node">Ricardo y Mill: emisión, velocidad y crédito</div>
+      <div class="route-node">Precios, metales y ajuste externo</div>
+    </div>
+  </section>
+
+  <section id="debate" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>El problema monetario y las dos posiciones</h3>
+    <p class="section-lead">El mercantilismo valoraba la acumulación de metales. La nueva pregunta fue si disponer de más dinero hacía realmente más rica a una economía.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Entorno monetario</h4>
+        <ul>
+          <li>Monedas de oro, plata y cobre.</li>
+          <li>Cambios de peso, ley y denominación.</li>
+          <li>Bancos, letras de cambio y crédito.</li>
+          <li>Experimentos con papel moneda.</li>
+          <li>Metales procedentes de América.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Enfoque 1: estimula el comercio</h4>
+        <ul>
+          <li>Facilita transacciones.</li>
+          <li>Financia inventarios y producción.</li>
+          <li>Reduce restricciones de liquidez.</li>
+          <li>Puede emplear recursos ociosos.</li>
+          <li>Amplía ingreso y comercio.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Enfoque 2: teoría cuantitativa</h4>
+        <ul>
+          <li>Eleva la demanda nominal.</li>
+          <li>Aumenta el nivel general de precios.</li>
+          <li>Reduce el poder adquisitivo del dinero.</li>
+          <li>El efecto real puede ser temporal.</li>
+          <li>No eleva permanentemente la producción.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Clave analítica:</strong> la diferencia depende del horizonte temporal y de la capacidad productiva. Con desempleo, capacidad ociosa y restricciones financieras, la liquidez puede elevar producción; con capacidad plenamente utilizada, el ajuste se concentra en precios.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Pregunta</th><th>Dinero estimula el comercio</th><th>Teoría cuantitativa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Restricción principal</strong></td><td>Falta de liquidez, crédito y coordinación.</td><td>Capacidad real y cantidad disponible de bienes.</td></tr>
+          <tr><td><strong>Efecto inicial</strong></td><td>Más gasto, ventas, empleo y producción.</td><td>Más demanda nominal y aumento de precios.</td></tr>
+          <tr><td><strong>Condición decisiva</strong></td><td>Recursos productivos sin utilizar.</td><td>Precios y salarios capaces de ajustarse.</td></tr>
+          <tr><td><strong>Largo plazo</strong></td><td>No queda claramente establecida la neutralidad.</td><td>La producción real no cambia permanentemente.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="law" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>John Law: dinero, crédito y coordinación</h3>
+    <p class="section-lead">En <em>Money and Trade Considered</em> (1705), Law sostuvo que la escasez monetaria podía limitar el comercio y que el crédito y el papel moneda podían movilizar tierra, trabajo y recursos.</p>
+
+    <div class="chain" aria-label="Cadena causal de John Law">
+      <span>Más dinero y crédito</span><b>→</b><span>Mayor gasto</span><b>→</b><span>Más ventas</span><b>→</b><span>Más empleo</span><b>→</b><span>Más producción</span>
+    </div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>¿Por qué podría funcionar?</h4>
+        <ul>
+          <li>Los compradores obtienen medios de pago.</li>
+          <li>Los productores consiguen financiamiento.</li>
+          <li>Las empresas aumentan inventarios y pedidos.</li>
+          <li>Trabajadores y recursos ociosos vuelven a emplearse.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>¿Qué puede salir mal?</h4>
+        <ul>
+          <li>Inflación y pérdida de poder adquisitivo.</li>
+          <li>Especulación y endeudamiento excesivo.</li>
+          <li>Pérdida de confianza en la moneda.</li>
+          <li>Salida de reservas y crisis bancaria o cambiaria.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Pregunta crítica:</strong> ¿qué ocurre cuando la economía ya utiliza plenamente su capacidad productiva? En ese escenario, una expansión del gasto encuentra menos espacio para aumentar producción y mayor presión para elevar precios.</div>
+
+    <details>
+      <summary>Actividad breve: clasificar mecanismos</summary>
+      <div>
+        <p>Clasifique cada situación como efecto sobre <strong>producción y empleo</strong>, sobre <strong>precios</strong> o sobre <strong>ambos</strong>:</p>
+        <ol style="padding-left:1.2rem;margin-top:.6rem;">
+          <li>Una fábrica ociosa recibe crédito y contrata 30 trabajadores.</li>
+          <li>La producción no puede aumentar y el gasto nominal se duplica.</li>
+          <li>Los comerciantes reciben dinero primero y elevan sus pedidos.</li>
+          <li>Todos los precios y salarios se ajustan inmediatamente.</li>
+          <li>Una crisis bancaria reduce simultáneamente crédito y producción.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="origenes" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Antecedentes de la teoría cuantitativa</h3>
+    <p class="section-lead">La relación entre abundancia monetaria, poder adquisitivo y precios se construyó gradualmente antes de las formulaciones británicas clásicas.</p>
+
+    <div class="timeline" aria-label="Cronología esencial">
+      <div class="timeline-item"><span class="timeline-dot">XVI</span><h4>Revolución de los Precios</h4><p>Europa experimentó un aumento prolongado de precios asociado, entre otras explicaciones, a la entrada de metales americanos, población, urbanización, guerras y cambios en la circulación.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">Sal.</span><h4>Escuela de Salamanca</h4><p>Relacionó abundancia de dinero, menor poder adquisitivo, diferencias regionales de precios y tipos de cambio.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">Locke</span><h4>John Locke</h4><p>Vinculó el valor del dinero con su cantidad, la magnitud de los intercambios, la rapidez de los pagos y la demanda de saldos monetarios.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1705</span><h4>John Law</h4><p>Expuso cómo dinero, crédito y papel moneda podían movilizar recursos y ampliar el comercio.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1752</span><h4>David Hume</h4><p>Diferenció la transición con efectos reales del largo plazo monetariamente neutral.</p></div>
+      <div class="timeline-item"><span class="timeline-dot">1848</span><h4>John Stuart Mill</h4><p>Sistematizó la relación entre cantidad de dinero, velocidad, crédito y precios.</p></div>
+    </div>
+
+    <div class="callout"><strong>Idea común:</strong> donde el dinero es relativamente más abundante, su valor tiende a ser menor y los precios mayores. Sin embargo, la velocidad, la estructura del comercio, el crédito y el punto de entrada del dinero hacen que el proceso no sea mecánico.</div>
+  </section>
+
+  <section id="cantillon-hume" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Cantillon y Hume: cómo se difunde el dinero</h3>
+    <p class="section-lead">Ambos autores analizan el proceso temporal de transmisión, pero Cantillon enfatiza la distribución y Hume conecta la transición con la neutralidad de largo plazo.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Efectos Cantillon</h4>
+        <ol style="padding-left:1.1rem;">
+          <li>El dinero nuevo ingresa por agentes específicos.</li>
+          <li>Esos receptores aumentan primero su demanda.</li>
+          <li>Suben determinados precios relativos.</li>
+          <li>Los ingresos de algunos productores aumentan antes que otros.</li>
+          <li>La expansión se propaga gradualmente.</li>
+        </ol>
+        <p style="margin-top:.6rem;"><strong>Resultado:</strong> los precios no aumentan simultánea ni proporcionalmente; cambian la distribución del ingreso y la riqueza.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Proceso de Hume</h4>
+        <ol style="padding-left:1.1rem;">
+          <li>El dinero llega a un grupo reducido.</li>
+          <li>Aumentan gasto y pedidos.</li>
+          <li>Responden ventas, producción y empleo.</li>
+          <li>Los precios suben sector por sector.</li>
+          <li>Salarios y demás precios se ajustan.</li>
+          <li>Desaparece el efecto real inicial.</li>
+        </ol>
+      </article>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Corto plazo</h4>
+        <div class="formula">ΔM → ΔY &gt; 0 &nbsp; y &nbsp; ΔP &gt; 0</div>
+        <p>El aumento monetario puede elevar simultáneamente producción y precios durante el proceso de ajuste.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Largo plazo clásico</h4>
+        <div class="formula">ΔM → ΔP &gt; 0 &nbsp; y &nbsp; ΔY = 0</div>
+        <p>El efecto sobre producción es transitorio; el aumento del nivel de precios permanece.</p>
+      </article>
+    </div>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>Esquema de transmisión temporal</h4>
+      <svg viewBox="0 0 760 300" role="img" aria-labelledby="chart-title chart-desc" style="display:block;width:100%;height:auto;">
+  <title id="chart-title">Transmisión temporal de un aumento monetario</title>
+  <desc id="chart-desc">La producción aumenta inicialmente y vuelve gradualmente a cero, mientras el nivel de precios aumenta de forma sostenida.</desc>
+  <rect x="0" y="0" width="760" height="300" rx="12" fill="#ffffff"/>
+  <line x1="62" y1="25" x2="62" y2="252" stroke="#55557a" stroke-width="1.5"/>
+  <line x1="62" y1="252" x2="736" y2="252" stroke="#55557a" stroke-width="1.5"/>
+  <line x1="62" y1="146.4" x2="736" y2="146.4" stroke="#dce3f0" stroke-width="1"/>
+  <line x1="62" y1="40.8" x2="736" y2="40.8" stroke="#dce3f0" stroke-width="1"/>
+  <polyline points="62.0,252.0 129.4,209.8 196.8,167.5 264.2,141.1 331.6,146.4 399.0,167.5 466.4,193.9 533.8,215.0 601.2,233.5 668.6,245.7 736.0,252.0" fill="none" stroke="#003366" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="62.0,252.0 129.4,246.7 196.8,236.2 264.2,215.0 331.6,188.7 399.0,157.0 466.4,125.3 533.8,93.6 601.2,67.2 668.6,51.4 736.0,40.8" fill="none" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="44" y="257" text-anchor="end" font-size="13" fill="#55557a">0</text>
+  <text x="44" y="151.4" text-anchor="end" font-size="13" fill="#55557a">2</text>
+  <text x="44" y="45.8" text-anchor="end" font-size="13" fill="#55557a">4</text>
+  <text x="62" y="283" font-size="13" fill="#55557a">Inicio</text>
+  <text x="736" y="283" text-anchor="end" font-size="13" fill="#55557a">Largo plazo</text>
+  <text x="380.0" y="295" text-anchor="middle" font-size="13" fill="#55557a">Tiempo después del aumento monetario</text>
+  <g transform="translate(74,33)">
+    <line x1="0" y1="0" x2="34" y2="0" stroke="#003366" stroke-width="4"/>
+    <text x="44" y="5" font-size="13" fill="#1a1a2e">Producción</text>
+    <line x1="145" y1="0" x2="179" y2="0" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/>
+    <text x="189" y="5" font-size="13" fill="#1a1a2e">Nivel de precios</text>
+  </g>
+</svg>
+      <p class="formula-note">La producción responde primero y luego retorna a su nivel inicial; los precios aumentan gradualmente durante la difusión monetaria.</p>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: ordenar el ajuste de Hume</summary>
+      <div>
+        <p>Ordene los acontecimientos y explique por qué el orden de recepción del dinero afecta la distribución:</p>
+        <ol style="padding-left:1.2rem;margin-top:.6rem;">
+          <li>Aumento general de salarios y precios.</li>
+          <li>El nuevo dinero llega a comerciantes.</li>
+          <li>Contratación de trabajadores.</li>
+          <li>Aumento inicial de pedidos.</li>
+          <li>Desaparición del efecto real.</li>
+          <li>Expansión de la producción.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="clasicos" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Reafirmación clásica: Ricardo y John Stuart Mill</h3>
+    <p class="section-lead">En el siglo XIX, la teoría cuantitativa se vinculó con la disciplina de emisión, la velocidad de circulación y el papel del crédito.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>David Ricardo</h4>
+        <p>En la controversia bullionista británica, Ricardo sostuvo que una emisión excesiva de papel moneda reduce su valor y eleva los precios.</p>
+        <ul style="margin-top:.5rem;">
+          <li>Una emisión limitada puede preservar el valor fiduciario.</li>
+          <li>La emisión excesiva produce depreciación.</li>
+          <li>La convertibilidad y las reglas restringen la expansión.</li>
+          <li>Más unidades monetarias no significan más recursos reales.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>John Stuart Mill</h4>
+        <p>Mill sostuvo que cantidad, rapidez de circulación y crédito actúan conjuntamente sobre el gasto y los precios.</p>
+        <div class="formula" style="font-size:1rem;">M = 100, V = 5 → gasto nominal = 500</div>
+        <div class="formula" style="font-size:1rem;">M = 100, V = 8 → gasto nominal = 800</div>
+        <p>La velocidad puede elevar el gasto aun cuando la cantidad de dinero no cambie.</p>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Autor</th><th>Aporte principal</th><th>Efecto real transitorio</th><th>Largo plazo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>John Law</strong></td><td>Dinero y crédito activan comercio.</td><td>Alto.</td><td>No claramente neutral.</td></tr>
+          <tr><td><strong>Cantillon</strong></td><td>Entrada desigual y precios relativos.</td><td>Sí.</td><td>Mayor nivel de precios.</td></tr>
+          <tr><td><strong>Hume</strong></td><td>Transición y neutralidad.</td><td>Sí.</td><td>Dinero neutral.</td></tr>
+          <tr><td><strong>Ricardo</strong></td><td>Disciplina de emisión.</td><td>Limitado.</td><td>Precios proporcionales.</td></tr>
+          <tr><td><strong>J. S. Mill</strong></td><td>Cantidad, velocidad y crédito.</td><td>Posible.</td><td>Relación cantidad–precios.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: identificar al autor</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>“El orden de llegada del dinero modifica precios relativos”.</li>
+          <li>“Una emisión excesiva de billetes deprecia la moneda”.</li>
+          <li>“El dinero puede emplear personas actualmente ociosas”.</li>
+          <li>“La rapidez de circulación modifica el gasto nominal”.</li>
+          <li>“El dinero impulsa la industria durante el intervalo previo al ajuste de precios”.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="internacional" class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Teoría cuantitativa y economía internacional</h3>
+    <p class="section-lead">En una economía abierta, el dinero afecta competitividad, exportaciones, importaciones, reservas, tipo de cambio y balanza de pagos.</p>
+
+    <h4 style="color:var(--primary);">Mecanismo precio–flujo de metales de Hume</h4>
+    <div class="chain" aria-label="Mecanismo precio flujo de metales">
+      <span>Superávit comercial</span><b>→</b><span>Entrada de oro</span><b>→</b><span>Más dinero</span><b>→</b><span>Precios internos más altos</span><b>→</b><span>Menor competitividad</span><b>→</b><span>Menor superávit</span>
+    </div>
+
+    <div class="formula" aria-label="Ajuste externo">X &gt; M<sub>imp.</sub> → entrada de oro → oferta monetaria ↑ → P ↑ → X ↓ e importaciones ↑</div>
+    <p class="formula-note">El desequilibrio externo tiende a corregirse automáticamente bajo pagos metálicos, precios flexibles, comercio sensible a precios y ausencia de esterilización.</p>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>País A: superávit</h4>
+        <ul>
+          <li>Entrada de oro.</li>
+          <li>Expansión monetaria.</li>
+          <li>Aumento de precios.</li>
+          <li>Pérdida gradual de competitividad.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>País B: déficit</h4>
+        <ul>
+          <li>Salida de oro.</li>
+          <li>Contracción monetaria.</li>
+          <li>Disminución de precios.</li>
+          <li>Recuperación gradual de competitividad.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Patrón metálico y tipo de cambio</h4>
+        <ul>
+          <li>La convertibilidad fija una paridad con el oro.</li>
+          <li>Los flujos de oro limitan desviaciones cambiarias.</li>
+          <li>Los déficits reducen la base monetaria.</li>
+          <li>La política monetaria doméstica pierde autonomía.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Antecedente de la paridad de poder adquisitivo</h4>
+        <ul>
+          <li>Más precios internos reducen poder adquisitivo.</li>
+          <li>Diferencias persistentes de inflación afectan el valor externo.</li>
+          <li>En horizontes largos, el tipo de cambio puede reflejar esas diferencias.</li>
+        </ul>
+        <p style="margin-top:.5rem;"><strong>Precisión:</strong> la formulación moderna requiere supuestos adicionales.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Simulación internacional</summary>
+      <div>
+        <p>El país A exporta 150, importa 100 y recibe una entrada de oro de 50. Explique la dirección esperada del cambio en:</p>
+        <ol style="padding-left:1.2rem;margin-top:.6rem;">
+          <li>Oferta monetaria.</li>
+          <li>Nivel de precios.</li>
+          <li>Exportaciones.</li>
+          <li>Importaciones.</li>
+          <li>Balanza comercial.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="arcadia" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Aplicación: economía de Arcadia</h3>
+    <p class="section-lead">Use el caso para contrastar los mecanismos reales, distributivos, monetarios y externos estudiados.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Actividad real</h4>
+        <ul>
+          <li>Desempleo: 12%.</li>
+          <li>Capacidad industrial ociosa.</li>
+          <li>Crecimiento real potencial: 3%.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Condiciones monetarias</h4>
+        <ul>
+          <li>Crecimiento monetario: 18%.</li>
+          <li>Caída de la velocidad: 5%.</li>
+          <li>Interacción entre cantidad y velocidad.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Sector externo</h4>
+        <ul>
+          <li>Déficit comercial.</li>
+          <li>Tipo de cambio fijo.</li>
+          <li>Convertibilidad en oro.</li>
+        </ul>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Preguntas para resolver el caso</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Qué predeciría John Law sobre producción y empleo?</li>
+          <li>¿Qué agentes podrían recibir primero el dinero y qué efectos distributivos destacaría Cantillon?</li>
+          <li>¿Cómo diferenciaría Hume el corto y el largo plazo?</li>
+          <li>¿Qué advertencia formularía Ricardo ante un crecimiento monetario de 18%?</li>
+          <li>¿Cómo afecta la caída de la velocidad al gasto nominal según Mill?</li>
+          <li>¿Qué restricción impone el déficit externo bajo convertibilidad en oro?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="El debate contrapone la capacidad del dinero para movilizar recursos ociosos con la tesis de que, tras el ajuste, una mayor cantidad monetaria eleva principalmente los precios.">
+      <h4>1. ¿Cuál es la pregunta central del tema?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Si el oro es siempre superior al papel moneda.</button>
+        <button data-choice="b">Si más dinero genera riqueza real o principalmente precios más altos.</button>
+        <button data-choice="c">Si el comercio internacional debe prohibirse.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="La cadena de Law requiere capacidad ociosa y restricciones de financiamiento para que el gasto adicional pueda elevar producción y empleo.">
+      <h4>2. ¿Qué condición favorece el mecanismo de John Law?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Recursos productivos ociosos y falta de crédito.</button>
+        <button data-choice="b">Pleno empleo con oferta completamente rígida.</button>
+        <button data-choice="c">Ajuste instantáneo de todos los precios y salarios.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Cantillon sostuvo que el dinero entra por puntos específicos, modifica primero ciertas demandas y precios relativos, y redistribuye ingreso y riqueza.">
+      <h4>3. ¿Qué caracteriza a los efectos Cantillon?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Todos los precios aumentan al mismo tiempo y proporción.</button>
+        <button data-choice="b">El dinero nunca afecta la distribución.</button>
+        <button data-choice="c">El orden de recepción modifica precios relativos y distribución.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Para Hume, el dinero puede estimular temporalmente producción y empleo, pero en el largo plazo el efecto real desaparece y permanece el aumento de precios.">
+      <h4>4. ¿Cuál es la conclusión de largo plazo de Hume?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Más dinero aumenta permanentemente la producción real.</button>
+        <button data-choice="b">Aumentan los precios, pero la producción real no cambia permanentemente.</button>
+        <button data-choice="c">La cantidad de dinero no afecta nunca ninguna variable.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="Mill mostró que una mayor velocidad permite que la misma cantidad de dinero financie un gasto nominal mayor.">
+      <h4>5. Si M permanece en 100 y la velocidad sube de 5 a 8, ¿qué ocurre?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">El gasto nominal aumenta de 500 a 800.</button>
+        <button data-choice="b">El gasto nominal cae de 500 a 300.</button>
+        <button data-choice="c">El gasto nominal permanece en 100.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="La entrada de oro expande el dinero, eleva precios internos y reduce competitividad, por lo que el superávit tiende a disminuir.">
+      <h4>6. ¿Cómo se corrige un superávit bajo el mecanismo de Hume?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La entrada de oro reduce inmediatamente todos los precios.</button>
+        <button data-choice="b">El superávit aumenta indefinidamente sin efectos internos.</button>
+        <button data-choice="c">La entrada de oro eleva precios y reduce la competitividad.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">11</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>La diferencia entre “el dinero estimula el comercio” y la teoría cuantitativa.</li>
+      <li>La cadena causal de John Law y la condición de recursos ociosos.</li>
+      <li>Por qué los efectos Cantillon son distributivos y no proporcionales.</li>
+      <li>La diferencia entre corto y largo plazo en Hume.</li>
+      <li>La advertencia de Ricardo sobre emisión excesiva.</li>
+      <li>Cómo cantidad, velocidad y crédito afectan el gasto según Mill.</li>
+      <li>El mecanismo precio–flujo de metales en dos países.</li>
+      <li>Las restricciones de un tipo de cambio fijo convertible en oro.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+
+</body>
+</html>

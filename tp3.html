@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Ventaja absoluta y comparativa | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<header class="inst-header" role="banner">
+  <img
+    id="logo-img"
+    src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"
+    alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello"
+    onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+  >
+  <div id="logo-fallback" class="inst-header-fallback" aria-hidden="true">FEN</div>
+  <div class="inst-header-text">
+    <h1>Universidad Andrés Bello</h1>
+    <p>Facultad de Economía y Negocios</p>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 3</span>
+    <h2 id="page-title">Modelos clásicos: ventaja absoluta y comparativa</h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Explica por qué dos países pueden beneficiarse del comercio, incluso cuando uno de ellos es más productivo en todos los bienes, mediante productividad, costos de oportunidad, fronteras de posibilidades de producción, precios relativos y ganancias de bienestar.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> comience con las siete ideas fuerza, repase la derivación de la FPP, resuelva los dos casos numéricos y finalice distinguiendo entre un precio tecnológicamente posible y un equilibrio internacional completo.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#conceptos">Conceptos</a>
+    <a href="#modelo">Modelo y FPP</a>
+    <a href="#caso1">Caso 1</a>
+    <a href="#comercio1">Comercio y bienestar</a>
+    <a href="#caso2">Caso 2</a>
+    <a href="#equilibrio">Equilibrio mundial</a>
+    <a href="#integracion">Integración</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Siete ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan la lógica de los modelos clásicos de comercio.</p>
+    <div class="key-ideas">
+      <div class="key-idea">La ventaja absoluta compara productividades: quién produce más con la misma cantidad de trabajo.</div>
+      <div class="key-idea">La ventaja comparativa compara costos de oportunidad: qué debe sacrificarse para producir una unidad adicional.</div>
+      <div class="key-idea">El comercio se explica por diferencias relativas, aunque un país sea absolutamente más productivo en todos los bienes.</div>
+      <div class="key-idea">La FPP se deriva de la tecnología y de la dotación laboral; su pendiente representa el costo de oportunidad.</div>
+      <div class="key-idea">El precio internacional compatible con el patrón comercial debe ubicarse entre los costos de oportunidad de los países.</div>
+      <div class="key-idea">La tecnología determina un intervalo de precios, pero las preferencias y el vaciado de mercados determinan el equilibrio exacto.</div>
+      <div class="key-idea">Las ganancias agregadas del comercio no eliminan los efectos distributivos ni los costos de ajuste dentro de cada país.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia conecta productividad, especialización, precios y bienestar.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Productividad laboral</div>
+      <div class="route-node">FPP y costo de oportunidad</div>
+      <div class="route-node">Ventaja comparativa</div>
+      <div class="route-node">Especialización productiva</div>
+      <div class="route-node">Precio internacional y comercio</div>
+      <div class="route-node">Consumo, bienestar y distribución</div>
+    </div>
+  </section>
+
+  <section id="conceptos" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>Ventaja absoluta y ventaja comparativa</h3>
+    <p class="section-lead">La pregunta orientadora es por qué dos países pueden ganar con el comercio aun cuando uno sea más productivo en todos los bienes.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Ventaja absoluta</h4>
+        <p>Un país tiene ventaja absoluta si produce una mayor cantidad con el mismo recurso o utiliza menos trabajo por unidad.</p>
+        <div class="formula" style="font-size:1rem;">Comparación de productividades</div>
+      </article>
+      <article class="mini-card">
+        <h4>Ventaja comparativa</h4>
+        <p>Un país tiene ventaja comparativa si produce un bien con un costo de oportunidad menor que el del otro país.</p>
+        <div class="formula" style="font-size:1rem;">Comparación de sacrificios relativos</div>
+      </article>
+      <article class="mini-card">
+        <h4>Precisión histórica</h4>
+        <p>Adam Smith se asocia con especialización y productividad; David Ricardo mostró que un país puede comerciar aunque tenga desventaja absoluta en ambos bienes.</p>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Regla práctica:</strong> para encontrar la ventaja comparativa no pregunte quién produce más. Calcule primero cuánto del otro bien se sacrifica al producir una unidad adicional.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Criterio</th><th>Ventaja absoluta</th><th>Ventaja comparativa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pregunta</strong></td><td>¿Quién es más productivo?</td><td>¿Quién sacrifica menos del otro bien?</td></tr>
+          <tr><td><strong>Indicador</strong></td><td>Unidades por trabajador.</td><td>Costo de oportunidad.</td></tr>
+          <tr><td><strong>Patrón comercial</strong></td><td>No siempre lo determina por sí sola.</td><td>Determina la especialización relativa.</td></tr>
+          <tr><td><strong>Conclusión clave</strong></td><td>Puede concentrarse en un solo país.</td><td>Cada país puede poseerla en un bien distinto.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="modelo" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>Modelo ricardiano y derivación de la FPP</h3>
+    <p class="section-lead">El modelo emplea dos países, dos bienes y un único factor productivo: trabajo.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Países y bienes</h4>
+        <ul>
+          <li>Países A y B.</li>
+          <li>Bienes X e Y.</li>
+          <li>Cada país dispone de L = 100.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Tecnología</h4>
+        <ul>
+          <li>Productividad laboral constante.</li>
+          <li>Un solo factor: trabajo.</li>
+          <li>FPP lineal.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Mercados</h4>
+        <ul>
+          <li>Competencia perfecta.</li>
+          <li>Trabajo móvil entre sectores nacionales.</li>
+          <li>Trabajo inmóvil entre países.</li>
+          <li>Sin transporte ni barreras inicialmente.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="formula">X = a<sub>X</sub>L<sub>X</sub> &nbsp;&nbsp;·&nbsp;&nbsp; Y = a<sub>Y</sub>L<sub>Y</sub> &nbsp;&nbsp;·&nbsp;&nbsp; L<sub>X</sub> + L<sub>Y</sub> = L</div>
+    <div class="formula">X/a<sub>X</sub> + Y/a<sub>Y</sub> = L</div>
+    <div class="formula">Y = a<sub>Y</sub>L − (a<sub>Y</sub>/a<sub>X</sub>)X</div>
+    <p class="formula-note">La pendiente de la FPP es −a<sub>Y</sub>/a<sub>X</sub>. Su valor absoluto es el costo de oportunidad de X medido en unidades de Y.</p>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Costo de oportunidad de X</h4>
+        <div class="formula" style="font-size:1rem;">CO<sub>X</sub> = a<sub>Y</sub>/a<sub>X</sub></div>
+        <p>Indica cuántas unidades de Y se sacrifican para producir una unidad adicional de X.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Costo de oportunidad de Y</h4>
+        <div class="formula" style="font-size:1rem;">CO<sub>Y</sub> = a<sub>X</sub>/a<sub>Y</sub></div>
+        <p>Es el recíproco del costo de oportunidad de X.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Preferencias sociales y autarquía</summary>
+      <div>
+        <p>El tema representa las preferencias mediante una curva de indiferencia social Cobb–Douglas: <strong>U = X<sup>1/2</sup>Y<sup>1/2</sup></strong>. Su relación marginal de sustitución es <strong>RMS<sub>XY</sub> = Y/X</strong>.</p>
+        <p style="margin-top:.6rem;">En autarquía, producción y consumo coinciden. El equilibrio se encuentra donde la curva de indiferencia social es tangente a la FPP: <strong>RMS<sub>XY</sub> = CO<sub>X</sub></strong>.</p>
+        <p style="margin-top:.6rem;"><strong>Precisión:</strong> tratar al país como consumidor representativo no muestra heterogeneidad ni conflictos distributivos internos.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="caso1" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Caso 1: ventajas absolutas cruzadas</h3>
+    <p class="section-lead">A es más productivo en X y B es más productivo en Y. Los costos de oportunidad confirman el mismo patrón de especialización.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>País A</h4>
+        <div class="formula" style="font-size:1rem;">X<sub>A</sub> = 30L<sub>XA</sub> &nbsp;·&nbsp; Y<sub>A</sub> = 20L<sub>YA</sub></div>
+        <p><strong>FPP:</strong> Y<sub>A</sub> = 2000 − (2/3)X<sub>A</sub></p>
+        <p><strong>Interceptos:</strong> X = 3000; Y = 2000.</p>
+        <p><strong>Costos:</strong> CO<sub>X</sub> = 2/3 Y; CO<sub>Y</sub> = 3/2 X.</p>
+      </article>
+      <article class="mini-card">
+        <h4>País B</h4>
+        <div class="formula" style="font-size:1rem;">X<sub>B</sub> = 20L<sub>XB</sub> &nbsp;·&nbsp; Y<sub>B</sub> = 30L<sub>YB</sub></div>
+        <p><strong>FPP:</strong> Y<sub>B</sub> = 3000 − (3/2)X<sub>B</sub></p>
+        <p><strong>Interceptos:</strong> X = 2000; Y = 3000.</p>
+        <p><strong>Costos:</strong> CO<sub>X</sub> = 3/2 Y; CO<sub>Y</sub> = 2/3 X.</p>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>País</th><th>Productividad en X</th><th>Productividad en Y</th><th>Ventaja absoluta</th><th>Ventaja comparativa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>30</td><td>20</td><td>X</td><td>X, porque 2/3 &lt; 3/2</td></tr>
+          <tr><td><strong>B</strong></td><td>20</td><td>30</td><td>Y</td><td>Y, porque 2/3 &lt; 3/2</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>FPP de los dos países</h4>
+      <svg viewBox="0 0 760 390" role="img" aria-labelledby="fpp1-title fpp1-desc" style="display:block;width:100%;height:auto;">
+        <title id="fpp1-title">Fronteras de posibilidades de producción del caso 1</title>
+        <desc id="fpp1-desc">La FPP del país A une 0,2000 con 3000,0 y la FPP del país B une 0,3000 con 2000,0.</desc>
+        <rect x="0" y="0" width="760" height="390" rx="12" fill="#ffffff"/>
+        <line x1="75" y1="325" x2="710" y2="325" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="325" x2="75" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="132" x2="690" y2="325" stroke="#003366" stroke-width="4"/>
+        <line x1="75" y1="35" x2="485" y2="325" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/>
+        <text x="690" y="350" text-anchor="middle" font-size="13" fill="#55557a">3000 X</text>
+        <text x="485" y="350" text-anchor="middle" font-size="13" fill="#55557a">2000 X</text>
+        <text x="61" y="137" text-anchor="end" font-size="13" fill="#55557a">2000 Y</text>
+        <text x="61" y="40" text-anchor="end" font-size="13" fill="#55557a">3000 Y</text>
+        <text x="392" y="382" text-anchor="middle" font-size="13" fill="#55557a">Producción de X</text>
+        <text x="20" y="180" transform="rotate(-90 20 180)" text-anchor="middle" font-size="13" fill="#55557a">Producción de Y</text>
+        <g transform="translate(470,55)">
+          <line x1="0" y1="0" x2="34" y2="0" stroke="#003366" stroke-width="4"/><text x="44" y="5" font-size="13" fill="#1a1a2e">FPP país A</text>
+          <line x1="0" y1="28" x2="34" y2="28" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/><text x="44" y="33" font-size="13" fill="#1a1a2e">FPP país B</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Autarquía de A</h4>
+        <p>La tangencia Y/X = 2/3 produce:</p>
+        <div class="formula" style="font-size:1rem;">(X<sub>A</sub><sup>aut</sup>, Y<sub>A</sub><sup>aut</sup>) = (1500, 1000)</div>
+        <p>Bienestar: U<sub>A</sub><sup>aut</sup> ≈ 1224,74.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Autarquía de B</h4>
+        <p>La tangencia Y/X = 3/2 produce:</p>
+        <div class="formula" style="font-size:1rem;">(X<sub>B</sub><sup>aut</sup>, Y<sub>B</sub><sup>aut</sup>) = (1000, 1500)</div>
+        <p>Bienestar: U<sub>B</sub><sup>aut</sup> ≈ 1224,74.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="comercio1" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Especialización, precios y bienestar en el caso 1</h3>
+    <p class="section-lead">A se especializa en X y B en Y. La especialización eleva la producción mundial de ambos bienes respecto de la autarquía agregada.</p>
+
+    <div class="chain" aria-label="Cadena causal del comercio clásico">
+      <span>Diferencias de costos</span><b>→</b><span>Especialización</span><b>→</b><span>Mayor producción mundial</span><b>→</b><span>Intercambio</span><b>→</b><span>Mayor conjunto de consumo</span>
+    </div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Producción mundial</h4>
+        <p><strong>Autarquía:</strong> (X, Y) = (2500, 2500).</p>
+        <p><strong>Especialización:</strong> (X, Y) = (3000, 3000).</p>
+        <div class="formula" style="font-size:1rem;">A produce (3000,0) · B produce (0,3000)</div>
+      </article>
+      <article class="mini-card">
+        <h4>Intervalo de precios</h4>
+        <p>Sea p = P<sub>X</sub>/P<sub>Y</sub>.</p>
+        <div class="formula" style="font-size:1rem;">2/3 &lt; P<sub>X</sub>/P<sub>Y</sub> &lt; 3/2</div>
+        <p>El precio debe ser mayor que el costo de X en A y menor que el costo de X en B.</p>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Ejemplo con P<sub>X</sub>/P<sub>Y</sub> = 1:</strong> cada país obtiene ingreso 3000 y, con preferencias Cobb–Douglas simétricas, consume (1500,1500). A exporta 1500 unidades de X e importa 1500 de Y; B realiza las operaciones inversas.</div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Bienestar con comercio</h4>
+        <div class="formula" style="font-size:1rem;">U<sup>com</sup> = √(1500·1500) = 1500</div>
+        <p>El bienestar de cada país aumenta aproximadamente 22,47% frente a la autarquía.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Interpretación correcta</h4>
+        <p>El comercio no desplaza la tecnología ni la FPP nacional. Permite consumir fuera de la FPP mediante una recta de intercambio internacional que pasa por el punto de producción.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: reconstruir el caso 1</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>Derive las dos FPP.</li>
+          <li>Calcule los cuatro costos de oportunidad.</li>
+          <li>Identifique ventajas absolutas y comparativas.</li>
+          <li>Compruebe que p = 1 pertenece al intervalo.</li>
+          <li>Calcule producción, consumo y comercio de cada país.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="caso2" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Caso 2: un país es absolutamente más productivo en ambos bienes</h3>
+    <p class="section-lead">El caso ricardiano muestra que la ventaja comparativa subsiste aunque A tenga ventaja absoluta tanto en X como en Y.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>País A</h4>
+        <div class="formula" style="font-size:1rem;">X<sub>A</sub> = 30L<sub>XA</sub> &nbsp;·&nbsp; Y<sub>A</sub> = 25L<sub>YA</sub></div>
+        <p><strong>FPP:</strong> Y<sub>A</sub> = 2500 − (5/6)X<sub>A</sub></p>
+        <p><strong>Costos:</strong> CO<sub>X</sub> = 5/6 Y; CO<sub>Y</sub> = 6/5 X.</p>
+        <p><strong>Autarquía:</strong> (1500,1250); U ≈ 1369,31.</p>
+      </article>
+      <article class="mini-card">
+        <h4>País B</h4>
+        <div class="formula" style="font-size:1rem;">X<sub>B</sub> = 18L<sub>XB</sub> &nbsp;·&nbsp; Y<sub>B</sub> = 20L<sub>YB</sub></div>
+        <p><strong>FPP:</strong> Y<sub>B</sub> = 2000 − (10/9)X<sub>B</sub></p>
+        <p><strong>Costos:</strong> CO<sub>X</sub> = 10/9 Y; CO<sub>Y</sub> = 9/10 X.</p>
+        <p><strong>Autarquía:</strong> (900,1000); U ≈ 948,68.</p>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Comparación</th><th>País A</th><th>País B</th><th>Conclusión</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Productividad en X</strong></td><td>30</td><td>18</td><td>A tiene ventaja absoluta.</td></tr>
+          <tr><td><strong>Productividad en Y</strong></td><td>25</td><td>20</td><td>A tiene ventaja absoluta.</td></tr>
+          <tr><td><strong>CO de X</strong></td><td>5/6 ≈ 0,833</td><td>10/9 ≈ 1,111</td><td>A tiene ventaja comparativa en X.</td></tr>
+          <tr><td><strong>CO de Y</strong></td><td>6/5 = 1,2</td><td>9/10 = 0,9</td><td>B tiene ventaja comparativa en Y.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout"><strong>Intuición de la “desventaja menor”:</strong> la productividad de B equivale al 60% de la de A en X, pero al 80% en Y. Por ello, su desventaja es relativamente menor en Y y ese es el bien en el que posee ventaja comparativa.</div>
+
+    <div class="mini-card" style="margin-top:1rem;">
+      <h4>FPP del caso 2</h4>
+      <svg viewBox="0 0 760 390" role="img" aria-labelledby="fpp2-title fpp2-desc" style="display:block;width:100%;height:auto;">
+        <title id="fpp2-title">Fronteras de posibilidades de producción del caso 2</title>
+        <desc id="fpp2-desc">La FPP del país A está más alejada del origen en ambos ejes, pero las pendientes revelan costos de oportunidad distintos.</desc>
+        <rect x="0" y="0" width="760" height="390" rx="12" fill="#ffffff"/>
+        <line x1="75" y1="325" x2="710" y2="325" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="325" x2="75" y2="35" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="75" y1="83" x2="690" y2="325" stroke="#003366" stroke-width="4"/>
+        <line x1="75" y1="132" x2="444" y2="325" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/>
+        <text x="690" y="350" text-anchor="middle" font-size="13" fill="#55557a">3000 X</text>
+        <text x="444" y="350" text-anchor="middle" font-size="13" fill="#55557a">1800 X</text>
+        <text x="61" y="88" text-anchor="end" font-size="13" fill="#55557a">2500 Y</text>
+        <text x="61" y="137" text-anchor="end" font-size="13" fill="#55557a">2000 Y</text>
+        <text x="392" y="382" text-anchor="middle" font-size="13" fill="#55557a">Producción de X</text>
+        <text x="20" y="180" transform="rotate(-90 20 180)" text-anchor="middle" font-size="13" fill="#55557a">Producción de Y</text>
+        <g transform="translate(470,55)">
+          <line x1="0" y1="0" x2="34" y2="0" stroke="#003366" stroke-width="4"/><text x="44" y="5" font-size="13" fill="#1a1a2e">FPP país A</text>
+          <line x1="0" y1="28" x2="34" y2="28" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/><text x="44" y="33" font-size="13" fill="#1a1a2e">FPP país B</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="formula" style="margin-top:1rem;">5/6 &lt; P<sub>X</sub>/P<sub>Y</sub> &lt; 10/9</div>
+    <p class="formula-note">Este intervalo es compatible con A produciendo X y B produciendo Y.</p>
+  </section>
+
+  <section id="equilibrio" class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Precio tecnológico versus equilibrio internacional</h3>
+    <p class="section-lead">El intervalo de costos indica qué patrones productivos son posibles, pero no determina por sí solo el precio que vacía los mercados mundiales.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Nivel 1: producción</h4>
+        <p>Compare productividades para identificar ventajas absolutas y derive las FPP.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Nivel 2: costos</h4>
+        <p>Compare costos de oportunidad para identificar la ventaja comparativa y el intervalo de precios.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Nivel 3: equilibrio</h4>
+        <p>Compruebe demandas, presupuestos, exportaciones, importaciones y vaciado de mercados.</p>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Error frecuente:</strong> confundir un precio situado entre los costos de oportunidad con un equilibrio general completo.</div>
+
+    <h4 style="color:var(--primary);">Por qué p = 1 no vacía los mercados en el caso 2</h4>
+    <div class="chain" aria-label="Desequilibrio con precio igual a uno">
+      <span>A exportaría 1500 de X</span><b>≠</b><span>B importaría 1000 de X</span><b>→</b><span>Exceso de oferta mundial de X</span><b>→</b><span>El precio o la especialización deben ajustarse</span>
+    </div>
+
+    <div class="callout"><strong>Condiciones de equilibrio:</strong> decisiones de producción compatibles con precios, demandas de consumo, presupuestos balanceados, igualdad entre exportaciones e importaciones y excesos de demanda mundiales iguales a cero.</div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Ejemplo consistente en el límite</h4>
+        <div class="formula" style="font-size:1rem;">P<sub>X</sub>/P<sub>Y</sub> = 5/6</div>
+        <p>A es indiferente entre producir X e Y; B se especializa en Y. Puede aparecer especialización incompleta sin eliminar las ganancias del comercio.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Producción que vacía los mercados</h4>
+        <p>A produce (2700,250) y consume (1500,1250).</p>
+        <p>B produce (0,2000) y consume (1200,1000).</p>
+        <p>A exporta 1200 de X e importa 1000 de Y; B realiza lo inverso.</p>
+      </article>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Bienestar de A</h4>
+        <div class="formula" style="font-size:1rem;">U<sub>A</sub><sup>com</sup> ≈ 1369,31</div>
+        <p>A permanece sobre su curva de indiferencia de autarquía: no pierde, pero captura una ganancia nula en este precio límite.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Bienestar de B</h4>
+        <div class="formula" style="font-size:1rem;">U<sub>B</sub><sup>com</sup> ≈ 1095,45</div>
+        <p>B mejora frente a su bienestar de autarquía de aproximadamente 948,68.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: diagnosticar precios</summary>
+      <div>
+        <p>Para cada valor de p = P<sub>X</sub>/P<sub>Y</sub> —0,70; 0,90; 1,00; 1,20— determine:</p>
+        <ol style="padding-left:1.2rem;margin-top:.6rem;">
+          <li>Qué país desea producir X.</li>
+          <li>Qué país desea producir Y.</li>
+          <li>Si el precio pertenece al intervalo tecnológico.</li>
+          <li>Qué información adicional se necesita para comprobar el equilibrio.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="integracion" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Consumo, caja de Edgeworth y límites del modelo</h3>
+    <p class="section-lead">El comercio reorganiza la producción mundial y amplía el conjunto de consumo, pero sus beneficios dependen de precios, preferencias y distribución.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Producción y consumo</h4>
+        <p><strong>Autarquía:</strong> producción = consumo dentro de cada país.</p>
+        <p><strong>Comercio:</strong> producción ≠ consumo dentro del país, aunque la producción mundial total debe igualar el consumo mundial total.</p>
+        <div class="formula" style="font-size:1rem;">X<sub>A</sub><sup>p</sup> + X<sub>B</sub><sup>p</sup> = X<sub>A</sub><sup>c</sup> + X<sub>B</sub><sup>c</sup></div>
+      </article>
+      <article class="mini-card">
+        <h4>Recta de intercambio</h4>
+        <p>Pasa por el punto de producción y tiene pendiente −P<sub>X</sub>/P<sub>Y</sub>. Un país gana si puede alcanzar una curva de indiferencia social superior a la de autarquía.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Caja de Edgeworth aplicada al intercambio</summary>
+      <div>
+        <ul style="padding-left:1.1rem;">
+          <li>Los lados representan cantidades disponibles de X e Y.</li>
+          <li>Cada punto es una asignación entre los dos países.</li>
+          <li>Los orígenes se ubican en esquinas opuestas.</li>
+          <li>La curva de contrato reúne tangencias entre curvas de indiferencia social.</li>
+          <li>El equilibrio competitivo requiere una recta de precios común y presupuestos compatibles.</li>
+          <li>La dotación y el precio deben generar excesos de demanda que sumen cero.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Caso 1: ventajas absolutas cruzadas</th><th>Caso 2: A domina absolutamente</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CO de X en A</strong></td><td>2/3</td><td>5/6</td></tr>
+          <tr><td><strong>CO de X en B</strong></td><td>3/2</td><td>10/9</td></tr>
+          <tr><td><strong>Ventaja comparativa de A</strong></td><td>X</td><td>X</td></tr>
+          <tr><td><strong>Ventaja comparativa de B</strong></td><td>Y</td><td>Y</td></tr>
+          <tr><td><strong>Intervalo de P<sub>X</sub>/P<sub>Y</sub></strong></td><td>(2/3, 3/2)</td><td>(5/6, 10/9)</td></tr>
+          <tr><td><strong>Precisión de equilibrio</strong></td><td>p = 1 vacía los mercados en el ejemplo.</td><td>p = 1 es tecnológicamente posible, pero no vacía los mercados con especialización completa.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Límites del modelo clásico</h4>
+    <div class="grid-3">
+      <article class="mini-card"><h4>Producción</h4><ul><li>Un solo factor.</li><li>Productividad constante.</li><li>FPP lineales.</li><li>Sin economías de escala.</li></ul></article>
+      <article class="mini-card"><h4>Mercados</h4><ul><li>Competencia perfecta.</li><li>Sin transporte.</li><li>Sin aranceles.</li><li>Sin heterogeneidad empresarial.</li></ul></article>
+      <article class="mini-card"><h4>Ajuste y distribución</h4><ul><li>Sin desempleo.</li><li>Movilidad interna sin costos.</li><li>Preferencias agregadas.</li><li>No identifica ganadores y perdedores sectoriales.</li></ul></article>
+    </div>
+
+    <div class="warning callout"><strong>Lectura para política comercial:</strong> la ventaja comparativa demuestra ganancias potenciales bajo supuestos específicos. No demuestra que toda apertura, en cualquier contexto y sin políticas de ajuste, beneficie automáticamente a todos los grupos.</div>
+
+    <details>
+      <summary>Actividad integradora</summary>
+      <div>
+        <p>Considere A: X = 24L, Y = 12L; B: X = 15L, Y = 10L; con L = 100 en cada país.</p>
+        <ol style="padding-left:1.2rem;margin-top:.6rem;">
+          <li>Determine ventajas absolutas.</li>
+          <li>Calcule costos de oportunidad.</li>
+          <li>Identifique ventajas comparativas.</li>
+          <li>Obtenga el intervalo de precios.</li>
+          <li>Evalúe P<sub>X</sub>/P<sub>Y</sub> = 1,5.</li>
+          <li>Explique por qué ese precio no basta para asegurar equilibrio.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="La ventaja absoluta compara unidades producidas por trabajador; la ventaja comparativa compara costos de oportunidad.">
+      <h4>1. ¿Cuál es la diferencia central entre ventaja absoluta y comparativa?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">La absoluta compara precios y la comparativa compara salarios.</button>
+        <button data-choice="b">La absoluta compara productividad y la comparativa compara costo de oportunidad.</button>
+        <button data-choice="c">La absoluta se aplica al comercio y la comparativa solo a la autarquía.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="La pendiente en valor absoluto es aY/aX y mide las unidades de Y sacrificadas por una unidad adicional de X.">
+      <h4>2. ¿Qué representa el valor absoluto de la pendiente de la FPP?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">El nivel de utilidad del país.</button>
+        <button data-choice="b">La cantidad total de trabajo disponible.</button>
+        <button data-choice="c">El costo de oportunidad de X en términos de Y.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="En el caso 1, A sacrifica 2/3 de Y por una unidad de X, menos que B, que sacrifica 3/2.">
+      <h4>3. En el caso 1, ¿qué país tiene ventaja comparativa en X?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">País A.</button>
+        <button data-choice="b">País B.</button>
+        <button data-choice="c">Ninguno, porque ambos producen X.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="B tiene desventaja absoluta en ambos bienes, pero su desventaja relativa es menor en Y; por ello tiene ventaja comparativa en Y.">
+      <h4>4. ¿Cómo puede B exportar Y en el caso 2 si A es más productivo en ambos bienes?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque B tiene más trabajadores.</button>
+        <button data-choice="b">Porque el precio de Y siempre es cero.</button>
+        <button data-choice="c">Porque B tiene menor costo de oportunidad de Y.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Para sostener A en X y B en Y, el precio relativo debe ubicarse entre 5/6 y 10/9.">
+      <h4>5. ¿Cuál es el intervalo tecnológico del caso 2?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">P<sub>X</sub>/P<sub>Y</sub> &lt; 5/6.</button>
+        <button data-choice="b">5/6 &lt; P<sub>X</sub>/P<sub>Y</sub> &lt; 10/9.</button>
+        <button data-choice="c">P<sub>X</sub>/P<sub>Y</sub> &gt; 3/2.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="El intervalo de costos solo garantiza compatibilidad productiva. El equilibrio exacto requiere preferencias, presupuestos y vaciado de mercados.">
+      <h4>6. ¿Por qué un precio dentro del intervalo no garantiza equilibrio completo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Porque todavía deben igualarse oferta y demanda mundiales.</button>
+        <button data-choice="b">Porque los costos de oportunidad dejan de existir con comercio.</button>
+        <button data-choice="c">Porque todos los países deben producir ambos bienes.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="El comercio permite elegir una combinación de consumo situada fuera de la FPP nacional, aunque la producción siga sobre ella.">
+      <h4>7. ¿Cómo amplía el comercio las posibilidades de consumo?</h4>
+      <div class="quiz-options">
+        <button data-choice="a">Desplaza automáticamente la tecnología nacional.</button>
+        <button data-choice="b">Elimina la escasez y crea bienes sin producción.</button>
+        <button data-choice="c">Permite intercambiar la producción a precios internacionales y alcanzar una CIS superior.</button>
+      </div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">11</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>La diferencia entre ventaja absoluta y comparativa.</li>
+      <li>Cómo derivar una FPP a partir de productividades y trabajo disponible.</li>
+      <li>Cómo interpretar la pendiente como costo de oportunidad.</li>
+      <li>Cómo identificar el patrón de especialización en los dos casos numéricos.</li>
+      <li>Cómo calcular el intervalo de precios internacionales.</li>
+      <li>Por qué el comercio puede ampliar el conjunto de consumo sin desplazar la FPP.</li>
+      <li>Por qué un precio tecnológicamente posible no siempre vacía los mercados.</li>
+      <li>Cómo influyen preferencias y términos de intercambio en la distribución de ganancias.</li>
+      <li>Los principales supuestos y límites del modelo ricardiano.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

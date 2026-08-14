@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda memoria: Comercio interindustrial e intraindustrial | Universidad Andrés Bello</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #003366;
+      --primary-lt:    #1a5599;
+      --accent:        #d4961a;
+      --success:       #2e7d32;
+      --danger:        #a83232;
+      --bg:            #f4f6fb;
+      --card-bg:       #ffffff;
+      --text:          #1a1a2e;
+      --text-lt:       #55557a;
+      --border:        #dce3f0;
+      --shadow:        0 2px 12px rgba(0,0,60,.10);
+      --radius:        14px;
+      --tr:            .22s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Header replicado desde Actividad 1 */
+    .inst-header {
+      background: #fff;
+      border-bottom: 4px solid var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .inst-header img { height: 56px; width: auto; max-width: 180px; }
+    .inst-header-fallback {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .inst-header-text h1 { font-size: .95rem; font-weight: 700; color: var(--primary); }
+    .inst-header-text p  { font-size: .8rem; color: var(--text-lt); }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    section { margin-bottom: 1.5rem; scroll-margin-top: 100px; }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #edf2ff 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4rem 2rem;
+      border-top: 5px solid var(--primary);
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #dce8ff;
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .hero h2 { color: var(--primary); font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.18; }
+    .hero-sub { max-width: 820px; color: var(--text-lt); margin-top: .75rem; font-size: 1rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.15rem; }
+    .meta-chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .34rem .72rem; font-size: .8rem; font-weight: 650; }
+
+    .study-instruction {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      background: #fff9eb;
+      border-radius: 0 10px 10px 0;
+      font-size: .92rem;
+    }
+
+    .quick-nav {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 92px;
+      z-index: 30;
+    }
+    .quick-nav a {
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .42rem .68rem;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 750;
+      background: #fff;
+      transition: all var(--tr);
+    }
+    .quick-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .section-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      flex: 0 0 34px;
+      border-radius: 10px;
+      color: white;
+      background: var(--primary);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .section-lead { color: var(--text-lt); margin-bottom: 1.15rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .mini-card { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; background: #fff; }
+    .mini-card h4 { color: var(--primary); font-size: .96rem; margin-bottom: .35rem; }
+    .mini-card p, .mini-card li { font-size: .89rem; }
+    .mini-card ul { padding-left: 1.1rem; }
+    .mini-card li + li { margin-top: .25rem; }
+
+    .key-ideas { counter-reset: key; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+    .key-idea {
+      counter-increment: key;
+      position: relative;
+      padding: .95rem .95rem .95rem 3rem;
+      background: #edf2ff;
+      border-radius: 10px;
+      border: 1px solid #ccdaf1;
+      font-size: .9rem;
+    }
+    .key-idea::before {
+      content: counter(key);
+      position: absolute; left: .8rem; top: .8rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary); color: white; font-weight: 800;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .45rem;
+      align-items: stretch;
+    }
+    .route-node {
+      min-height: 92px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem .55rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 760;
+      position: relative;
+    }
+    .route-node:not(:last-child)::after {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      right: -.44rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      font-size: 1rem;
+      text-shadow: 0 0 3px white;
+    }
+
+    .timeline { position: relative; margin-left: .3rem; }
+    .timeline::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 3px; background: var(--border); }
+    .timeline-item { position: relative; padding-left: 3.3rem; margin-bottom: 1rem; }
+    .timeline-dot {
+      position: absolute; left: 5px; top: .15rem;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center;
+      font-size: .64rem; font-weight: 800;
+      box-shadow: 0 0 0 4px white;
+    }
+    .timeline-item h4 { color: var(--primary); font-size: .95rem; }
+    .timeline-item p { color: var(--text-lt); font-size: .87rem; }
+
+    .callout {
+      border-left: 5px solid var(--primary);
+      background: #edf2ff;
+      padding: 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--primary); }
+    .warning { background: #fff7e5; border-left-color: var(--accent); }
+    .warning strong { color: #855b08; }
+
+    .formula {
+      margin: .8rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .formula-note { color: var(--text-lt); font-size: .84rem; text-align: center; }
+
+    .chain {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem; margin: 1rem 0;
+    }
+    .chain span {
+      background: #edf2ff;
+      color: var(--primary);
+      border: 1px solid #cbdaf2;
+      border-radius: 9px;
+      padding: .55rem .75rem;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+    .chain b { color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; background: #fff; }
+    th { background: var(--primary); color: #fff; padding: .72rem; font-size: .82rem; text-align: left; }
+    td { padding: .72rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f8faff; }
+
+    details { border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: .7rem; overflow: hidden; background: #fff; }
+    summary { cursor: pointer; padding: .82rem 1rem; font-weight: 750; color: var(--primary); background: #f4f6fb; }
+    summary:hover { background: #e7edf8; }
+    details > div { padding: 1rem; font-size: .9rem; }
+
+    .quiz-question { border: 1.5px solid var(--border); border-radius: 11px; padding: 1rem; margin-bottom: .9rem; }
+    .quiz-question h4 { font-size: .94rem; margin-bottom: .7rem; }
+    .quiz-options { display: grid; gap: .45rem; }
+    .quiz-options button {
+      text-align: left; padding: .65rem .75rem;
+      border: 1.5px solid var(--border);
+      background: #fff; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: .84rem;
+      transition: all var(--tr);
+    }
+    .quiz-options button:hover { border-color: var(--primary); background: #edf2ff; }
+    .quiz-options button.correct { background: #e8f5e9; border-color: var(--success); color: #1b5e20; }
+    .quiz-options button.incorrect { background: #fff0f0; border-color: var(--danger); color: #8a2020; }
+    .quiz-feedback { margin-top: .65rem; font-size: .84rem; font-weight: 650; min-height: 1.3em; }
+
+    .checklist { list-style: none; display: grid; gap: .55rem; }
+    .checklist li { position: relative; padding-left: 1.9rem; font-size: .9rem; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--success); font-weight: 900; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1rem; }
+    .btn {
+      border: none; border-radius: 9px; padding: .68rem 1rem;
+      cursor: pointer; font: inherit; font-size: .86rem; font-weight: 750;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* Footer replicado desde Actividad 1 */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.85);
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .route { grid-template-columns: repeat(3, 1fr); }
+      .route-node:nth-child(3)::after { display: none; }
+      .quick-nav { position: static; }
+    }
+    @media (max-width: 620px) {
+      .inst-header { padding: .8rem 1rem; }
+      .inst-header img { height: 46px; }
+      main { padding: 1.2rem .8rem 3rem; }
+      .hero, .section-card { padding: 1.25rem; }
+      .grid-2, .grid-3, .key-ideas { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; }
+      .route-node { min-height: 62px; }
+      .route-node:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -.72rem; transform: translateX(-50%); }
+      .route-node:nth-child(3)::after { display: block; }
+    }
+
+    @media print {
+      .inst-header { position: static; }
+      .quick-nav, .actions, .quiz-options button { display: none !important; }
+      body { background: white; }
+      .section-card, .hero { box-shadow: none; break-inside: avoid; border: 1px solid #ddd; }
+      details > div { display: block !important; }
+      footer { background: #003366 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<header class="inst-header" role="banner">
+  <img
+    id="logo-img"
+    src="https://facultades.unab.cl/economiaynegocios/wp-content/uploads/2022/03/logo-fen-negro.png"
+    alt="Logo de la Facultad de Economía y Negocios de la Universidad Andrés Bello"
+    onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+  >
+  <div id="logo-fallback" class="inst-header-fallback" aria-hidden="true">FEN</div>
+  <div class="inst-header-text">
+    <h1>Universidad Andrés Bello</h1>
+    <p>Facultad de Economía y Negocios</p>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">Ayuda memoria · Tema 7</span>
+    <h2 id="page-title">Comercio interindustrial e intraindustrial</h2>
+    <p class="hero-sub">Síntesis de estudio autónomo para estudiantes de Ingeniería Comercial. Explica cómo distinguir ambos patrones de comercio, medir el intercambio intraindustrial con los índices Grubel–Lloyd y Brülhart, y relacionarlo con variedad, economías de escala, calidad, dotaciones factoriales y dinámica del ajuste.</p>
+    <div class="meta-row" aria-label="Información del recurso">
+      <span class="meta-chip">Asignatura: Economía Internacional</span>
+      <span class="meta-chip">Nivel: Pregrado</span>
+      <span class="meta-chip">Modalidad: Autoestudio</span>
+      <span class="meta-chip">Autor: Julián Díaz, PhD</span>
+    </div>
+    <div class="study-instruction"><strong>Cómo usar este recurso:</strong> comience por las diez ideas fuerza, practique la descomposición del comercio y el índice Grubel–Lloyd, compare diferenciación horizontal y vertical, y termine con el índice de Brülhart, el caso integrador y la autoevaluación.</div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#ruta">Ruta conceptual</a>
+    <a href="#patrones">Dos patrones</a>
+    <a href="#descomposicion">Descomposición</a>
+    <a href="#gl">Grubel–Lloyd</a>
+    <a href="#agregado">Índice agregado</a>
+    <a href="#horizontal">Horizontal</a>
+    <a href="#vertical">Vertical</a>
+    <a href="#otras">Otras fuentes</a>
+    <a href="#brulhart">Brülhart</a>
+    <a href="#caso">Caso</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+  </nav>
+
+  <section id="ideas" class="section-card">
+    <h3 class="section-title"><span class="section-number">1</span>Diez ideas fuerza</h3>
+    <p class="section-lead">Estas afirmaciones condensan los conceptos y precauciones esenciales del tema.</p>
+    <div class="key-ideas">
+      <div class="key-idea">El comercio interindustrial intercambia bienes de industrias distintas y suele reflejar ventaja comparativa.</div>
+      <div class="key-idea">El comercio intraindustrial combina exportaciones e importaciones simultáneas dentro de una misma industria.</div>
+      <div class="key-idea">La clasificación estadística y su nivel de agregación pueden alterar significativamente la medición.</div>
+      <div class="key-idea">El índice Grubel–Lloyd mide la proporción de comercio solapado, no el volumen absoluto comerciado.</div>
+      <div class="key-idea">Los índices sectoriales deben agregarse ponderando por el tamaño comercial de cada industria.</div>
+      <div class="key-idea">La diferenciación horizontal combina variedades de calidad semejante, economías de escala y competencia monopolística.</div>
+      <div class="key-idea">La diferenciación vertical combina segmentos de calidad, dotaciones factoriales, tecnología e ingreso.</div>
+      <div class="key-idea">La similitud entre países favorece principalmente el comercio intraindustrial horizontal, no necesariamente el vertical.</div>
+      <div class="key-idea">El índice de Brülhart mide si los cambios recientes de exportaciones e importaciones avanzan en paralelo.</div>
+      <div class="key-idea">Los índices describen patrones; por sí solos no identifican la causa económica del comercio.</div>
+    </div>
+  </section>
+
+  <section id="ruta" class="section-card">
+    <h3 class="section-title"><span class="section-number">2</span>Ruta conceptual del tema</h3>
+    <p class="section-lead">La secuencia conecta clasificación, medición, explicación teórica y dinámica comercial.</p>
+    <div class="route" aria-label="Ruta conceptual">
+      <div class="route-node">Clasificar industrias y flujos</div>
+      <div class="route-node">Separar comercio neto y solapado</div>
+      <div class="route-node">Calcular Grubel–Lloyd</div>
+      <div class="route-node">Explicar variedad o calidad</div>
+      <div class="route-node">Medir cambios con Brülhart</div>
+      <div class="route-node">Interpretar ajuste y política</div>
+    </div>
+  </section>
+
+  <section id="patrones" class="section-card">
+    <h3 class="section-title"><span class="section-number">3</span>Comercio interindustrial e intraindustrial</h3>
+    <p class="section-lead">La distinción depende de la industria estadística en la que se clasifican los bienes.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Interindustrial</h4>
+        <p>Un país exporta bienes de una industria e importa bienes de otra.</p>
+        <ul>
+          <li>Chile exporta cobre e importa automóviles.</li>
+          <li>Un país exporta trigo e importa fertilizantes.</li>
+          <li>Se explica por tecnología, factores o recursos naturales.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Intraindustrial</h4>
+        <p>En una industria <em>i</em> existen simultáneamente exportaciones e importaciones.</p>
+        <div class="formula" style="font-size:1rem;">X<sub>i</sub> &gt; 0 &nbsp; y &nbsp; M<sub>i</sub> &gt; 0</div>
+        <p>Ejemplo: Alemania exporta e importa automóviles.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Industria estadística</h4>
+        <p>Puede definirse con HS, CUCI/SITC u otras clasificaciones y con 2, 4, 6 u 8 dígitos.</p>
+        <p><strong>Consecuencia:</strong> un nivel muy agregado puede reunir productos poco sustituibles.</p>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Sesgo de agregación:</strong> “maquinaria” puede contener turbinas, computadores, equipos médicos y repuestos. Exportar una subcategoría e importar otra puede aparecer como comercio intraindustrial aun cuando no sean sustitutos cercanos.</div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Medición bilateral</h4>
+        <p>Considera flujos entre dos países específicos. Permite identificar con mayor precisión el comercio bidireccional con un mismo socio.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Medición multilateral</h4>
+        <p>Agrega todos los socios. Puede combinar exportaciones hacia un país con importaciones desde otro.</p>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: clasificar flujos</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>Chile exporta cobre e importa automóviles.</li>
+          <li>Alemania exporta e importa automóviles.</li>
+          <li>Un país exporta vino premium e importa vino de mesa.</li>
+          <li>Un país exporta trigo e importa fertilizantes.</li>
+          <li>Un país exporta motores e importa partes de motores.</li>
+        </ol>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> interindustrial; intraindustrial; intraindustrial vertical; interindustrial; intraindustrial, potencialmente asociado a fragmentación productiva.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="descomposicion" class="section-card">
+    <h3 class="section-title"><span class="section-number">4</span>Comercio bruto, neto y solapado</h3>
+    <p class="section-lead">Toda industria puede descomponerse entre una parte bidireccional y una parte de exportación o importación neta.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Comercio total</h4>
+        <div class="formula" style="font-size:1rem;">T<sub>i</sub> = X<sub>i</sub> + M<sub>i</sub></div>
+        <p>Suma todos los flujos brutos de la industria.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Comercio neto</h4>
+        <div class="formula" style="font-size:1rem;">NT<sub>i</sub> = |X<sub>i</sub> − M<sub>i</sub>|</div>
+        <p>Mide la especialización neta exportadora o importadora.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Comercio solapado</h4>
+        <div class="formula" style="font-size:1rem;">IIT<sub>i</sub> = T<sub>i</sub> − NT<sub>i</sub></div>
+        <p>Equivale a dos veces el menor flujo: 2·min(X,M).</p>
+      </article>
+    </div>
+
+    <div class="callout"><strong>Ejemplo:</strong> si X=100 y M=40, entonces T=140, NT=60 e IIT=80. De las 140 unidades comerciadas, 80 son solapadas y 60 corresponden a exportación neta.</div>
+
+    <div class="mini-card">
+      <h4>Descomposición del ejemplo</h4>
+      <svg viewBox="0 0 760 330" role="img" aria-labelledby="dec-title dec-desc" style="display:block;width:100%;height:auto;">
+        <title id="dec-title">Comercio intraindustrial y comercio neto</title>
+        <desc id="dec-desc">Con exportaciones de cien e importaciones de cuarenta, ochenta unidades son comercio solapado y sesenta son comercio neto.</desc>
+        <rect x="0" y="0" width="760" height="330" rx="12" fill="#ffffff"/>
+        <line x1="90" y1="270" x2="700" y2="270" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="90" y1="270" x2="90" y2="45" stroke="#55557a" stroke-width="1.5"/>
+        <rect x="205" y="90" width="150" height="180" rx="8" fill="#003366"/>
+        <rect x="465" y="135" width="150" height="135" rx="8" fill="#d4961a"/>
+        <text x="280" y="80" text-anchor="middle" font-size="18" font-weight="700" fill="#003366">80</text>
+        <text x="540" y="125" text-anchor="middle" font-size="18" font-weight="700" fill="#855b08">60</text>
+        <text x="280" y="300" text-anchor="middle" font-size="14" fill="#55557a">Intraindustrial</text>
+        <text x="540" y="300" text-anchor="middle" font-size="14" fill="#55557a">Comercio neto</text>
+        <text x="28" y="165" transform="rotate(-90 28 165)" text-anchor="middle" font-size="13" fill="#55557a">Valor del comercio</text>
+      </svg>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: calcular T, NT e IIT</summary>
+      <div>
+        <p><strong>A:</strong> X=70, M=70. <strong>B:</strong> X=120, M=20. <strong>C:</strong> X=0, M=90.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> A: T=140, NT=0, IIT=140. B: T=140, NT=100, IIT=40. C: T=90, NT=90, IIT=0.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="gl" class="section-card">
+    <h3 class="section-title"><span class="section-number">5</span>Índice Grubel–Lloyd</h3>
+    <p class="section-lead">El índice expresa qué proporción del comercio total de una industria corresponde a flujos solapados.</p>
+
+    <div class="formula">GL<sub>i</sub> = 1 − |X<sub>i</sub>−M<sub>i</sub>|/(X<sub>i</sub>+M<sub>i</sub>)</div>
+    <div class="formula">GL<sub>i</sub> = [X<sub>i</sub>+M<sub>i</sub>−|X<sub>i</sub>−M<sub>i</sub>|]/(X<sub>i</sub>+M<sub>i</sub>)</div>
+    <p class="formula-note">Rango: 0 ≤ GL<sub>i</sub> ≤ 1.</p>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card"><h4>GL = 0</h4><p>Todo el comercio medido es neto o interindustrial. Ocurre cuando uno de los flujos es cero.</p></article>
+      <article class="mini-card"><h4>0 &lt; GL &lt; 1</h4><p>La industria combina una parte solapada y una parte neta.</p></article>
+      <article class="mini-card"><h4>GL = 1</h4><p>Exportaciones e importaciones son iguales; todo el comercio bruto es solapado.</p></article>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Ejemplo X=100, M=40</h4>
+        <div class="formula" style="font-size:1rem;">GL = 1 − 60/140 ≈ 0,571</div>
+        <p>El 57,1% del comercio de la industria es intraindustrial.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Proporción no es volumen</h4>
+        <div class="formula" style="font-size:1rem;">X=1, M=1 → GL=1</div>
+        <p>El índice es máximo aunque el comercio total sea solo 2.</p>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Caso sin comercio:</strong> si X=M=0, el denominador es cero y el índice no está definido. No debe asignarse automáticamente GL=1.</div>
+
+    <div class="mini-card">
+      <h4>Comportamiento del índice con X=100</h4>
+      <svg viewBox="0 0 760 360" role="img" aria-labelledby="gl-title gl-desc" style="display:block;width:100%;height:auto;">
+        <title id="gl-title">Índice Grubel–Lloyd al aumentar importaciones</title>
+        <desc id="gl-desc">Con exportaciones constantes en cien, el índice aumenta desde cero hasta uno a medida que las importaciones se acercan a cien.</desc>
+        <rect x="0" y="0" width="760" height="360" rx="12" fill="#ffffff"/>
+        <line x1="80" y1="300" x2="700" y2="300" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="80" y1="300" x2="80" y2="40" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="80" y1="170" x2="700" y2="170" stroke="#dce3f0" stroke-width="1"/>
+        <line x1="80" y1="40" x2="700" y2="40" stroke="#dce3f0" stroke-width="1"/>
+        <polyline points="80,300 235,196 390,127 545,77 700,40" fill="none" stroke="#003366" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="80" cy="300" r="5" fill="#d4961a"/><circle cx="235" cy="248" r="5" fill="#d4961a"/><circle cx="390" cy="213" r="5" fill="#d4961a"/><circle cx="545" cy="187" r="5" fill="#d4961a"/><circle cx="700" cy="170" r="5" fill="#d4961a"/>
+        <text x="80" y="326" text-anchor="middle" font-size="13" fill="#55557a">0</text>
+        <text x="235" y="326" text-anchor="middle" font-size="13" fill="#55557a">25</text>
+        <text x="390" y="326" text-anchor="middle" font-size="13" fill="#55557a">50</text>
+        <text x="545" y="326" text-anchor="middle" font-size="13" fill="#55557a">75</text>
+        <text x="700" y="326" text-anchor="middle" font-size="13" fill="#55557a">100</text>
+        <text x="65" y="305" text-anchor="end" font-size="13" fill="#55557a">0</text>
+        <text x="65" y="175" text-anchor="end" font-size="13" fill="#55557a">0,5</text>
+        <text x="65" y="45" text-anchor="end" font-size="13" fill="#55557a">1</text>
+        <text x="390" y="352" text-anchor="middle" font-size="13" fill="#55557a">Importaciones, con X=100</text>
+        <text x="25" y="175" transform="rotate(-90 25 175)" text-anchor="middle" font-size="13" fill="#55557a">Índice GL</text>
+      </svg>
+      <p class="formula-note">Valores exactos: M=0 → 0; 25 → 0,40; 50 → 0,667; 75 → 0,857; 100 → 1.</p>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Actividad breve: calcular Grubel–Lloyd</summary>
+      <div>
+        <p>Calcule para: (1) X=90, M=10; (2) X=60, M=60; (3) X=30, M=70; (4) X=0, M=50; (5) X=0, M=0.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> 0,20; 1; 0,60; 0; no definido.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="agregado" class="section-card">
+    <h3 class="section-title"><span class="section-number">6</span>Agregación, desequilibrio y comparabilidad</h3>
+    <p class="section-lead">La interpretación agregada requiere ponderar industrias y documentar el saldo comercial y el nivel de clasificación.</p>
+
+    <div class="formula">GL = 1 − Σ<sub>i</sub>|X<sub>i</sub>−M<sub>i</sub>| / Σ<sub>i</sub>(X<sub>i</sub>+M<sub>i</sub>)</div>
+    <div class="formula">GL = Σ<sub>i</sub>w<sub>i</sub>GL<sub>i</sub>, &nbsp; w<sub>i</sub>=(X<sub>i</sub>+M<sub>i</sub>)/Σ<sub>j</sub>(X<sub>j</sub>+M<sub>j</sub>)</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Industria</th><th>X</th><th>M</th><th>GL sectorial</th><th>Comercio solapado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>100</td><td>100</td><td>1,00</td><td>200</td></tr>
+          <tr><td><strong>B</strong></td><td>200</td><td>0</td><td>0,00</td><td>0</td></tr>
+          <tr><td><strong>C</strong></td><td>50</td><td>30</td><td>0,75</td><td>60</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Resultado agregado:</strong> GL=(200+0+60)/(200+200+80)≈0,542. Un promedio simple de 1,00; 0,00 y 0,75 daría 0,583 y sobrerrepresentaría la industria pequeña.</div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Ajuste por desequilibrio comercial</h4>
+    <div class="formula" style="font-size:1rem;">GL<sup>adj</sup> = [Σ(X+M)−Σ|X−M|]/[Σ(X+M)−|ΣX−ΣM|]</div>
+    <div class="formula" style="font-size:1rem;">GL<sup>adj</sup> = GL/(1−B), &nbsp; B=|ΣX−ΣM|/Σ(X+M)</div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Ejemplo</h4>
+        <p>Si Σ(X+M)=500, Σ|X−M|=200 y |ΣX−ΣM|=100:</p>
+        <div class="formula" style="font-size:1rem;">GL=0,60 · GL<sup>adj</sup>=300/400=0,75</div>
+      </article>
+      <article class="mini-card">
+        <h4>Qué debe reportarse</h4>
+        <ul>
+          <li>GL estándar.</li>
+          <li>Saldo o desequilibrio comercial.</li>
+          <li>GL ajustado, si se utiliza.</li>
+          <li>Clasificación y número de dígitos.</li>
+          <li>Periodo, cobertura y socio comercial.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Precaución:</strong> la versión ajustada no sustituye automáticamente al índice estándar. Responde a una pregunta distinta y debe presentarse junto con el desequilibrio comercial.</div>
+  </section>
+
+  <section id="horizontal" class="section-card">
+    <h3 class="section-title"><span class="section-number">7</span>Diferenciación horizontal y modelo de Krugman</h3>
+    <p class="section-lead">Las variedades poseen calidad semejante, pero difieren en marca, diseño, estilo, sabor o configuración.</p>
+
+    <div class="grid-3">
+      <article class="mini-card"><h4>Preferencia por variedad</h4><p>Los consumidores valoran disponer de más opciones y no existe un ordenamiento universal de calidad entre ellas.</p></article>
+      <article class="mini-card"><h4>Economías internas</h4><p>Cada empresa incurre en un costo fijo y un costo marginal constante. Al vender más, reduce su costo medio.</p></article>
+      <article class="mini-card"><h4>Competencia monopolística</h4><p>Cada empresa produce una variedad, tiene cierto poder de mercado y enfrenta entrada libre en el largo plazo.</p></article>
+    </div>
+
+    <div class="chain" aria-label="Mecanismo de comercio intraindustrial horizontal">
+      <span>Integración de mercados</span><b>→</b><span>Mayor mercado por empresa</span><b>→</b><span>Salida de algunas firmas</span><b>→</b><span>Mayor escala de supervivientes</span><b>→</b><span>Más variedades disponibles</span>
+    </div>
+
+    <div class="callout"><strong>Resultado de Krugman:</strong> países con gustos, tecnología y dotaciones idénticas pueden comerciar y obtener ganancias gracias a economías internas de escala y preferencia por la variedad.</div>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Ganancias potenciales</h4>
+        <ul>
+          <li>Mayor variedad para consumidores.</li>
+          <li>Mayor producción por empresa.</li>
+          <li>Menor costo medio.</li>
+          <li>Mayor competencia y selección empresarial.</li>
+        </ul>
+      </article>
+      <article class="mini-card">
+        <h4>Cuándo tiende a ser mayor</h4>
+        <ul>
+          <li>Países con ingreso per cápita semejante.</li>
+          <li>Dotaciones y preferencias similares.</li>
+          <li>Mercados grandes.</li>
+          <li>Costos comerciales bajos.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="warning callout"><strong>Ajuste dentro de la industria:</strong> puede requerir menos cambio ocupacional que el ajuste interindustrial, pero no elimina cierres, desempleo, pérdidas de capital ni efectos regionales.</div>
+
+    <details>
+      <summary>Actividad breve: integración de dos mercados</summary>
+      <div>
+        <p>Dos países poseen inicialmente cuatro empresas cada uno. Después de integrarse sobreviven seis, cada una produce más y cada país alberga tres variedades.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> los consumidores acceden a seis variedades; aumenta la escala por empresa; cada país exporta tres e importa tres; disminuye el costo fijo por unidad; dos empresas salen y sus recursos deben reasignarse.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="vertical" class="section-card">
+    <h3 class="section-title"><span class="section-number">8</span>Diferenciación vertical, calidad y dotaciones</h3>
+    <p class="section-lead">Las variedades pueden ordenarse por calidad, aunque los consumidores difieren en su disposición a pagar.</p>
+
+    <div class="grid-3">
+      <article class="mini-card">
+        <h4>Demanda por calidad</h4>
+        <div class="formula" style="font-size:1rem;">U = y + θq</div>
+        <p>Un consumidor con mayor θ está dispuesto a pagar más por calidad alta.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Producción de calidad alta</h4>
+        <p>Puede requerir más capital, capital humano, tecnología, insumos certificados e investigación y desarrollo.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Ingreso y segmentación</h4>
+        <p>Si la calidad es un bien normal, mayores ingresos favorecen segmentos superiores y la desigualdad puede sostener múltiples calidades.</p>
+      </article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Modelo</th><th>Mecanismo central</th><th>Predicción comercial</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Falvey</strong></td><td>Calidades con distintas intensidades de capital; no necesita economías de escala.</td><td>El país capital-abundante exporta calidad alta y el trabajo-abundante calidad baja.</td></tr>
+          <tr><td><strong>Falvey–Kierzkowski</strong></td><td>Integra dotaciones, distribución del ingreso, demanda por calidad y rangos de variedades.</td><td>Los países producen rangos de calidad distintos y potencialmente superpuestos.</td></tr>
+          <tr><td><strong>Flam–Helpman</strong></td><td>Diferencias Norte–Sur de productividad, ingreso, tecnología y demanda.</td><td>El Norte tiende a exportar gama alta y el Sur gama baja.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Valores unitarios</h4>
+    <div class="formula">RUV<sub>i</sub> = UV<sub>i</sub><sup>X</sup>/UV<sub>i</sub><sup>M</sup></div>
+    <div class="formula" style="font-size:1rem;">UV<sup>X</sup> = valor exportado/cantidad exportada &nbsp;·&nbsp; UV<sup>M</sup> = valor importado/cantidad importada</div>
+
+    <div class="grid-3">
+      <article class="mini-card"><h4>Horizontal</h4><div class="formula" style="font-size:.95rem;">1−α ≤ RUV ≤ 1+α</div><p>Con α=0,15, el intervalo es [0,85;1,15].</p></article>
+      <article class="mini-card"><h4>Vertical, gama alta exportada</h4><div class="formula" style="font-size:.95rem;">RUV &gt; 1+α</div><p>El valor unitario exportado es relativamente mayor.</p></article>
+      <article class="mini-card"><h4>Vertical, gama baja exportada</h4><div class="formula" style="font-size:.95rem;">RUV &lt; 1−α</div><p>El valor unitario exportado es relativamente menor.</p></article>
+    </div>
+
+    <div class="callout"><strong>Ejemplo:</strong> UV<sup>X</sup>=120 y UV<sup>M</sup>=100 generan RUV=1,20. Con α=0,15, se clasifica como comercio vertical con exportación de valor unitario superior.</div>
+
+    <div class="warning callout"><strong>Limitación:</strong> el valor unitario también cambia por mezcla de productos, transporte, contratos, cantidades, tipo de cambio, destinos y errores. Es una aproximación a la calidad, no un precio puro.</div>
+
+    <details>
+      <summary>Actividad breve: clasificar con α=0,15</summary>
+      <div>
+        <p>Clasifique: (1) UV<sup>X</sup>=100, UV<sup>M</sup>=95; (2) 130 y 100; (3) 80 y 100; (4) 115 y 100.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> horizontal; vertical de gama alta exportada; vertical de gama baja exportada; horizontal si los límites son inclusivos.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="otras" class="section-card">
+    <h3 class="section-title"><span class="section-number">9</span>Otras fuentes de comercio bidireccional</h3>
+    <p class="section-lead">No todo comercio intraindustrial responde exclusivamente a variedad horizontal o calidad vertical.</p>
+
+    <div class="grid-3">
+      <article class="mini-card"><h4>Interacción estratégica</h4><p>Brander muestra que empresas oligopólicas pueden exportarse mutuamente bienes incluso idénticos.</p></article>
+      <article class="mini-card"><h4>Cadenas globales de valor</h4><p>Una industria exporta componentes, importa otras partes, ensambla bienes y reimporta productos procesados.</p></article>
+      <article class="mini-card"><h4>Geografía y tiempo</h4><p>Estacionalidad, comercio fronterizo, costos de transporte, reexportaciones y diferencias temporales generan flujos en ambas direcciones.</p></article>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Horizontal</th><th>Vertical</th><th>Fragmentación/estrategia</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bienes</strong></td><td>Calidad semejante.</td><td>Calidad diferente.</td><td>Partes, etapas o bienes idénticos.</td></tr>
+          <tr><td><strong>Fuente</strong></td><td>Escala y variedad.</td><td>Factores, tecnología e ingreso.</td><td>Cadenas de valor, oligopolio o logística.</td></tr>
+          <tr><td><strong>Países</strong></td><td>Frecuentemente similares.</td><td>Pueden ser diferentes.</td><td>Depende de redes productivas y mercados.</td></tr>
+          <tr><td><strong>Ajuste</strong></td><td>Entre variedades.</td><td>Entre segmentos.</td><td>Entre tareas, proveedores o empresas.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="brulhart" class="section-card">
+    <h3 class="section-title"><span class="section-number">10</span>Dinámica e índice marginal de Brülhart</h3>
+    <p class="section-lead">Grubel–Lloyd describe la estructura en un periodo; Brülhart analiza si el cambio del comercio es bidireccional.</p>
+
+    <div class="grid-2">
+      <article class="mini-card">
+        <h4>Cambios de flujos</h4>
+        <div class="formula" style="font-size:1rem;">ΔX<sub>i</sub>=X<sub>i,t</sub>−X<sub>i,t−1</sub></div>
+        <div class="formula" style="font-size:1rem;">ΔM<sub>i</sub>=M<sub>i,t</sub>−M<sub>i,t−1</sub></div>
+      </article>
+      <article class="mini-card">
+        <h4>Índice A</h4>
+        <div class="formula" style="font-size:1rem;">A<sub>i</sub>=1−|ΔX<sub>i</sub>−ΔM<sub>i</sub>|/(|ΔX<sub>i</sub>|+|ΔM<sub>i</sub>|)</div>
+        <p>Rango: 0 ≤ A<sub>i</sub> ≤ 1.</p>
+      </article>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card"><h4>A = 1</h4><p>Los cambios son iguales: ΔX=20 y ΔM=20, o incluso ΔX=−20 y ΔM=−20.</p></article>
+      <article class="mini-card"><h4>A = 0</h4><p>El cambio es unilateral o los flujos se mueven en direcciones opuestas.</p></article>
+      <article class="mini-card"><h4>Valor intermedio</h4><p>Con ΔX=30 y ΔM=10, A=0,5: la mitad de la variación es intraindustrial marginal.</p></article>
+    </div>
+
+    <div class="warning callout"><strong>Dos advertencias:</strong> un A alto puede reflejar contracción paralela, no expansión; si ΔX=ΔM=0, el índice no está definido.</div>
+
+    <div class="mini-card">
+      <h4>Índice A según el cambio de exportaciones</h4>
+      <svg viewBox="0 0 760 370" role="img" aria-labelledby="br-title br-desc" style="display:block;width:100%;height:auto;">
+        <title id="br-title">Índice de Brülhart para dos cambios de importaciones</title>
+        <desc id="br-desc">El índice alcanza uno cuando el cambio de exportaciones iguala el cambio de importaciones.</desc>
+        <rect x="0" y="0" width="760" height="370" rx="12" fill="#ffffff"/>
+        <line x1="80" y1="305" x2="700" y2="305" stroke="#55557a" stroke-width="1.5"/>
+        <line x1="80" y1="305" x2="80" y2="45" stroke="#55557a" stroke-width="1.5"/>
+        <polyline points="80,305 204,45 328,132 452,175 576,201 700,218" fill="none" stroke="#003366" stroke-width="4" stroke-linecap="round"/>
+        <polyline points="80,305 204,175 328,97 452,45 576,82 700,110" fill="none" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7" stroke-linecap="round"/>
+        <text x="80" y="331" text-anchor="middle" font-size="13" fill="#55557a">0</text>
+        <text x="204" y="331" text-anchor="middle" font-size="13" fill="#55557a">10</text>
+        <text x="328" y="331" text-anchor="middle" font-size="13" fill="#55557a">20</text>
+        <text x="452" y="331" text-anchor="middle" font-size="13" fill="#55557a">30</text>
+        <text x="576" y="331" text-anchor="middle" font-size="13" fill="#55557a">40</text>
+        <text x="700" y="331" text-anchor="middle" font-size="13" fill="#55557a">50</text>
+        <text x="65" y="310" text-anchor="end" font-size="13" fill="#55557a">0</text>
+        <text x="65" y="180" text-anchor="end" font-size="13" fill="#55557a">0,5</text>
+        <text x="65" y="50" text-anchor="end" font-size="13" fill="#55557a">1</text>
+        <g transform="translate(455,65)">
+          <line x1="0" y1="0" x2="34" y2="0" stroke="#003366" stroke-width="4"/><text x="44" y="5" font-size="13" fill="#1a1a2e">ΔM=10</text>
+          <line x1="0" y1="28" x2="34" y2="28" stroke="#d4961a" stroke-width="4" stroke-dasharray="10 7"/><text x="44" y="33" font-size="13" fill="#1a1a2e">ΔM=30</text>
+        </g>
+        <text x="390" y="360" text-anchor="middle" font-size="13" fill="#55557a">Cambio de exportaciones</text>
+        <text x="24" y="180" transform="rotate(-90 24 180)" text-anchor="middle" font-size="13" fill="#55557a">Índice A</text>
+      </svg>
+    </div>
+
+    <h4 style="color:var(--primary);margin-top:1.2rem;">Agregación</h4>
+    <div class="formula" style="font-size:1rem;">A=Σ<sub>i</sub>w<sub>i</sub>A<sub>i</sub>, &nbsp; w<sub>i</sub>=(|ΔX<sub>i</sub>|+|ΔM<sub>i</sub>|)/Σ<sub>j</sub>(|ΔX<sub>j</sub>|+|ΔM<sub>j</sub>|)</div>
+    <div class="callout"><strong>No basta restar GL:</strong> GL<sub>t</sub>−GL<sub>t−1</sub> puede cambiar por composición, saldos y denominadores; no mide directamente comercio intraindustrial marginal.</div>
+
+    <details>
+      <summary>Actividad breve: calcular Brülhart</summary>
+      <div>
+        <p>Calcule A para: (1) ΔX=15, ΔM=15; (2) 20 y 5; (3) −10 y −10; (4) 10 y −10; (5) 0 y 0.</p>
+        <p style="margin-top:.6rem;"><strong>Pauta:</strong> 1; 0,40; 1; 0; no definido.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">11</span>Comparación integrada</h3>
+    <p class="section-lead">Cada patrón responde a mecanismos distintos y exige indicadores complementarios.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Interindustrial</th><th>Intraindustrial horizontal</th><th>Intraindustrial vertical</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bienes</strong></td><td>Industrias distintas.</td><td>Variedades de calidad semejante.</td><td>Segmentos de calidad diferente.</td></tr>
+          <tr><td><strong>Fuente</strong></td><td>Ventaja comparativa.</td><td>Escala, variedad y competencia monopolística.</td><td>Factores, tecnología, ingreso y calidad.</td></tr>
+          <tr><td><strong>Países</strong></td><td>Pueden diferir marcadamente.</td><td>Frecuentemente similares.</td><td>Pueden diferir en dotaciones e ingreso.</td></tr>
+          <tr><td><strong>Ajuste</strong></td><td>Entre sectores.</td><td>Entre empresas y variedades.</td><td>Entre segmentos de calidad.</td></tr>
+          <tr><td><strong>Medición</strong></td><td>Comercio neto.</td><td>GL y valores unitarios.</td><td>GL y valores unitarios.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card"><h4>Grubel–Lloyd</h4><p>Pregunta estática: ¿qué proporción del comercio actual se solapa dentro de una industria?</p></article>
+      <article class="mini-card"><h4>Brülhart</h4><p>Pregunta dinámica: ¿qué proporción del cambio comercial reciente ocurrió en paralelo en exportaciones e importaciones?</p></article>
+    </div>
+  </section>
+
+  <section id="caso" class="section-card">
+    <h3 class="section-title"><span class="section-number">12</span>Caso integrador</h3>
+    <p class="section-lead">Una industria presenta los siguientes flujos y valores unitarios.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Año</th><th>Exportaciones</th><th>Importaciones</th><th>Saldo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>0</strong></td><td>200</td><td>140</td><td>+60</td></tr>
+          <tr><td><strong>1</strong></td><td>260</td><td>190</td><td>+70</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem;">
+      <article class="mini-card"><h4>GL inicial</h4><div class="formula" style="font-size:1rem;">GL<sub>0</sub>=1−60/340≈0,824</div><p>82,4% del comercio inicial es solapado.</p></article>
+      <article class="mini-card"><h4>GL final</h4><div class="formula" style="font-size:1rem;">GL<sub>1</sub>=1−70/450≈0,844</div><p>La proporción solapada aumenta ligeramente.</p></article>
+      <article class="mini-card"><h4>Brülhart</h4><div class="formula" style="font-size:1rem;">ΔX=60, ΔM=50 → A≈0,909</div><p>El aumento comercial es principalmente intraindustrial.</p></article>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <article class="mini-card">
+        <h4>Clasificación por valores unitarios</h4>
+        <div class="formula" style="font-size:1rem;">UV<sup>X</sup>=25.000 · UV<sup>M</sup>=22.000</div>
+        <div class="formula" style="font-size:1rem;">RUV=25.000/22.000≈1,136</div>
+        <p>Con α=0,15, 1,136 está entre 0,85 y 1,15: clasificación horizontal.</p>
+      </article>
+      <article class="mini-card">
+        <h4>Interpretación</h4>
+        <ul>
+          <li>Existe superávit exportador en ambos años.</li>
+          <li>La mayor parte del comercio es solapada.</li>
+          <li>El crecimiento de X y M es muy paralelo.</li>
+          <li>La similitud de valores unitarios es consistente con variedades horizontales.</li>
+          <li>El índice no demuestra por sí solo que Krugman sea la causa.</li>
+        </ul>
+      </article>
+    </div>
+
+    <details style="margin-top:1rem;">
+      <summary>Preguntas para estudiar el caso</summary>
+      <div>
+        <ol style="padding-left:1.2rem;">
+          <li>¿Por qué GL aumenta aunque el saldo también aumente?</li>
+          <li>¿Qué diferencia conceptual existe entre GL<sub>1</sub> y A?</li>
+          <li>¿Cómo cambiaría la clasificación con α=0,10?</li>
+          <li>¿Qué información necesitaría para distinguir economías de escala de fragmentación productiva?</li>
+          <li>¿Qué nivel de agregación y qué socio comercial deben documentarse?</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <section id="autoevaluacion" class="section-card">
+    <h3 class="section-title"><span class="section-number">13</span>Autoevaluación rápida</h3>
+    <p class="section-lead">Seleccione una alternativa. La retroalimentación aparece inmediatamente.</p>
+
+    <div class="quiz-question" data-answer="b" data-explanation="El comercio intraindustrial requiere exportaciones e importaciones positivas dentro de la misma industria estadística.">
+      <h4>1. ¿Qué identifica al comercio intraindustrial?</h4>
+      <div class="quiz-options"><button data-choice="a">Exportar un bien e importar otro de una industria distinta.</button><button data-choice="b">Exportar e importar simultáneamente dentro de la misma industria.</button><button data-choice="c">Tener necesariamente una balanza comercial equilibrada.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="El comercio solapado es T−NT=140−60=80, equivalente a dos veces el menor flujo.">
+      <h4>2. Si X=100 y M=40, ¿cuánto comercio solapado existe?</h4>
+      <div class="quiz-options"><button data-choice="a">40.</button><button data-choice="b">60.</button><button data-choice="c">80.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="GL mide la proporción de comercio solapado respecto del comercio total.">
+      <h4>3. ¿Qué mide el índice Grubel–Lloyd?</h4>
+      <div class="quiz-options"><button data-choice="a">La proporción de comercio intraindustrial.</button><button data-choice="b">El volumen absoluto de exportaciones.</button><button data-choice="c">La causalidad entre escala y comercio.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Con X=M=0, el denominador es cero y el índice no está definido.">
+      <h4>4. ¿Qué valor tiene GL cuando X=M=0?</h4>
+      <div class="quiz-options"><button data-choice="a">Uno.</button><button data-choice="b">No está definido.</button><button data-choice="c">Cero necesariamente.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="La agregación ponderada asigna mayor importancia a las industrias con más comercio.">
+      <h4>5. ¿Por qué no debe promediarse GL sectorial sin ponderar?</h4>
+      <div class="quiz-options"><button data-choice="a">Porque todos los GL deben ser iguales.</button><button data-choice="b">Porque solo importa el saldo agregado.</button><button data-choice="c">Porque las industrias tienen tamaños comerciales distintos.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="El modelo horizontal combina economías internas, preferencia por variedad y competencia monopolística.">
+      <h4>6. ¿Qué mecanismo explica el comercio horizontal en el modelo de Krugman?</h4>
+      <div class="quiz-options"><button data-choice="a">Economías de escala y preferencia por variedad.</button><button data-choice="b">Únicamente diferencias de recursos naturales.</button><button data-choice="c">Solo diferencias universales de calidad.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Falvey relaciona la calidad alta intensiva en capital con el país relativamente abundante en capital.">
+      <h4>7. Según Falvey, ¿qué exporta un país capital-abundante?</h4>
+      <div class="quiz-options"><button data-choice="a">Siempre variedades de calidad baja.</button><button data-choice="b">Variedades relativamente intensivas en capital y de calidad alta.</button><button data-choice="c">Ningún producto de la industria.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="c" data-explanation="Con α=0,15, RUV=1,20 supera 1,15 y se clasifica como vertical de gama alta exportada.">
+      <h4>8. Si RUV=1,20 y α=0,15, ¿cuál es la clasificación?</h4>
+      <div class="quiz-options"><button data-choice="a">Horizontal.</button><button data-choice="b">Vertical de gama baja exportada.</button><button data-choice="c">Vertical de gama alta exportada.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="a" data-explanation="A=1 cuando los cambios de exportaciones e importaciones son iguales, incluso si ambos son negativos.">
+      <h4>9. ¿Cuándo alcanza uno el índice de Brülhart?</h4>
+      <div class="quiz-options"><button data-choice="a">Cuando ΔX=ΔM y el denominador es positivo.</button><button data-choice="b">Solo cuando las exportaciones aumentan y las importaciones caen.</button><button data-choice="c">Cuando el saldo comercial es cero en niveles.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="quiz-question" data-answer="b" data-explanation="Los índices describen solapamiento y cambio, pero no identifican automáticamente el mecanismo causal.">
+      <h4>10. ¿Qué no puede concluirse solo a partir de un GL alto?</h4>
+      <div class="quiz-options"><button data-choice="a">Que existen exportaciones e importaciones solapadas.</button><button data-choice="b">Que las economías de escala causaron necesariamente el patrón.</button><button data-choice="c">Que el comercio neto es una proporción menor del total.</button></div>
+      <div class="quiz-feedback" aria-live="polite"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" onclick="resetQuiz()">↺ Reiniciar autoevaluación</button>
+      <button class="btn btn-outline" type="button" onclick="window.print()">🖨 Imprimir o guardar en PDF</button>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <h3 class="section-title"><span class="section-number">14</span>Lista de dominio</h3>
+    <p class="section-lead">Antes de terminar, compruebe que puede explicar sin mirar:</p>
+    <ul class="checklist">
+      <li>La diferencia entre comercio interindustrial e intraindustrial.</li>
+      <li>Cómo el nivel de agregación puede sesgar la medición.</li>
+      <li>Las fórmulas de comercio total, neto y solapado.</li>
+      <li>Cómo calcular e interpretar GL, incluidos los casos límite.</li>
+      <li>Por qué el GL agregado debe ponderarse.</li>
+      <li>Qué corrige y qué no corrige la versión ajustada por desequilibrio.</li>
+      <li>El mecanismo de comercio horizontal basado en escala y variedad.</li>
+      <li>La lógica de calidad de Falvey, Falvey–Kierzkowski y Flam–Helpman.</li>
+      <li>Cómo usar valores unitarios con una banda α.</li>
+      <li>Otras fuentes de comercio bidireccional, como cadenas globales y oligopolio.</li>
+      <li>La diferencia entre GL estático y Brülhart marginal.</li>
+      <li>Por qué un índice alto no identifica causalidad ni garantiza bajos costos de ajuste.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Desarrollado por Julián Díaz Tautiva, PhD.</p>
+</footer>
+
+<script>
+  'use strict';
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const correct = question.dataset.answer;
+    const explanation = question.dataset.explanation;
+    const feedback = question.querySelector('.quiz-feedback');
+
+    question.querySelectorAll('button[data-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return;
+        question.dataset.answered = 'true';
+        const selected = button.dataset.choice;
+
+        question.querySelectorAll('button[data-choice]').forEach(btn => {
+          btn.disabled = true;
+          if (btn.dataset.choice === correct) btn.classList.add('correct');
+        });
+
+        if (selected === correct) {
+          feedback.textContent = '✓ Correcto. ' + explanation;
+          feedback.style.color = '#1b5e20';
+        } else {
+          button.classList.add('incorrect');
+          feedback.textContent = '✗ Revise la respuesta correcta. ' + explanation;
+          feedback.style.color = '#8a2020';
+        }
+      });
+    });
+  });
+
+  function resetQuiz() {
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      question.dataset.answered = 'false';
+      question.querySelectorAll('button[data-choice]').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('correct', 'incorrect');
+      });
+      const feedback = question.querySelector('.quiz-feedback');
+      feedback.textContent = '';
+      feedback.removeAttribute('style');
+    });
+    document.getElementById('autoevaluacion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>
