@@ -7,7 +7,7 @@
 
 ## Overview
 
-****Economía Internacional** — Interactive Study Guides** is a collection of nine browser-based pedagogical resources designed to support autonomous learning, review, and consolidation of core concepts in International Economics.
+****GlobalEcon Lab** — Interactive Study Guides** is a collection of nine browser-based pedagogical resources designed to support autonomous learning, review, and consolidation of core concepts in International Economics.
 
 Each guide is organized as a self-contained learning module that combines concise conceptual explanations, key economic relationships, formulas, graphical representations, worked examples, short activities, integrative cases, and interactive self-assessment.
 
