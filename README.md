@@ -1,7 +1,6 @@
 # GlobalEcon Lab — Interactive Study Guides
 
-> **Interactive self-study resources for undergraduate International Economics courses.**
-> Developed by **Julián Díaz Tautiva, PhD**
+> **Interactive self-study resources for undergraduate International Economics courses.** Developed by **Julián Díaz Tautiva, PhD**
 
 ---
 
@@ -121,4 +120,4 @@ Because each guide is independent, instructors can integrate selected modules in
 
 ## Suggested Citation
 
-Díaz Tautiva, J. A. (2026). *GlobalEcon Lab — Interactive Study Guides*. Interactive teaching resources for International Economics.
+Díaz Tautiva, J. A. (2026). GlobalEcon Lab — Interactive study guides [Interactive study resource]. https://jdtautiva.github.io/GlobalEconLab/
